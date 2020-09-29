@@ -16,6 +16,7 @@
   "scripts": {
     "compile": "tsc --build",
     "lint": "eslint src test --ext '.ts'",
+    "copy:paste:detection": "jscpd src test",
     "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'"
   },
   "devDependencies": {
