@@ -1,0 +1,14 @@
+{
+  "all": true,
+  "lines": 95,
+  "functions": 95,
+  "statements": 95,
+  "branches": 76,
+  "instrument": true,
+  "extension": [".ts"],
+  "exclude": ["target/"],
+  "reporter": ["lcov", "text-summary"],
+  "check-coverage": true,
+  "reportDir": "./target/coverage",
+  "tempDirectory": "./target/c8_output"
+}
