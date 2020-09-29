@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "compile": "tsc --build",
+    "lint": "eslint src test --ext '.ts'",
     "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'"
   },
   "devDependencies": {
