@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "compile": "tsc --build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'"
   },
   "devDependencies": {
     "@types/chai": "4.2.12",
