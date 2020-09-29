@@ -19,6 +19,9 @@
     "copy:paste:detection": "jscpd src test",
     "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'"
   },
+  "dependencies": {
+    "tslib": "2.0.1"
+  },
   "devDependencies": {
     "@types/chai": "4.2.12",
     "@types/mocha": "8.0.3",
