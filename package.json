@@ -1,12 +1,19 @@
 {
   "name": "gitlab-pipeline-deleter",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A CLI tool that deletes old GitLab pipelines",
+  "main": "target/src/index.js",
+  "author": "Christian Rackerseder <git@echooff.de>",
+  "license": "MIT",
+  "keywords": [
+    "gitlab",
+    "pipeline",
+    "ci",
+    "clean",
+    "delete",
+    "remove"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
