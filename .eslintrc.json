@@ -1,0 +1,28 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2019,
+    "project": "./tsconfig.eslint.json"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:mocha/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "mocha"],
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "require-atomic-updates": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/camelcase": "off",
+    "mocha/no-exclusive-tests": 2
+  }
+}
