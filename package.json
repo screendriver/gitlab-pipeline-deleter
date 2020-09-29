@@ -17,7 +17,8 @@
     "compile": "tsc --build",
     "lint": "eslint src test --ext '.ts'",
     "copy:paste:detection": "jscpd src test",
-    "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'"
+    "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'",
+    "test:unit:coverage": "c8 npm run test:unit"
   },
   "dependencies": {
     "tslib": "2.0.1"
