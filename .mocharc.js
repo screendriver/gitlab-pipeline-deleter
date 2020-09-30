@@ -1,6 +1,6 @@
 module.exports = {
   require: ['ts-node/register/transpile-only'],
-  extension: ['ts'],
+  extension: ['ts', 'tsx'],
   ui: 'tdd',
   reporter: 'dot',
 };
