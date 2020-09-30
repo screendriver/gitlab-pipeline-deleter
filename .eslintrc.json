@@ -18,9 +18,11 @@
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
     "plugin:mocha/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:testing-library/react",
+    "plugin:testing-library/recommended"
   ],
-  "plugins": ["@typescript-eslint", "mocha", "react"],
+  "plugins": ["@typescript-eslint", "mocha", "react", "testing-library"],
   "env": {
     "node": true,
     "mocha": true
