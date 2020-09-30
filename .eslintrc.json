@@ -5,6 +5,11 @@
     "ecmaVersion": 2019,
     "project": "./tsconfig.eslint.json"
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -12,9 +17,10 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
-    "plugin:mocha/recommended"
+    "plugin:mocha/recommended",
+    "plugin:react/recommended"
   ],
-  "plugins": ["@typescript-eslint", "mocha"],
+  "plugins": ["@typescript-eslint", "mocha", "react"],
   "env": {
     "node": true,
     "mocha": true
@@ -23,6 +29,7 @@
     "require-atomic-updates": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/camelcase": "off",
-    "mocha/no-exclusive-tests": 2
+    "mocha/no-exclusive-tests": 2,
+    "react/prop-types": "off"
   }
 }
