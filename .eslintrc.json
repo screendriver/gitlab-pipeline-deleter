@@ -20,7 +20,8 @@
     "plugin:mocha/recommended",
     "plugin:react/recommended",
     "plugin:testing-library/react",
-    "plugin:testing-library/recommended"
+    "plugin:testing-library/recommended",
+    "plugin:react-hooks/recommended"
   ],
   "plugins": ["@typescript-eslint", "mocha", "react", "testing-library"],
   "env": {
