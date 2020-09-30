@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A CLI tool that deletes old GitLab pipelines",
   "main": "target/src/index.js",
+  "bin": {
+    "gitlab-pipeline-deleter": "target/src/bin.js"
+  },
   "author": "Christian Rackerseder <git@echooff.de>",
   "license": "MIT",
   "keywords": [
