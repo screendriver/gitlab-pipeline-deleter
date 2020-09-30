@@ -25,7 +25,8 @@
     "ink": "3.0.6",
     "list": "2.0.19",
     "react": "16.13.1",
-    "tslib": "2.0.1"
+    "tslib": "2.0.1",
+    "urlcat": "2.0.2"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
