@@ -1,13 +1,16 @@
-import { List } from 'list';
+import * as L from 'list';
 import urlcat from 'urlcat';
 import { Get, Pipeline } from './network';
 
-export function listPipelines(
-  get: Get,
-  gitlabUrl: string,
-  projectId: number,
-  accessToken: string,
-): Promise<List<Pipeline>> {
+interface Arguments {
+  get: Get;
+  gitlabUrl: string;
+  projectId: number;
+  accessToken: string;
+}
+
+export async function listPipelines({ get, gitlabUrl, projectId, accessToken }: Arguments): Promise<L.List<Pipeline>> {
   const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId });
-  return get(url, accessToken);
+  const pipelines = await get(url, accessToken);
+  return L.from(pipelines);
 }
