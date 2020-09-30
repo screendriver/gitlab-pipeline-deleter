@@ -12,8 +12,9 @@ program
   .arguments('<access-token>')
   .option('-d --days <days>', 'older than days', '30')
   .action((gitlabUrl: string, projectId: string, accessToken: string) => {
+    const parsedProjectId = parseInt(projectId, 10);
     const days = parseInt(program.days, 10);
-    render(<App gitlabUrl={gitlabUrl} projectId={projectId} accessToken={accessToken} days={days} />);
+    render(<App gitlabUrl={gitlabUrl} projectId={parsedProjectId} accessToken={accessToken} days={days} />);
   });
 
 program.parse(process.argv);
