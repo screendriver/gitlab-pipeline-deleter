@@ -1,8 +1,16 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
-import * as L from 'list';
-import { listPipelines } from '../../src/gitlab';
-import { Get } from '../../src/network';
+import * as L from 'list/methods';
+import { define, random, array } from 'cooky-cutter';
+import { parseISO, addDays, formatISO } from 'date-fns';
+import { filterPipelinesByDate, listPipelines } from '../../src/gitlab';
+import { Get, Pipeline } from '../../src/network';
+
+const pipeline = define<Pipeline>({
+  id: random,
+  status: 'created',
+  updated_at: '2020-10-01T15:12:52.710Z',
+});
 
 function callListPipelines(get: Get, gitlabUrl = 'https://gitlab.my-domain.io') {
   const projectId = 42;
@@ -44,5 +52,36 @@ suite('gitlab', function () {
     const actual = L.isList(pipelines);
     const expected = true;
     assert.equal(actual, expected);
+  });
+
+  test('filterPipelinesByDate() returns an empty list when pipelines are empty', function () {
+    const startDate = new Date();
+    const actual = filterPipelinesByDate(L.empty(), startDate, 30);
+    assert.isTrue(actual.isEmpty(), 'List is not empty');
+  });
+
+  test('filterPipelinesByDate() returns only pipelines that are older than 30 days', function () {
+    const startDate = parseISO('2020-10-01T15:12:52.710Z');
+    const pipelinesFactory = array(pipeline, 5);
+    const pipelines = L.from(
+      pipelinesFactory({
+        updated_at: (i: number) => formatISO(addDays(startDate, 28 + i)),
+      }),
+    );
+    const actual = filterPipelinesByDate(pipelines, startDate, 30);
+    const expected = actual.takeLast(2);
+    assert.isTrue(actual.equals(expected), 'Lists are not equal');
+  });
+
+  test('filterPipelinesByDate() returns an empty list when all pipelines are younger than 30 days', function () {
+    const startDate = parseISO('2020-10-01T15:12:52.710Z');
+    const pipelinesFactory = array(pipeline, 5);
+    const pipelines = L.from(
+      pipelinesFactory({
+        updated_at: (i: number) => formatISO(addDays(startDate, i)),
+      }),
+    );
+    const actual = filterPipelinesByDate(pipelines, startDate, 30);
+    assert.isTrue(actual.isEmpty(), 'List is not empty');
   });
 });
