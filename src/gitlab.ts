@@ -1,4 +1,3 @@
-import * as L from 'list/methods';
 import urlcat from 'urlcat';
 import { parseISO, differenceInDays } from 'date-fns';
 import { GetRequest, DeleteRequest, Pipeline } from './network';
@@ -15,10 +14,9 @@ export async function listPipelines({
   gitlabUrl,
   projectId,
   accessToken,
-}: ListPipelinesArguments): Promise<L.List<Pipeline>> {
+}: ListPipelinesArguments): Promise<readonly Pipeline[]> {
   const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
-  const pipelines = await getRequest(url, accessToken);
-  return L.from(pipelines);
+  return getRequest(url, accessToken);
 }
 
 interface DeletePipelineArguments {
@@ -47,11 +45,17 @@ function isOlderThanDays(startDate: Date, pipelineDate: Date, days: number) {
   return differenceInDays(pipelineDate, startDate) > days;
 }
 
-export function filterPipelinesByDate(
-  pipelines: L.List<Pipeline>,
-  startDate: Date,
-  olderThanDays: number,
-): L.List<Pipeline> {
+interface FilterPipelinesByDateArguments {
+  pipelines: readonly Pipeline[];
+  startDate: Date;
+  olderThanDays: number;
+}
+
+export function filterPipelinesByDate({
+  pipelines,
+  startDate,
+  olderThanDays,
+}: FilterPipelinesByDateArguments): readonly Pipeline[] {
   return pipelines.filter((pipeline) => {
     const pipelineDate = parseISO(pipeline.updated_at);
     return isOlderThanDays(startDate, pipelineDate, olderThanDays);
