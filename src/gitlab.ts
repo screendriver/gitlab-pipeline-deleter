@@ -9,36 +9,40 @@ interface ListPipelinesArguments {
   accessToken: string;
 }
 
-export async function listPipelines({
+export type ListPipelinesFunction = () => Promise<readonly Pipeline[]>;
+
+export function listPipelines({
   getRequest,
   gitlabUrl,
   projectId,
   accessToken,
-}: ListPipelinesArguments): Promise<readonly Pipeline[]> {
+}: ListPipelinesArguments): ListPipelinesFunction {
   const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
-  return getRequest(url, accessToken);
+  return () => getRequest(url, accessToken);
 }
 
 interface DeletePipelineArguments {
   deleteRequest: DeleteRequest;
   gitlabUrl: string;
   projectId: number;
-  pipeline: Pipeline;
   accessToken: string;
 }
 
-export async function deletePipeline({
+export type DeletePipelineFunction = (pipeline: Pipeline) => Promise<void>;
+
+export function deletePipeline({
   deleteRequest,
   gitlabUrl,
   projectId,
-  pipeline,
   accessToken,
-}: DeletePipelineArguments): Promise<void> {
-  const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines/:pipeline_id', {
-    id: projectId,
-    pipeline_id: pipeline.id,
-  });
-  await deleteRequest(url, accessToken);
+}: DeletePipelineArguments): DeletePipelineFunction {
+  return async (pipeline) => {
+    const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines/:pipeline_id', {
+      id: projectId,
+      pipeline_id: pipeline.id,
+    });
+    await deleteRequest(url, accessToken);
+  };
 }
 
 function isOlderThanDays(startDate: Date, pipelineDate: Date, days: number) {
@@ -51,13 +55,15 @@ interface FilterPipelinesByDateArguments {
   olderThanDays: number;
 }
 
-export function filterPipelinesByDate({
+export type FilterPipelinesByDateFunction = ({
   pipelines,
   startDate,
   olderThanDays,
-}: FilterPipelinesByDateArguments): readonly Pipeline[] {
+}: FilterPipelinesByDateArguments) => readonly Pipeline[];
+
+export const filterPipelinesByDate: FilterPipelinesByDateFunction = ({ pipelines, startDate, olderThanDays }) => {
   return pipelines.filter((pipeline) => {
     const pipelineDate = parseISO(pipeline.updated_at);
     return isOlderThanDays(startDate, pipelineDate, olderThanDays);
   });
-}
+};
