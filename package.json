@@ -37,7 +37,7 @@
     "p-map": "4.0.0",
     "react": "16.13.1",
     "tslib": "2.0.2",
-    "urlcat": "2.0.2"
+    "urlcat": "2.0.4"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
