@@ -6,6 +6,7 @@ import delay from 'delay';
 import { define, sequence, array } from 'cooky-cutter';
 import { App, AppProps } from '../../src/App';
 import { Pipeline } from '../../src/network';
+import { createAppProps } from './factory';
 
 const pipeline = define<Pipeline>({
   id: sequence,
@@ -13,29 +14,18 @@ const pipeline = define<Pipeline>({
 });
 
 function renderApp(overrides: Partial<AppProps> = {}) {
-  const props: AppProps = {
-    gitlabUrl: '',
-    projectId: 42,
-    accessToken: 'yBv8',
-    days: 30,
-    startDate: new Date(),
-    exit: sinon.fake(),
-    listPipelines: sinon.fake.resolves([]),
-    filterPipelinesByDate: sinon.fake.returns([]),
-    deletePipeline: sinon.fake.resolves(undefined),
-    ...overrides,
-  };
+  const props = createAppProps(overrides);
   return render(
     <App
       gitlabUrl={props.gitlabUrl}
-      projectId={props.projectId}
       accessToken={props.accessToken}
-      days={props.days}
+      projectId={props.projectId}
       startDate={props.startDate}
-      exit={props.exit}
+      days={props.days}
       listPipelines={props.listPipelines}
-      filterPipelinesByDate={props.filterPipelinesByDate}
       deletePipeline={props.deletePipeline}
+      filterPipelinesByDate={props.filterPipelinesByDate}
+      exit={props.exit}
     />,
   );
 }

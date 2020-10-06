@@ -1,33 +1,22 @@
 import React from 'react';
 import { assert } from 'chai';
 import { render } from 'ink-testing-library';
-import sinon from 'sinon';
 import delay from 'delay';
 import { Main, MainProps } from '../../src/Main';
+import { createAppProps } from './factory';
 
 function renderMain(overrides: Partial<MainProps> = {}) {
-  const props: MainProps = {
-    gitlabUrl: 'https://gitlab.my-domain.io',
-    projectId: 42,
-    accessToken: 'yBo4v',
-    days: 30,
-    startDate: new Date(),
-    exit: sinon.fake(),
-    listPipelines: sinon.fake.resolves([]),
-    filterPipelinesByDate: sinon.fake.returns([]),
-    deletePipeline: sinon.fake.resolves(undefined),
-    ...overrides,
-  };
+  const props = createAppProps(overrides);
   return render(
     <Main
-      gitlabUrl={props.gitlabUrl}
       projectId={props.projectId}
-      accessToken={props.accessToken}
+      gitlabUrl={props.gitlabUrl}
       days={props.days}
-      startDate={props.startDate}
+      accessToken={props.accessToken}
       exit={props.exit}
-      listPipelines={props.listPipelines}
+      startDate={props.startDate}
       filterPipelinesByDate={props.filterPipelinesByDate}
+      listPipelines={props.listPipelines}
       deletePipeline={props.deletePipeline}
     />,
   );
