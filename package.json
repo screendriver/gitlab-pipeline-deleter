@@ -21,7 +21,8 @@
     "lint": "eslint src test --ext '.ts,.tsx'",
     "copy:paste:detection": "jscpd src test",
     "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'",
-    "test:unit:coverage": "c8 npm run test:unit"
+    "test:unit:coverage": "c8 npm run test:unit",
+    "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/integration/**/*.test.*'"
   },
   "dependencies": {
     "commander": "6.1.0",
