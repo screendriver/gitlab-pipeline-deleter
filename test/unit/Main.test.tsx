@@ -37,4 +37,11 @@ suite('<Main />', function () {
     const expected = '\u001b[31mGiven days is not a number\u001b[39m';
     assert.equal(actual, expected);
   });
+
+  test('renders a loading indicator', function () {
+    const { lastFrame } = renderMain();
+    const actual = lastFrame();
+    const expected = '⠋';
+    assert.equal(actual, expected);
+  });
 });
