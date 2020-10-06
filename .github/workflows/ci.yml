@@ -22,6 +22,10 @@ jobs:
           npm run copy:paste:detection
       - name: Compile source code
         run: npm run compile
+      - name: Setup timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: Europe/Berlin
       - name: Run unit tests
         run: npm run test:unit:coverage
         env:
