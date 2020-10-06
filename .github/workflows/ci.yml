@@ -34,3 +34,8 @@ jobs:
         run: npm run test:integration
         env:
           FORCE_COLOR: 1
+      - name: Upload code coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: target/coverage/clover.xml
