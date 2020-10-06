@@ -21,5 +21,9 @@ jobs:
         run: npm run compile
       - name: Run unit tests
         run: npm run test:unit:coverage
+        env:
+          FORCE_COLOR: 1
       - name: Run integration tests
         run: npm run test:integration
+        env:
+          FORCE_COLOR: 1
