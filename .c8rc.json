@@ -7,7 +7,7 @@
   "instrument": true,
   "extension": [".ts", ".tsx"],
   "exclude": ["release.config.js", "target/", "test/integration/", "src/network.ts"],
-  "reporter": ["lcov", "text-summary"],
+  "reporter": ["lcov", "text-summary", "clover"],
   "check-coverage": true,
   "reportDir": "./target/coverage",
   "tempDirectory": "./target/c8_output"
