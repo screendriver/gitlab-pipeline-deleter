@@ -46,7 +46,7 @@
     "@semantic-release/github": "7.1.1",
     "@semantic-release/npm": "7.0.6",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "@types/chai": "4.2.12",
+    "@types/chai": "4.2.13",
     "@types/micro": "7.3.3",
     "@types/microrouter": "3.1.1",
     "@types/mocha": "8.0.3",
