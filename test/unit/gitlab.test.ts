@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 import { define, random, array } from 'cooky-cutter';
-import { parseISO, addDays, formatISO } from 'date-fns';
+import { parseISO, subDays, formatISO } from 'date-fns';
 import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab';
 import { DeleteRequest, GetRequest, Pipeline } from '../../src/network';
 
@@ -67,21 +67,31 @@ suite('gitlab', function () {
   test('filterPipelinesByDate() returns only pipelines that are older than 30 days', function () {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
-    const pipelinesFactory = array(pipeline, 5);
+    pipeline.resetSequence();
+    const pipelinesFactory = array(pipeline, 35);
     const pipelines = pipelinesFactory({
-      updated_at: (i: number) => formatISO(addDays(startDate, 28 + i)),
+      updated_at: (index: number) => formatISO(subDays(startDate, index)),
     });
-    const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays });
-    const expected = actual.slice(-2);
+    const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays }).map(
+      (pipeline) => pipeline.updated_at,
+    );
+    const expected = [
+      '2020-08-31T17:12:52+02:00',
+      '2020-08-30T17:12:52+02:00',
+      '2020-08-29T17:12:52+02:00',
+      '2020-08-28T17:12:52+02:00',
+      '2020-08-27T17:12:52+02:00',
+    ];
     assert.deepEqual(actual, expected);
   });
 
   test('filterPipelinesByDate() returns an empty Array when all pipelines are younger than 30 days', function () {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
-    const pipelinesFactory = array(pipeline, 5);
+    pipeline.resetSequence();
+    const pipelinesFactory = array(pipeline, 15);
     const pipelines = pipelinesFactory({
-      updated_at: (i: number) => formatISO(addDays(startDate, i)),
+      updated_at: (index: number) => formatISO(subDays(startDate, index)),
     });
     const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays });
     const expected: Pipeline[] = [];

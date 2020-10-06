@@ -46,7 +46,7 @@ export function deletePipeline({
 }
 
 function isOlderThanDays(startDate: Date, pipelineDate: Date, days: number) {
-  return differenceInDays(pipelineDate, startDate) > days;
+  return differenceInDays(startDate, pipelineDate) > days;
 }
 
 interface FilterPipelinesByDateArguments {
