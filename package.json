@@ -16,6 +16,10 @@
     "delete",
     "remove"
   ],
+  "files": [
+    "target/src/**/*.js",
+    "target/src/**/*.js.map"
+  ],
   "scripts": {
     "compile": "tsc --build",
     "lint": "eslint src test --ext '.ts,.tsx'",
