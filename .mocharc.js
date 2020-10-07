@@ -3,4 +3,5 @@ module.exports = {
   extension: ['ts', 'tsx'],
   ui: 'tdd',
   reporter: 'dot',
+  enableSourceMaps: true,
 };
