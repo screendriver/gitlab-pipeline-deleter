@@ -20,5 +20,6 @@ Deletes old GitLab pipelines
 
 Options:
   -d --days <days>  older than days (default: "30")
+  --trace           show stack traces for errors when possible (default: false)
   -h, --help        display help for command
 ```
