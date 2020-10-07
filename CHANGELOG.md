@@ -1,3 +1,13 @@
+## [1.0.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.0...v1.0.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* typo in name of binary ([e8e04ee](https://github.com/screendriver/gitlab-pipeline-deleter/commit/e8e04ee952eb826b0f77f7ad2be50ab245ce75ec))
+* **deps:** update dependency ink to v3.0.7 ([6e98f8e](https://github.com/screendriver/gitlab-pipeline-deleter/commit/6e98f8e4861b772246262c05a94f94625fc2a10d))
+* **deps:** update dependency tslib to v2.0.2 ([1bed303](https://github.com/screendriver/gitlab-pipeline-deleter/commit/1bed303e039bce3b3191519e25dd96f370a1dafe))
+* **deps:** update dependency urlcat to v2.0.4 ([2a4f5cb](https://github.com/screendriver/gitlab-pipeline-deleter/commit/2a4f5cbe51a6117a1cf002a1daa068f31977a05c))
+
 # 1.0.0 (2020-10-06)
 
 
