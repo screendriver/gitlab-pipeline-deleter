@@ -53,7 +53,7 @@ suite('<App />', function () {
     const { lastFrame } = renderApp({
       filterPipelinesByDate: sinon.fake.returns(pipelines),
     });
-    await delay(1);
+    await delay(1000);
     const actual = lastFrame();
     const expected =
       'Deleting pipeline with id 1\nDeleting pipeline with id 2\nDeleting pipeline with id 3\nDeleting pipeline with id 4\nDeleting pipeline with id 5\n\u001b[32mPipelines deleted\u001b[39m';
@@ -67,6 +67,20 @@ suite('<App />', function () {
     await delay(1);
     const actual = lastFrame();
     const expected = '\u001b[31mThere was an error while deleting the pipelines: Test Error\u001b[39m';
+    assert.equal(actual, expected);
+  });
+
+  test('renders an error message when a delete request fails', async function () {
+    const pipelinesFactory = array(pipeline, 1);
+    const pipelines = pipelinesFactory();
+    const { lastFrame } = renderApp({
+      filterPipelinesByDate: sinon.fake.returns(pipelines),
+      deletePipeline: sinon.fake.rejects(new Error('Failed to delete')),
+    });
+    await delay(1000);
+    const actual = lastFrame();
+    const expected =
+      'Deleting pipeline with id 6\n\u001b[31mThere was an error while deleting the pipelines: Failed to delete\u001b[39m';
     assert.equal(actual, expected);
   });
 
