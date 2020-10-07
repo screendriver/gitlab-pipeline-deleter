@@ -42,6 +42,7 @@ function renderMain(gitlabUrl: string) {
       listPipelines={listPipelinesFunction}
       filterPipelinesByDate={filterPipelinesByDate}
       deletePipeline={deletePipelineFunction}
+      showStackTraces={false}
     />,
   );
 }

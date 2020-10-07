@@ -22,6 +22,7 @@ export const Main: FunctionComponent<MainProps> = (props) => {
       listPipelines={props.listPipelines}
       filterPipelinesByDate={props.filterPipelinesByDate}
       deletePipeline={props.deletePipeline}
+      showStackTraces={props.showStackTraces}
     />
   );
 };

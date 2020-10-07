@@ -12,6 +12,7 @@ export function createAppProps(overrides: Partial<AppProps> = {}): AppProps {
     listPipelines: sinon.fake.resolves([]),
     filterPipelinesByDate: sinon.fake.returns([]),
     deletePipeline: sinon.fake.resolves(undefined),
+    showStackTraces: false,
     ...overrides,
   };
 }

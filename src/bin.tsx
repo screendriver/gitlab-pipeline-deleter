@@ -20,9 +20,10 @@ program
   .arguments('<project-id>')
   .arguments('<access-token>')
   .option('-d --days <days>', 'older than days', '30')
-  .action((gitlabUrl: string, projectId: string, accessToken: string, options: Record<string, string>) => {
+  .option('--trace', 'show stack traces for errors when possible', false)
+  .action((gitlabUrl: string, projectId: string, accessToken: string, options: Record<string, unknown>) => {
     const parsedProjectId = parseInt(projectId, 10);
-    const days = parseInt(options.days, 10);
+    const days = typeof options.days === 'string' ? parseInt(options.days, 10) : 30;
     const startDate = new Date();
     const listPipelinesFunction = listPipelines({ getRequest, gitlabUrl, projectId: parsedProjectId, accessToken });
     const deletePipelineFunction = deletePipeline({
@@ -42,6 +43,7 @@ program
         listPipelines={listPipelinesFunction}
         filterPipelinesByDate={filterPipelinesByDate}
         deletePipeline={deletePipelineFunction}
+        showStackTraces={options.trace === true}
       />,
     );
   });
