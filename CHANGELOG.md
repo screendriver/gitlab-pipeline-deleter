@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.1...v1.0.2) (2020-10-07)
+
+
+### Bug Fixes
+
+* change order of semantic-release plugins ([4aa1171](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4aa1171d56c1429c3b5487760aa38ce0f91ab1ff))
+
 ## [1.0.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.0...v1.0.1) (2020-10-07)
 
 
