@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import React from 'react';
-import program from 'commander';
+import { createCommand } from 'commander';
 import { render } from 'ink';
 import { Main } from './Main';
 import { getRequest, deleteRequest } from './network';
@@ -10,8 +10,9 @@ function exit() {
   process.exitCode = 1;
 }
 
+const program = createCommand('gitlab-pipeline-deleter');
+
 program
-  .name('gitlab-pipeline-deleter')
   .description('Deletes old GitLab pipelines')
   .arguments('<gitlab-url>')
   .arguments('<project-id>')
