@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, Static } from 'ink';
 import Spinner from 'ink-spinner';
-import pMap from 'p-map';
+import throttle from 'p-throttle';
 import type { ListPipelinesFunction, DeletePipelineFunction, FilterPipelinesByDateFunction } from './gitlab';
 import { Error, ErrorProps } from './Error';
+import { Pipeline } from './network';
 
 export interface AppProps {
   gitlabUrl: string;
@@ -24,16 +25,21 @@ async function deletePipelines(
 ) {
   const pipelines = await listPipelines();
   const oldPipelines = filterPipelinesByDate({ startDate, olderThanDays: days, pipelines });
-  return pMap(
-    oldPipelines,
-    (pipeline) => {
+  const throttledDelete = throttle(
+    (pipeline: Pipeline): Promise<void> => {
       reportProgress(`Deleting pipeline with id ${pipeline.id}`);
       return deletePipeline(pipeline);
     },
-    {
-      concurrency: 20,
-    },
+    10,
+    1000,
   );
+
+  try {
+    await Promise.all(oldPipelines.map(throttledDelete));
+  } catch (error: unknown) {
+    throttledDelete.abort();
+    throw error;
+  }
 }
 
 export const App: FunctionComponent<AppProps> = (props) => {

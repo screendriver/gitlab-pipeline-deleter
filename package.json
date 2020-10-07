@@ -34,7 +34,7 @@
     "copy:paste:detection": "jscpd src test",
     "test:unit": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'",
     "test:unit:coverage": "c8 npm run test:unit",
-    "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha 'test/integration/**/*.test.*'",
+    "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha --timeout 30000 'test/integration/**/*.test.*'",
     "test:unit:mutation": "FORCE_COLOR=1 stryker run"
   },
   "dependencies": {
@@ -43,7 +43,7 @@
     "got": "11.7.0",
     "ink": "3.0.7",
     "ink-spinner": "4.0.1",
-    "p-map": "4.0.0",
+    "p-throttle": "3.1.0",
     "react": "16.13.1",
     "tslib": "2.0.2",
     "urlcat": "2.0.4"
