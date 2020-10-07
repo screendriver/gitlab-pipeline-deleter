@@ -15,6 +15,7 @@ export interface AppProps {
   listPipelines: ListPipelinesFunction;
   filterPipelinesByDate: FilterPipelinesByDateFunction;
   deletePipeline: DeletePipelineFunction;
+  showStackTraces: boolean;
 }
 
 async function deletePipelines(
@@ -45,9 +46,8 @@ export const App: FunctionComponent<AppProps> = (props) => {
       .catch((error) => setDeletePipelinesError(error));
   }, [props]);
   if (deletePipelinesError) {
-    return (
-      <Error exit={props.exit}>There was an error while deleting the pipelines: {deletePipelinesError.message}</Error>
-    );
+    const message = props.showStackTraces ? deletePipelinesError.stack : deletePipelinesError.message;
+    return <Error exit={props.exit}>There was an error while deleting the pipelines: {message}</Error>;
   }
   return (
     <>

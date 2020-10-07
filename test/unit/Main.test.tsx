@@ -18,6 +18,7 @@ function renderMain(overrides: Partial<MainProps> = {}) {
       filterPipelinesByDate={props.filterPipelinesByDate}
       listPipelines={props.listPipelines}
       deletePipeline={props.deletePipeline}
+      showStackTraces={props.showStackTraces}
     />,
   );
 }

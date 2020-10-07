@@ -26,6 +26,7 @@ function renderApp(overrides: Partial<AppProps> = {}) {
       deletePipeline={props.deletePipeline}
       filterPipelinesByDate={props.filterPipelinesByDate}
       exit={props.exit}
+      showStackTraces={props.showStackTraces}
     />,
   );
 }
@@ -66,6 +67,19 @@ suite('<App />', function () {
     await delay(1);
     const actual = lastFrame();
     const expected = '\u001b[31mThere was an error while deleting the pipelines: Test Error\u001b[39m';
+    assert.equal(actual, expected);
+  });
+
+  test('renders an error message with stack trace when an error occurred and showStackTraces is true', async function () {
+    const error = new Error('Test Error');
+    error.stack = 'the-stack-trace';
+    const { lastFrame } = renderApp({
+      listPipelines: sinon.fake.rejects(error),
+      showStackTraces: true,
+    });
+    await delay(1);
+    const actual = lastFrame();
+    const expected = '\u001b[31mThere was an error while deleting the pipelines: the-stack-trace\u001b[39m';
     assert.equal(actual, expected);
   });
 });
