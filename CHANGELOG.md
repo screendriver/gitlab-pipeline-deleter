@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.1.0...v1.1.1) (2020-10-07)
+
+
+### Bug Fixes
+
+* report with server response when delete request fails ([8ad1d02](https://github.com/screendriver/gitlab-pipeline-deleter/commit/8ad1d02d88e32f81659efcead7590561bcdd3279))
+
 # [1.1.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.2...v1.1.0) (2020-10-07)
 
 
