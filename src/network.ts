@@ -23,7 +23,8 @@ export const deleteRequest: DeleteRequest = (url, accessToken) => {
   return got
     .delete(url, {
       headers: createHeaders(accessToken),
-      throwHttpErrors: false,
+      throwHttpErrors: true,
+      retry: 0,
     })
     .text();
 };
