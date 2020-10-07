@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.2...v1.1.0) (2020-10-07)
+
+
+### Bug Fixes
+
+* provide missing prop in integration test ([05b63ac](https://github.com/screendriver/gitlab-pipeline-deleter/commit/05b63ac11dc1048dff24d3cef7d363a85f600276))
+
+
+### Features
+
+* add --trace option to show stack traces ([1ae918e](https://github.com/screendriver/gitlab-pipeline-deleter/commit/1ae918e42cf7ccadcf39ea71e2f6e1b6a69c414f))
+
 ## [1.0.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.0.1...v1.0.2) (2020-10-07)
 
 
