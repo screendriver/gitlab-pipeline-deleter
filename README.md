@@ -6,7 +6,7 @@
 A CLI tool that deletes old [GitLab CI](https://docs.gitlab.com/ee/ci/) pipelines.
 
 ```
-Usage: gitlab-pipeline-deleter [options] <gitlab-url> <project-id> <access-token>
+Usage: glpd [options] <gitlab-url> <project-id> <access-token>
 
 Deletes old GitLab pipelines
 
