@@ -67,3 +67,7 @@ export const filterPipelinesByDate: FilterPipelinesByDateFunction = ({ pipelines
     return isOlderThanDays(startDate, pipelineDate, olderThanDays);
   });
 };
+
+export function foo() {
+  return 1;
+}
