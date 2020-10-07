@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.1.1...v1.1.2) (2020-10-07)
+
+
+### Bug Fixes
+
+* throttle concurrent delete requests to 10/s ([7f89ab7](https://github.com/screendriver/gitlab-pipeline-deleter/commit/7f89ab751f33ce4db82bc5cdf525f5fe9c5e3db8))
+
 ## [1.1.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.1.0...v1.1.1) (2020-10-07)
 
 
