@@ -3,7 +3,7 @@
   "lines": 95,
   "functions": 95,
   "statements": 95,
-  "branches": 76,
+  "branches": 95,
   "instrument": true,
   "extension": [".ts", ".tsx"],
   "exclude": [".mocharc.js", "release.config.js", "target/", "test/integration/", "src/network.ts"],
