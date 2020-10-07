@@ -22,7 +22,7 @@ jobs:
       - name: Upload code coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          file: target/coverage/clover.xml
+          file: target/coverage/coverage-final.json
   build:
     runs-on: ubuntu-latest
     strategy:

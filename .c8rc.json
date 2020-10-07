@@ -7,7 +7,7 @@
   "instrument": true,
   "extension": [".ts", ".tsx"],
   "exclude": [".mocharc.js", "release.config.js", "stryker.conf.js", "target/", "test/integration/", "src/network.ts"],
-  "reporter": ["lcov", "text-summary", "clover"],
+  "reporter": ["lcov", "text-summary", "json"],
   "check-coverage": true,
   "reportDir": "./target/coverage",
   "tempDirectory": "./target/c8_output"
