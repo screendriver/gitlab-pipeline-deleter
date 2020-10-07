@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import React from 'react';
-import program from 'commander';
+import { createCommand } from 'commander';
 import { render } from 'ink';
 import { Main } from './Main';
 import { getRequest, deleteRequest } from './network';
@@ -10,16 +10,19 @@ function exit() {
   process.exitCode = 1;
 }
 
+const program = createCommand('gitlab-pipeline-deleter');
+
 program
-  .name('gitlab-pipeline-deleter')
+  .storeOptionsAsProperties(false)
+  .passCommandToAction(false)
   .description('Deletes old GitLab pipelines')
   .arguments('<gitlab-url>')
   .arguments('<project-id>')
   .arguments('<access-token>')
   .option('-d --days <days>', 'older than days', '30')
-  .action((gitlabUrl: string, projectId: string, accessToken: string) => {
+  .action((gitlabUrl: string, projectId: string, accessToken: string, options: Record<string, string>) => {
     const parsedProjectId = parseInt(projectId, 10);
-    const days = parseInt(program.days, 10);
+    const days = parseInt(options.days, 10);
     const startDate = new Date();
     const listPipelinesFunction = listPipelines({ getRequest, gitlabUrl, projectId: parsedProjectId, accessToken });
     const deletePipelineFunction = deletePipeline({
