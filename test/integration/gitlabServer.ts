@@ -16,7 +16,13 @@ function isHeaderValid(headers: IncomingHttpHeaders) {
   return headers['private-token'] === 'yBv8';
 }
 
-function createRoutes(): RequestHandler[] {
+interface Config {
+  failOnDelete?: boolean;
+}
+
+function createRoutes(config: Config): RequestHandler[] {
+  const { failOnDelete = false } = config;
+
   return [
     get('/api/v4/projects/:id/pipelines', async (request, response) => {
       if (!isHeaderValid(request.headers)) {
@@ -38,14 +44,20 @@ function createRoutes(): RequestHandler[] {
         await send(response, 404, { message: '404 Project Not Found' });
         return;
       }
+
+      if (failOnDelete) {
+        await send(response, 418, { message: 'I’m a teapot' });
+        return;
+      }
+
       await send(response, 200, '');
     }),
   ];
 }
 
-export function withGitLabServer(test: (url: string) => void | Promise<void>): Mocha.Func {
+export function withGitLabServer(config: Config, test: (url: string) => void | Promise<void>): Mocha.Func {
   return async () => {
-    const routes = createRoutes();
+    const routes = createRoutes(config);
     const server = micro(router(...routes));
     try {
       const url = await listen(server);

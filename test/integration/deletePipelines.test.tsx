@@ -50,12 +50,24 @@ function renderMain(gitlabUrl: string) {
 suite('delete pipelines', function () {
   test(
     'deletes 4 old pipelines that are older than 30 days',
-    withGitLabServer(async (url) => {
+    withGitLabServer({}, async (url) => {
       const { lastFrame, frames } = renderMain(url);
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
         'Deleting pipeline with id 32\nDeleting pipeline with id 33\nDeleting pipeline with id 34\nDeleting pipeline with id 35\n\u001b[32mPipelines deleted\u001b[39m';
+      assert.equal(actual, expected);
+    }),
+  );
+
+  test(
+    'fails with the response error message when a gitlab delete request fails',
+    withGitLabServer({ failOnDelete: true }, async (url) => {
+      const { lastFrame, frames } = renderMain(url);
+      await waitUntilDeleted(frames);
+      const actual = lastFrame();
+      const expected =
+        "Deleting pipeline with id 36\nDeleting pipeline with id 37\nDeleting pipeline with id 38\nDeleting pipeline with id 39\nDeleting pipeline with id 40\nDeleting pipeline with id 41\nDeleting pipeline with id 42\nDeleting pipeline with id 43\nDeleting pipeline with id 44\nDeleting pipeline with id 45\nDeleting pipeline with id 46\nDeleting pipeline with id 47\nDeleting pipeline with id 48\nDeleting pipeline with id 49\nDeleting pipeline with id 50\nDeleting pipeline with id 51\nDeleting pipeline with id 52\nDeleting pipeline with id 53\nDeleting pipeline with id 54\nDeleting pipeline with id 55\n\u001b[31mThere was an error while deleting the pipelines: Response code 418 (I'm a Teapot)\u001b[39m";
       assert.equal(actual, expected);
     }),
   );
