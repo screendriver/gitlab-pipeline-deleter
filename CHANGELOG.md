@@ -1,3 +1,25 @@
+# [2.0.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.1.2...v2.0.0) (2020-10-09)
+
+
+### Bug Fixes
+
+* **config:** read configuration file from current working directory ([4eccc70](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4eccc704ded89c5abccb0dce2434aff3af16a63e))
+* **config:** rename glpdrc.js to glpd.config.js ([fc7865b](https://github.com/screendriver/gitlab-pipeline-deleter/commit/fc7865b119e8933fd31e4e6c3c3294d570da18ee))
+* **config:** use commander's parseAsync() function ([65f438c](https://github.com/screendriver/gitlab-pipeline-deleter/commit/65f438c991eb5580f9847d67f692e6e161a96f17))
+
+
+### Features
+
+* **config:** create function to merge CLI arguments with config file ([5a95fe6](https://github.com/screendriver/gitlab-pipeline-deleter/commit/5a95fe63cabd83ece787ecc5aa66cbf96d44af23))
+* **config:** create module to load glpdrc.js config file ([bc606b6](https://github.com/screendriver/gitlab-pipeline-deleter/commit/bc606b672c6530fb5c1bb4f54bce654a4c3c8fe1))
+* **config:** read arguments from CLI and config file ([f5126a3](https://github.com/screendriver/gitlab-pipeline-deleter/commit/f5126a3e933c28de1f87c55a32cd882ec60f027e))
+* **config:** remove not needed <Main /> component ([2461497](https://github.com/screendriver/gitlab-pipeline-deleter/commit/2461497ec75ac04b90e809b65b3dfddae5e30318))
+
+
+### BREAKING CHANGES
+
+* **config:** CLI arguments are now optional instead of required
+
 ## [1.1.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v1.1.1...v1.1.2) (2020-10-07)
 
 
