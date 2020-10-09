@@ -47,7 +47,8 @@
     "p-throttle": "3.1.0",
     "react": "16.13.1",
     "tslib": "2.0.2",
-    "urlcat": "2.0.4"
+    "urlcat": "2.0.4",
+    "zod": "1.11.9"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
