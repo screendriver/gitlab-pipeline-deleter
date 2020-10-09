@@ -4,7 +4,7 @@ import { render } from 'ink-testing-library';
 import { parseISO } from 'date-fns';
 import delay from 'delay';
 import { withGitLabServer } from './gitlabServer';
-import { Main } from '../../src/Main';
+import { App } from '../../src/App';
 import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab';
 import { getRequest, deleteRequest } from '../../src/network';
 
@@ -19,7 +19,7 @@ async function waitUntilDeleted(frames: string[]) {
   await waitUntilDeleted(frames);
 }
 
-function renderMain(gitlabUrl: string) {
+function renderApp(gitlabUrl: string) {
   const projectId = 42;
   const days = 30;
   const accessToken = 'yBv8';
@@ -32,7 +32,7 @@ function renderMain(gitlabUrl: string) {
     accessToken,
   });
   return render(
-    <Main
+    <App
       gitlabUrl={gitlabUrl}
       projectId={projectId}
       accessToken={accessToken}
@@ -51,7 +51,7 @@ suite('delete pipelines', function () {
   test(
     'deletes 4 old pipelines that are older than 30 days',
     withGitLabServer({}, async (url) => {
-      const { lastFrame, frames } = renderMain(url);
+      const { lastFrame, frames } = renderApp(url);
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
@@ -63,7 +63,7 @@ suite('delete pipelines', function () {
   test(
     'fails with the response error message when a gitlab delete request fails',
     withGitLabServer({ failOnDelete: true }, async (url) => {
-      const { lastFrame, frames } = renderMain(url);
+      const { lastFrame, frames } = renderApp(url);
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
