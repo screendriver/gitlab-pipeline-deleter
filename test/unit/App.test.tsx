@@ -19,7 +19,7 @@ function renderApp(overrides: Partial<AppProps> = {}) {
     <App
       gitlabUrl={props.gitlabUrl}
       accessToken={props.accessToken}
-      projectId={props.projectId}
+      projectIds={props.projectIds}
       startDate={props.startDate}
       days={props.days}
       listPipelines={props.listPipelines}
@@ -56,7 +56,26 @@ suite('<App />', function () {
     await delay(1000);
     const actual = lastFrame();
     const expected =
-      'Deleting pipeline with id 1\nDeleting pipeline with id 2\nDeleting pipeline with id 3\nDeleting pipeline with id 4\nDeleting pipeline with id 5\n\u001b[32mPipelines deleted\u001b[39m';
+      'Deleting pipeline with id 1 for project 42\nDeleting pipeline with id 2 for project 42\nDeleting pipeline with id 3 for project 42\nDeleting pipeline with id 4 for project 42\nDeleting pipeline with id 5 for project 42\n\u001b[32mPipelines deleted\u001b[39m';
+    assert.equal(actual, expected);
+  });
+
+  test('deletes pipelines of multiple projects', async function () {
+    const { lastFrame } = renderApp({
+      filterPipelinesByDate: sinon
+        .stub()
+        .onFirstCall()
+        .returns([pipeline()])
+        .onSecondCall()
+        .returns([])
+        .onThirdCall()
+        .returns([pipeline(), pipeline()]),
+      projectIds: [1, 2, 3],
+    });
+    await delay(1000);
+    const actual = lastFrame();
+    const expected =
+      'Deleting pipeline with id 6 for project 1\nDeleting pipeline with id 7 for project 3\nDeleting pipeline with id 8 for project 3\n\u001b[32mPipelines deleted\u001b[39m';
     assert.equal(actual, expected);
   });
 
@@ -80,7 +99,7 @@ suite('<App />', function () {
     await delay(1000);
     const actual = lastFrame();
     const expected =
-      'Deleting pipeline with id 6\n\u001b[31mThere was an error while deleting the pipelines: Failed to delete\u001b[39m';
+      'Deleting pipeline with id 9 for project 42\n\u001b[31mThere was an error while deleting the pipelines: Failed to delete\u001b[39m';
     assert.equal(actual, expected);
   });
 

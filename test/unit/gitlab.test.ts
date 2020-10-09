@@ -13,8 +13,8 @@ const pipeline = define<Pipeline>({
 function callListPipelines(getRequest: GetRequest, gitlabUrl = 'https://gitlab.my-domain.io') {
   const projectId = 42;
   const accessToken = 'yBv8';
-  const listPipelinesFunction = listPipelines({ getRequest, gitlabUrl, projectId, accessToken });
-  return listPipelinesFunction();
+  const listPipelinesFunction = listPipelines({ getRequest, gitlabUrl, accessToken });
+  return listPipelinesFunction(projectId);
 }
 
 function callDeletePipeline(deleteRequest: DeleteRequest, gitlabUrl = 'https://gitlab.my-domain.io') {
@@ -24,8 +24,8 @@ function callDeletePipeline(deleteRequest: DeleteRequest, gitlabUrl = 'https://g
     updated_at: '2020-10-01T20:27:16.768Z',
   };
   const accessToken = 'yBv8';
-  const deletePipelineFunction = deletePipeline({ deleteRequest, gitlabUrl, projectId, accessToken });
-  return deletePipelineFunction(pipeline);
+  const deletePipelineFunction = deletePipeline({ deleteRequest, gitlabUrl, accessToken });
+  return deletePipelineFunction(projectId, pipeline);
 }
 
 suite('gitlab', function () {

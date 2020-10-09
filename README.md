@@ -30,7 +30,7 @@ You can use either the command line arguments `gitlab-url`, `project-id` and `ac
 ```js
 module.exports = {
   gitlabUrl: 'https://example.com',
-  projectId: 42,
+  projectId: '42',
   accessToken: '<my-token>',
   days: 30,
   trace: false,
@@ -38,3 +38,5 @@ module.exports = {
 ```
 
 If you specify command line arguments **and** a configuration file the command line arguments will overwrite the values in the configuration file. So the CLI arguments has always precedence.
+
+Multiple project ids can be configured by providing a comma-separated list to the `projectId` argument.

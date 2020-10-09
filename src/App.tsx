@@ -2,13 +2,14 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, Static } from 'ink';
 import Spinner from 'ink-spinner';
 import throttle from 'p-throttle';
+import pMap from 'p-map';
 import type { ListPipelinesFunction, DeletePipelineFunction, FilterPipelinesByDateFunction } from './gitlab';
 import { Error, ErrorProps } from './Error';
 import { Pipeline } from './network';
 
 export interface AppProps {
   gitlabUrl: string;
-  projectId: number;
+  projectIds: number[];
   accessToken: string;
   days: number;
   startDate: Date;
@@ -19,16 +20,14 @@ export interface AppProps {
   showStackTraces: boolean;
 }
 
-async function deletePipelines(
-  { startDate, days, listPipelines, filterPipelinesByDate, deletePipeline }: AppProps,
-  reportProgress: (text: string) => void,
-) {
-  const pipelines = await listPipelines();
+async function deletePipelinesForProject(projectId: number, props: AppProps, reportProgress: (text: string) => void) {
+  const { startDate, days, listPipelines, filterPipelinesByDate, deletePipeline } = props;
+  const pipelines = await listPipelines(projectId);
   const oldPipelines = filterPipelinesByDate({ startDate, olderThanDays: days, pipelines });
   const throttledDelete = throttle(
     (pipeline: Pipeline): Promise<void> => {
-      reportProgress(`Deleting pipeline with id ${pipeline.id}`);
-      return deletePipeline(pipeline);
+      reportProgress(`Deleting pipeline with id ${pipeline.id} for project ${projectId}`);
+      return deletePipeline(projectId, pipeline);
     },
     10,
     1000,
@@ -40,6 +39,16 @@ async function deletePipelines(
     throttledDelete.abort();
     throw error;
   }
+}
+
+async function deletePipelines(props: AppProps, reportProgress: (text: string) => void) {
+  await pMap(
+    props.projectIds,
+    (projectId) => {
+      return deletePipelinesForProject(projectId, props, reportProgress);
+    },
+    { concurrency: 1 },
+  );
 }
 
 export const App: FunctionComponent<AppProps> = (props) => {
