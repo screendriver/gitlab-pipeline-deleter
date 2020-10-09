@@ -17,7 +17,7 @@ module.exports = function (config) {
     tempDirName: 'target/.stryker-tmp',
     htmlReporter: { baseDir: 'target/mutation-report/html' },
     thresholds: {
-      break: 94,
+      break: 92,
     },
     coverageAnalysis: 'off',
   });

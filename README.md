@@ -14,7 +14,7 @@ $ npm install -g gitlab-pipeline-deleter
 ### Usage
 
 ```
-Usage: glpd [options] <gitlab-url> <project-id> <access-token>
+Usage: glpd [options] [gitlab-url] [project-id] [access-token]
 
 Deletes old GitLab pipelines
 
@@ -23,3 +23,17 @@ Options:
   --trace           show stack traces for errors when possible (default: false)
   -h, --help        display help for command
 ```
+
+You can use either the command line arguments `gitlab-url`, `project-id` and `access-token` or you can create a `glpd.config.js` configuration file that exports an object. All of the command line arguments are supported but needs to be written in `camelCase`:
+
+```js
+module.exports = {
+  gitlabUrl: 'https://example.com',
+  projectId: 42,
+  accessToken: '<my-token>',
+  days: 30,
+  trace: false,
+};
+```
+
+If you specify command line arguments **and** a configuration file the command line arguments will overwrite the values in the configuration file. So the CLI arguments has always precedence.
