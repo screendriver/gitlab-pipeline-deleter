@@ -52,6 +52,15 @@ suite('config', function () {
     assert.equal(actual, expected);
   });
 
+  test('loadConfig() returns undefined when loaded config is null', async function () {
+    const explorer = createExplorer({
+      load: sinon.fake.resolves(null),
+    });
+    const actual = await loadConfig('./empty-glpdrc.js', explorer);
+    const expected = undefined;
+    assert.equal(actual, expected);
+  });
+
   test('loadConfig() returns an empty object when config is an empty object', async function () {
     const config = {};
     const explorer = createExplorer({
