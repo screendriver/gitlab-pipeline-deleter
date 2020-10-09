@@ -76,4 +76,9 @@ program
     },
   );
 
-program.parse(process.argv);
+function crash(error: Error) {
+  console.error(error);
+  exit();
+}
+
+program.parseAsync(process.argv).catch(crash);
