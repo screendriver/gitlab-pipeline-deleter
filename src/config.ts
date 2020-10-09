@@ -1,15 +1,15 @@
 import type { cosmiconfig } from 'cosmiconfig';
 import * as z from 'zod';
 
-const configSchema = z
-  .object({
-    gitlabUrl: z.string().url(),
-    projectId: z.number(),
-    accessToken: z.string(),
-    days: z.number(),
-    trace: z.boolean(),
-  })
-  .partial();
+const requiredArguments = z.object({
+  gitlabUrl: z.string().url(),
+  projectId: z.number(),
+  accessToken: z.string(),
+  days: z.number(),
+  trace: z.boolean(),
+});
+
+const configSchema = requiredArguments.partial();
 
 export type Config = z.infer<typeof configSchema>;
 
@@ -26,4 +26,19 @@ export async function loadConfig(
   } catch {
     return undefined;
   }
+}
+
+export type CliArguments = Config;
+
+export function mergeCliArgumentsWithConfig(
+  cliArguments?: CliArguments,
+  config?: Config,
+): ReturnType<typeof requiredArguments.safeParse> {
+  return requiredArguments.safeParse({
+    gitlabUrl: cliArguments?.gitlabUrl ?? config?.gitlabUrl,
+    projectId: cliArguments?.projectId ?? config?.projectId,
+    accessToken: cliArguments?.accessToken ?? config?.accessToken,
+    days: cliArguments?.days ?? config?.days,
+    trace: cliArguments?.trace ?? config?.trace,
+  });
 }
