@@ -35,3 +35,5 @@ module.exports = {
   trace: false,
 };
 ```
+
+If you specify command line arguments **and** a configuration file the command line arguments will overwrite the values in the configuration file. So the CLI arguments has always precedence.
