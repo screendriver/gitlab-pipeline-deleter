@@ -3,6 +3,7 @@ import React from 'react';
 import { createCommand } from 'commander';
 import { render } from 'ink';
 import { cosmiconfig } from 'cosmiconfig';
+import path from 'path';
 import { App } from './App';
 import { Error } from './Error';
 import { getRequest, deleteRequest } from './network';
@@ -38,8 +39,9 @@ program
         days: typeof options.days === 'string' ? parseInt(options.days, 10) : 30,
         trace: options.trace === true,
       };
+      const configPath = path.resolve(process.cwd(), 'glpd.config.js');
       const explorer = cosmiconfig('gitlab-pipeline-deleter');
-      const config = await loadConfig('./glpd.config.js', explorer);
+      const config = await loadConfig(configPath, explorer);
       const glpdArguments = mergeCliArgumentsWithConfig(cliArguments, config);
       if (!glpdArguments.success) {
         render(<Error exit={exit}>Missing or invalid arguments</Error>);
