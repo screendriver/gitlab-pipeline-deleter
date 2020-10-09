@@ -39,7 +39,7 @@ program
         trace: options.trace === true,
       };
       const explorer = cosmiconfig('gitlab-pipeline-deleter');
-      const config = await loadConfig('./glpdrc.js', explorer);
+      const config = await loadConfig('./glpd.config.js', explorer);
       const glpdArguments = mergeCliArgumentsWithConfig(cliArguments, config);
       if (!glpdArguments.success) {
         render(<Error exit={exit}>Missing or invalid arguments</Error>);
