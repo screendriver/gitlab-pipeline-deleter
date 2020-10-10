@@ -3,6 +3,13 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v2
   code-coverage:
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +23,8 @@ jobs:
         uses: zcong1993/setup-timezone@master
         with:
           timezone: Europe/Berlin
-      - run: npm run test:unit:coverage
+      - name: Run unit tests
+        run: npm run test:unit:coverage
         env:
           FORCE_COLOR: 1
       - name: Upload code coverage to Codecov
@@ -42,17 +50,40 @@ jobs:
           npm run copy:paste:detection
       - name: Compile source code
         run: npm run compile
+      - name: Upload compiled source code as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-source-node-${{ matrix.node-version }}
+          path: target/src/
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
         with:
           timezone: Europe/Berlin
-      - name: Run unit tests
-        run: npm run test:unit
-        env:
-          FORCE_COLOR: 1
       - name: Run integration tests
         run: npm run test:integration
         env:
           FORCE_COLOR: 1
       - name: Run mutation tests
         run: npm run test:unit:mutation
+  release:
+    if: github.ref == 'refs/main'
+    needs: [commitlint, code-coverage, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Download compiled source code artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-source-node-14
+          path: target/src/
+      - name: Semantic release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
