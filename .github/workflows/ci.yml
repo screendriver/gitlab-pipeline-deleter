@@ -58,10 +58,6 @@ jobs:
         uses: zcong1993/setup-timezone@master
         with:
           timezone: Europe/Berlin
-      - name: Run unit tests
-        run: npm run test:unit
-        env:
-          FORCE_COLOR: 1
       - name: Run integration tests
         run: npm run test:integration
         env:
