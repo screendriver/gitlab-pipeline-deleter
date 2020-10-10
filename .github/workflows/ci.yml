@@ -64,3 +64,25 @@ jobs:
           FORCE_COLOR: 1
       - name: Run mutation tests
         run: npm run test:unit:mutation
+  release:
+    if: github.ref == 'refs/main'
+    needs: [commitlint, code-coverage, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Download compiled source code artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-source-14
+          path: target/src/
+      - name: Semantic release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
