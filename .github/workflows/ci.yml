@@ -49,6 +49,11 @@ jobs:
           npm run copy:paste:detection
       - name: Compile source code
         run: npm run compile
+      - name: Upload compiled source code as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-source-${{ matrix.node-version }}
+          path: target/src/
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
         with:
