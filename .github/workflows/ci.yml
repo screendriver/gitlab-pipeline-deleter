@@ -23,7 +23,8 @@ jobs:
         uses: zcong1993/setup-timezone@master
         with:
           timezone: Europe/Berlin
-      - run: npm run test:unit:coverage
+      - name: Run unit tests
+        run: npm run test:unit:coverage
         env:
           FORCE_COLOR: 1
       - name: Upload code coverage to Codecov
