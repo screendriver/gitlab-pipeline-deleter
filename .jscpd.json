@@ -1,5 +1,5 @@
 {
-  "output": "./target",
+  "output": "./target/copy-paste-report",
   "minLines": 3,
   "threshold": 0.1,
   "reporters": ["html", "console"],
