@@ -5,38 +5,32 @@ import { GetRequest, DeleteRequest, Pipeline } from './network';
 interface ListPipelinesArguments {
   getRequest: GetRequest;
   gitlabUrl: string;
-  projectId: number;
   accessToken: string;
 }
 
-export type ListPipelinesFunction = () => Promise<readonly Pipeline[]>;
+export type ListPipelinesFunction = (projectId: number) => Promise<readonly Pipeline[]>;
 
-export function listPipelines({
-  getRequest,
-  gitlabUrl,
-  projectId,
-  accessToken,
-}: ListPipelinesArguments): ListPipelinesFunction {
-  const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
-  return () => getRequest(url, accessToken);
+export function listPipelines({ getRequest, gitlabUrl, accessToken }: ListPipelinesArguments): ListPipelinesFunction {
+  return (projectId) => {
+    const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
+    return getRequest(url, accessToken);
+  };
 }
 
 interface DeletePipelineArguments {
   deleteRequest: DeleteRequest;
   gitlabUrl: string;
-  projectId: number;
   accessToken: string;
 }
 
-export type DeletePipelineFunction = (pipeline: Pipeline) => Promise<void>;
+export type DeletePipelineFunction = (projectId: number, pipeline: Pipeline) => Promise<void>;
 
 export function deletePipeline({
   deleteRequest,
   gitlabUrl,
-  projectId,
   accessToken,
 }: DeletePipelineArguments): DeletePipelineFunction {
-  return async (pipeline) => {
+  return async (projectId, pipeline) => {
     const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines/:pipeline_id', {
       id: projectId,
       pipeline_id: pipeline.id,

@@ -4,7 +4,7 @@ import { AppProps } from '../../src/App';
 export function createAppProps(overrides: Partial<AppProps> = {}): AppProps {
   return {
     gitlabUrl: 'https://gitlab.my-domain.io',
-    projectId: 42,
+    projectIds: [42],
     accessToken: 'yBo4v',
     days: 30,
     startDate: new Date(),

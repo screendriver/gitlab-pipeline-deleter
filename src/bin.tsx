@@ -8,7 +8,7 @@ import { App } from './App';
 import { Error } from './Error';
 import { getRequest, deleteRequest } from './network';
 import { listPipelines, filterPipelinesByDate, deletePipeline } from './gitlab';
-import { CliArguments, loadConfig, mergeCliArgumentsWithConfig } from './config';
+import { PartialConfigInput, loadConfig, mergeCliArgumentsWithConfig } from './config';
 
 function exit() {
   process.exitCode = 1;
@@ -32,9 +32,9 @@ program
       accessTokenArgument: string | undefined,
       options: Record<string, unknown>,
     ) => {
-      const cliArguments: CliArguments = {
+      const cliArguments: PartialConfigInput = {
         gitlabUrl: gitlabUrlArgument,
-        projectId: projectIdArgument ? parseInt(projectIdArgument, 10) : undefined,
+        projectId: projectIdArgument,
         accessToken: accessTokenArgument,
         days: typeof options.days === 'string' ? parseInt(options.days, 10) : 30,
         trace: options.trace === true,
@@ -47,24 +47,22 @@ program
         render(<Error exit={exit}>Missing or invalid arguments</Error>);
         return;
       }
-      const { gitlabUrl, projectId, accessToken, days, trace } = glpdArguments.data;
+      const { gitlabUrl, projectIds, accessToken, days, trace } = glpdArguments.data;
       const startDate = new Date();
       const listPipelinesFunction = listPipelines({
         getRequest,
         gitlabUrl: gitlabUrl,
-        projectId: projectId,
         accessToken: accessToken,
       });
       const deletePipelineFunction = deletePipeline({
         deleteRequest,
         gitlabUrl: gitlabUrl,
-        projectId: projectId,
         accessToken: accessToken,
       });
       render(
         <App
           gitlabUrl={gitlabUrl}
-          projectId={projectId}
+          projectIds={projectIds}
           accessToken={accessToken}
           days={days}
           startDate={startDate}
