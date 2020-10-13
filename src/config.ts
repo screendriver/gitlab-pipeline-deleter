@@ -38,7 +38,7 @@ function convertToNumber(value: string): number {
   return parseInt(value.trim(), 10);
 }
 
-function commaSeparatedStringToNumberArray(commaSeparatedString: string): number[] {
+function commaSeparatedStringToNumberArray(commaSeparatedString: string): readonly number[] {
   return commaSeparatedString.split(',').map(convertToNumber);
 }
 

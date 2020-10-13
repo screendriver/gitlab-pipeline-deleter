@@ -9,7 +9,7 @@ import { Pipeline } from './network';
 
 export interface AppProps {
   gitlabUrl: string;
-  projectIds: number[];
+  projectIds: readonly number[];
   accessToken: string;
   days: number;
   startDate: Date;
