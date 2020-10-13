@@ -182,110 +182,74 @@ suite('config', function () {
     assert.equal(actual, expected);
   });
 
-  test('mergeCliArgumentsWithConfig() returns CLI arguments when no config file is present', function () {
-    const cliArguments = partialConfigInputFactory({ projectId: '1' });
-    const merged = mergeCliArgumentsWithConfig(cliArguments);
-    if (merged.success) {
-      const actual = merged.data;
-      const expected = configFactory({
-        gitlabUrl: cliArguments.gitlabUrl,
-        projectIds: [1],
-        accessToken: cliArguments.accessToken,
-        days: cliArguments.days,
-        trace: cliArguments.trace,
-      });
-      assert.deepEqual(actual, expected);
-    } else {
-      assert.fail();
-    }
-  });
-
-  test('mergeCliArgumentsWithConfig() recognizes multiple project ids when a comma separate string is given', function () {
-    const cliArguments = partialConfigInputFactory({ projectId: '1,2,3' });
-    const merged = mergeCliArgumentsWithConfig(cliArguments);
-    if (merged.success) {
-      const actual = merged.data;
-      const expected = configFactory({
-        gitlabUrl: cliArguments.gitlabUrl,
-        projectIds: [1, 2, 3],
-        accessToken: cliArguments.accessToken,
-        days: cliArguments.days,
-        trace: cliArguments.trace,
-      });
-      assert.deepEqual(actual, expected);
-    } else {
-      assert.fail();
-    }
-  });
-
-  test('mergeCliArgumentsWithConfig() recognizes multiple project ids when a comma separate string is given with whitespace between', function () {
-    const cliArguments = partialConfigInputFactory({ projectId: '1, 2 ,\t3\n' });
-    const merged = mergeCliArgumentsWithConfig(cliArguments);
-    if (merged.success) {
-      const actual = merged.data;
-      const expected = configFactory({
-        gitlabUrl: cliArguments.gitlabUrl,
-        projectIds: [1, 2, 3],
-        accessToken: cliArguments.accessToken,
-        days: cliArguments.days,
-        trace: cliArguments.trace,
-      });
-      assert.deepEqual(actual, expected);
-    } else {
-      assert.fail();
-    }
-  });
-
-  test('mergeCliArgumentsWithConfig() returns config file values when no CLI arguments are present', function () {
-    const config = partialConfigInputFactory({ projectId: '1' });
-    const merged = mergeCliArgumentsWithConfig(undefined, config);
-    if (merged.success) {
-      const actual = merged.data;
-      const expected = configFactory({
-        gitlabUrl: config.gitlabUrl,
-        projectIds: [1],
-        accessToken: config.accessToken,
-        days: config.days,
-        trace: config.trace,
-      });
-      assert.deepEqual(actual, expected);
-    } else {
-      assert.fail();
-    }
-  });
-
   test('mergeCliArgumentsWithConfig() returns no success when no config file and no CLI arguments are present', function () {
     const actual = mergeCliArgumentsWithConfig().success;
     const expected = false;
     assert.equal(actual, expected);
   });
 
-  test('mergeCliArgumentsWithConfig() prefers CLI arguments over configuration values', function () {
-    const config = partialConfigInputFactory({
-      gitlabUrl: 'https://example.com',
-      projectId: '1',
-      accessToken: '0',
+  [
+    {
+      title: 'returns CLI arguments when no config file is present',
+      cliArguments: partialConfigInputFactory({ projectId: '1' }),
+      expectedConfig: configFactory({
+        projectIds: [1],
+      }),
+    },
+    {
+      title: 'recognizes multiple project ids when a comma separated string is given',
+      cliArguments: partialConfigInputFactory({ projectId: '1,2,3' }),
+      expectedConfig: configFactory({
+        projectIds: [1, 2, 3],
+      }),
+    },
+    {
+      title: 'recognizes multiple project ids when a comma separated string is given with whitespace between',
+      cliArguments: partialConfigInputFactory({ projectId: '1, 2 ,\t3\n' }),
+      expectedConfig: configFactory({
+        projectIds: [1, 2, 3],
+      }),
+    },
+    {
+      title: 'returns config file values when no CLI arguments are present',
+      config: partialConfigInputFactory({ projectId: '1' }),
+      expectedConfig: configFactory({
+        projectIds: [1],
+      }),
+    },
+    {
+      title: 'prefers CLI aguments over configuration values',
+      cliArguments: partialConfigInputFactory({
+        gitlabUrl: 'https://example.com',
+        projectId: '1',
+        accessToken: '0',
+        trace: true,
+      }),
+      config: partialConfigInputFactory({
+        gitlabUrl: 'https://gitlab.com',
+        projectId: '42',
+        accessToken: 'yBo4v',
+        days: 42,
+        trace: false,
+      }),
+      expectedConfig: {
+        accessToken: '0',
+        days: 30,
+        gitlabUrl: 'https://example.com',
+        projectIds: [1],
+        trace: true,
+      },
+    },
+  ].forEach((testCase) => {
+    test(`mergeCliArgumentsWithConfig() ${testCase.title}`, function () {
+      const mergedConfig = mergeCliArgumentsWithConfig(testCase.cliArguments, testCase.config);
+
+      if (mergedConfig.success) {
+        const actual = mergedConfig.data;
+        assert.deepEqual(actual, testCase.expectedConfig);
+      } else {
+        assert.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
+      }
     });
-    const cliArguments = partialConfigInputFactory({
-      gitlabUrl: 'https://gitlab.com',
-      projectId: '42',
-      accessToken: 'yBo4v',
-      days: 42,
-      trace: true,
-    });
-    const merged = mergeCliArgumentsWithConfig(cliArguments, config);
-    if (merged.success) {
-      const actual = merged.data;
-      const expected = configFactory({
-        gitlabUrl: cliArguments.gitlabUrl,
-        projectIds: [42],
-        accessToken: cliArguments.accessToken,
-        days: cliArguments.days,
-        trace: cliArguments.trace,
-      });
-      assert.deepEqual(actual, expected);
-    } else {
-      assert.fail('Merge should not fail');
-    }
   });
 });
