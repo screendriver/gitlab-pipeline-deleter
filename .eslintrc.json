@@ -17,7 +17,6 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint",
-    "plugin:mocha/recommended",
     "plugin:react/recommended",
     "plugin:testing-library/react",
     "plugin:testing-library/recommended",
@@ -25,15 +24,25 @@
   ],
   "plugins": ["@typescript-eslint", "mocha", "react", "testing-library"],
   "env": {
-    "node": true,
-    "mocha": true
+    "node": true
   },
   "rules": {
     "require-atomic-updates": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-implicit-any-catch": 2,
-    "mocha/no-exclusive-tests": 2,
+    "@typescript-eslint/no-implicit-any-catch": "error",
     "react/prop-types": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*.test.ts", "test/**/*.test.tsx"],
+      "extends": ["plugin:mocha/recommended"],
+      "env": {
+        "mocha": true
+      },
+      "rules": {
+        "mocha/no-exclusive-tests": "error"
+      }
+    }
+  ]
 }
