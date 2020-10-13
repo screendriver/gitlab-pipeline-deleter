@@ -35,7 +35,7 @@ export async function loadConfig(
 }
 
 function convertToNumber(value: string): number {
-  return parseInt(value.trim(), 10);
+  return parseInt(value, 10);
 }
 
 function commaSeparatedStringToNumberArray(commaSeparatedString: string): readonly number[] {
