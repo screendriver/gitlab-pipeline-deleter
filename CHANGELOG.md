@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.0.1...v2.1.0) (2020-10-13)
+
+
+### Features
+
+* accept multiple project ids by providing a comma separate list of ids ([b23ba9f](https://github.com/screendriver/gitlab-pipeline-deleter/commit/b23ba9fdfd06364e02dc5e1c58780a6e068558c3))
+* only allow postive numbers for projectId ([ace3ede](https://github.com/screendriver/gitlab-pipeline-deleter/commit/ace3ede120a3c2baf2ebea8ab430dd9f2ffe23e5))
+
 ## [2.0.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.0.0...v2.0.1) (2020-10-10)
 
 
