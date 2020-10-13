@@ -32,8 +32,8 @@
     "require-atomic-updates": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-implicit-any-catch": 2,
-    "mocha/no-exclusive-tests": 2,
+    "@typescript-eslint/no-implicit-any-catch": "error",
+    "mocha/no-exclusive-tests": "error",
     "react/prop-types": "off"
   }
 }
