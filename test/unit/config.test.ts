@@ -150,6 +150,30 @@ suite('config', function () {
     assert.equal(actual, expected);
   });
 
+  test('mergeCliArgumentsWithConfig() returns no success when projectId is an empty string', function () {
+    const config = partialConfigInputFactory({ projectId: '' });
+    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
+    const expected = false;
+    assert.equal(actual, expected);
+  });
+
+  test('mergeCliArgumentsWithConfig() returns no success when projectId is a negative number', function () {
+    const config = partialConfigInputFactory({ projectId: '-42' });
+    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
+    const expected = false;
+    assert.equal(actual, expected);
+  });
+
+  test('mergeCliArgumentsWithConfig() returns no success when projectId is a non-numeric value', function () {
+    const config = partialConfigInputFactory({ projectId: 'foo,bar' });
+    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
+    const expected = false;
+    assert.equal(actual, expected);
+  });
+
   test('mergeCliArgumentsWithConfig() returns no success when accessToken was not set', function () {
     const config = partialConfigInputFactory({ accessToken: undefined });
     const cliArguments = partialConfigInputFactory({ accessToken: undefined });

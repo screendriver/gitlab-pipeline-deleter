@@ -9,7 +9,7 @@ const baseConfigSchema = z.object({
 });
 
 const configSchema = baseConfigSchema.extend({
-  projectIds: z.array(z.number()).nonempty(),
+  projectIds: z.array(z.number().positive()).nonempty(),
 });
 
 const configInputSchema = baseConfigSchema.extend({ projectId: z.string() });
