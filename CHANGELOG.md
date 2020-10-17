@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.1...v2.1.2) (2020-10-17)
+
+
+### Bug Fixes
+
+* **interval:** double interval to 2 seconds ([050a79d](https://github.com/screendriver/gitlab-pipeline-deleter/commit/050a79dc699e08108fe1de48c7ca7a4c6f9d5800))
+
 ## [2.1.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.0...v2.1.1) (2020-10-14)
 
 
