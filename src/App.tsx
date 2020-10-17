@@ -30,7 +30,7 @@ async function deletePipelinesForProject(projectId: number, props: AppProps, rep
       return deletePipeline(projectId, pipeline);
     },
     10,
-    1000,
+    2000,
   );
 
   try {
