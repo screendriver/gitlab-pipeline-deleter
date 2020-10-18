@@ -4,6 +4,7 @@ import { createCommand } from 'commander';
 import { render } from 'ink';
 import { cosmiconfig } from 'cosmiconfig';
 import path from 'path';
+import PQueue from 'p-queue';
 import { App } from './App';
 import { Error } from './Error';
 import { getRequest, deleteRequest } from './network';
@@ -59,6 +60,7 @@ program
         gitlabUrl: gitlabUrl,
         accessToken: accessToken,
       });
+      const deleteQueue = new PQueue({ autoStart: false, interval: 1000, intervalCap: 10 });
       render(
         <App
           gitlabUrl={gitlabUrl}
@@ -70,6 +72,7 @@ program
           listPipelines={listPipelinesFunction}
           filterPipelinesByDate={filterPipelinesByDate}
           deletePipeline={deletePipelineFunction}
+          deleteQueue={deleteQueue}
           showStackTraces={trace}
         />,
       );

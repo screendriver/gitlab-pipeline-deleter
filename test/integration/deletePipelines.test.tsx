@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import { render } from 'ink-testing-library';
 import { parseISO } from 'date-fns';
 import delay from 'delay';
+import PQueue from 'p-queue';
 import { withGitLabServer } from './gitlabServer';
 import { App } from '../../src/App';
 import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab';
@@ -30,6 +31,7 @@ function renderApp(gitlabUrl: string) {
     gitlabUrl,
     accessToken,
   });
+  const deleteQueue = new PQueue({ autoStart: false, concurrency: 5 });
   return render(
     <App
       gitlabUrl={gitlabUrl}
@@ -41,6 +43,7 @@ function renderApp(gitlabUrl: string) {
       listPipelines={listPipelinesFunction}
       filterPipelinesByDate={filterPipelinesByDate}
       deletePipeline={deletePipelineFunction}
+      deleteQueue={deleteQueue}
       showStackTraces={false}
     />,
   );
@@ -60,13 +63,13 @@ suite('delete pipelines', function () {
   );
 
   test(
-    'fails with the response error message when a gitlab delete request fails',
+    'fails with the response error message when a GitLab delete request fails',
     withGitLabServer({ failOnDelete: true }, async (url) => {
       const { lastFrame, frames } = renderApp(url);
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
-        "Deleting pipeline with id 36 for project 42\nDeleting pipeline with id 37 for project 42\nDeleting pipeline with id 38 for project 42\nDeleting pipeline with id 39 for project 42\nDeleting pipeline with id 40 for project 42\nDeleting pipeline with id 41 for project 42\nDeleting pipeline with id 42 for project 42\nDeleting pipeline with id 43 for project 42\nDeleting pipeline with id 44 for project 42\nDeleting pipeline with id 45 for project 42\n\u001b[31mThere was an error while deleting the pipelines: Response code 418 (I'm a Teapot)\u001b[39m";
+        "Deleting pipeline with id 36 for project 42\nDeleting pipeline with id 37 for project 42\nDeleting pipeline with id 38 for project 42\nDeleting pipeline with id 39 for project 42\nDeleting pipeline with id 40 for project 42\nDeleting pipeline with id 41 for project 42\n\u001b[31mThere was an error while deleting the pipelines: Response code 418 (I'm a Teapot)\u001b[39m";
       assert.equal(actual, expected);
     }),
   );
