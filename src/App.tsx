@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, Static } from 'ink';
 import Spinner from 'ink-spinner';
-import throttle from 'p-throttle';
-import pMap from 'p-map';
+import PQueue from 'p-queue';
 import type { ListPipelinesFunction, DeletePipelineFunction, FilterPipelinesByDateFunction } from './gitlab';
 import { Error, ErrorProps } from './Error';
 import { Pipeline } from './network';
@@ -17,6 +16,7 @@ export interface AppProps {
   listPipelines: ListPipelinesFunction;
   filterPipelinesByDate: FilterPipelinesByDateFunction;
   deletePipeline: DeletePipelineFunction;
+  deleteQueue: PQueue;
   showStackTraces: boolean;
 }
 
@@ -24,31 +24,29 @@ async function deletePipelinesForProject(projectId: number, props: AppProps, rep
   const { startDate, days, listPipelines, filterPipelinesByDate, deletePipeline } = props;
   const pipelines = await listPipelines(projectId);
   const oldPipelines = filterPipelinesByDate({ startDate, olderThanDays: days, pipelines });
-  const throttledDelete = throttle(
-    (pipeline: Pipeline): Promise<void> => {
+  return oldPipelines.map((pipeline: Pipeline) => {
+    return props.deleteQueue.add(() => {
       reportProgress(`Deleting pipeline with id ${pipeline.id} for project ${projectId}`);
       return deletePipeline(projectId, pipeline);
-    },
-    10,
-    2000,
-  );
-
-  try {
-    await Promise.all(oldPipelines.map(throttledDelete));
-  } catch (error: unknown) {
-    throttledDelete.abort();
-    throw error;
-  }
+    });
+  });
 }
 
 async function deletePipelines(props: AppProps, reportProgress: (text: string) => void) {
-  await pMap(
-    props.projectIds,
-    (projectId) => {
+  const { deleteQueue } = props;
+  try {
+    const projectDeletions = props.projectIds.map((projectId) => {
       return deletePipelinesForProject(projectId, props, reportProgress);
-    },
-    { concurrency: 1 },
-  );
+    });
+    const deleteTasks = await Promise.all(projectDeletions);
+    const { deleteQueue } = props;
+    deleteQueue.start();
+    await Promise.all(deleteTasks.flat());
+    return deleteQueue.onIdle();
+  } catch (error: unknown) {
+    deleteQueue.clear();
+    throw error;
+  }
 }
 
 export const App: FunctionComponent<AppProps> = (props) => {

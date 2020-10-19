@@ -25,6 +25,7 @@ function renderApp(overrides: Partial<AppProps> = {}) {
       listPipelines={props.listPipelines}
       deletePipeline={props.deletePipeline}
       filterPipelinesByDate={props.filterPipelinesByDate}
+      deleteQueue={props.deleteQueue}
       exit={props.exit}
       showStackTraces={props.showStackTraces}
     />,
