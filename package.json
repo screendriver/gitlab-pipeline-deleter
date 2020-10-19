@@ -35,7 +35,7 @@
     "test:unit": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'",
     "test:unit:coverage": "c8 npm run test:unit",
     "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha --timeout 30000 'test/integration/**/*.test.*'",
-    "test:unit:mutation": "FORCE_COLOR=1 stryker run"
+    "test:unit:mutation": "stryker run"
   },
   "dependencies": {
     "commander": "6.1.0",
@@ -58,10 +58,8 @@
     "@semantic-release/github": "7.1.1",
     "@semantic-release/npm": "7.0.6",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "@stryker-mutator/core": "3.3.1",
-    "@stryker-mutator/mocha-framework": "3.3.1",
-    "@stryker-mutator/mocha-runner": "3.3.1",
-    "@stryker-mutator/typescript": "3.3.1",
+    "@stryker-mutator/core": "4.0.0",
+    "@stryker-mutator/typescript-checker": "4.0.0",
     "@types/chai": "4.2.14",
     "@types/micro": "7.3.3",
     "@types/microrouter": "3.1.1",
