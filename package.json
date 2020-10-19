@@ -59,7 +59,6 @@
     "@semantic-release/npm": "7.0.6",
     "@semantic-release/release-notes-generator": "9.0.1",
     "@stryker-mutator/core": "4.0.0",
-    "@stryker-mutator/mocha-runner": "4.0.0",
     "@stryker-mutator/typescript-checker": "4.0.0",
     "@types/chai": "4.2.14",
     "@types/micro": "7.3.3",
