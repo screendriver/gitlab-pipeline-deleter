@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.2...v2.1.3) (2020-10-19)
+
+
+### Bug Fixes
+
+* create delete queue instead of throttling a mapped Array ([68256b3](https://github.com/screendriver/gitlab-pipeline-deleter/commit/68256b3b3634395ff772e1635ba1e9bfb26c03c1))
+
 ## [2.1.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.1...v2.1.2) (2020-10-17)
 
 
