@@ -35,7 +35,7 @@
     "test:unit": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json mocha 'test/unit/**/*.test.*'",
     "test:unit:coverage": "c8 npm run test:unit",
     "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha --timeout 30000 'test/integration/**/*.test.*'",
-    "test:unit:mutation": "FORCE_COLOR=1 stryker run"
+    "test:unit:mutation": "stryker run"
   },
   "dependencies": {
     "commander": "6.1.0",
