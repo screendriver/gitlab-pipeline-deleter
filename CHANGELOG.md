@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.3...v2.2.0) (2020-10-20)
+
+
+### Features
+
+* show how many pipelines in total were found ([e6c6e5e](https://github.com/screendriver/gitlab-pipeline-deleter/commit/e6c6e5e93adbd27f8527c816cd998a566907b251))
+
 ## [2.1.3](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.1.2...v2.1.3) (2020-10-19)
 
 
