@@ -40,6 +40,7 @@ async function deletePipelines(props: AppProps, reportProgress: (text: string) =
     });
     const deleteTasks = await Promise.all(projectDeletions);
     const { deleteQueue } = props;
+    reportProgress(`${deleteQueue.size} pipelines found`);
     deleteQueue.start();
     await Promise.all(deleteTasks.flat());
     return deleteQueue.onIdle();

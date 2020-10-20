@@ -57,7 +57,7 @@ suite('delete pipelines', function () {
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
-        'Deleting pipeline with id 32 for project 42\nDeleting pipeline with id 33 for project 42\nDeleting pipeline with id 34 for project 42\nDeleting pipeline with id 35 for project 42\n\u001b[32mPipelines deleted\u001b[39m';
+        '4 pipelines found\nDeleting pipeline with id 32 for project 42\nDeleting pipeline with id 33 for project 42\nDeleting pipeline with id 34 for project 42\nDeleting pipeline with id 35 for project 42\n\u001b[32mPipelines deleted\u001b[39m';
       assert.equal(actual, expected);
     }),
   );
@@ -69,7 +69,7 @@ suite('delete pipelines', function () {
       await waitUntilDeleted(frames);
       const actual = lastFrame();
       const expected =
-        "Deleting pipeline with id 36 for project 42\nDeleting pipeline with id 37 for project 42\nDeleting pipeline with id 38 for project 42\nDeleting pipeline with id 39 for project 42\nDeleting pipeline with id 40 for project 42\nDeleting pipeline with id 41 for project 42\n\u001b[31mThere was an error while deleting the pipelines: Response code 418 (I'm a Teapot)\u001b[39m";
+        "35 pipelines found\nDeleting pipeline with id 36 for project 42\nDeleting pipeline with id 37 for project 42\nDeleting pipeline with id 38 for project 42\nDeleting pipeline with id 39 for project 42\nDeleting pipeline with id 40 for project 42\nDeleting pipeline with id 41 for project 42\n\u001b[31mThere was an error while deleting the pipelines: Response code 418 (I'm a Teapot)\u001b[39m";
       assert.equal(actual, expected);
     }),
   );
