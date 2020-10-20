@@ -1,3 +1,10 @@
+## [2.2.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.1...v2.2.2) (2020-10-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ink to v3.0.8 ([b3cedd3](https://github.com/screendriver/gitlab-pipeline-deleter/commit/b3cedd3dbba8e8909bf6baea6d8f3852c238d23e))
+
 ## [2.2.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.0...v2.2.1) (2020-10-20)
 
 
