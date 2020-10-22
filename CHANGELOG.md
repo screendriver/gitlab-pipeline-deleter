@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.3...v2.2.4) (2020-10-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react to v17.0.1 ([a76a0ed](https://github.com/screendriver/gitlab-pipeline-deleter/commit/a76a0edffe08f8cab683d6245c259d658e15e799))
+
 ## [2.2.3](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.2...v2.2.3) (2020-10-20)
 
 
