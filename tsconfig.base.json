@@ -3,7 +3,7 @@
     "target": "ES2018",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "importHelpers": true,
     "sourceMap": true,
     "declaration": true,

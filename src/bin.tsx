@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import React from 'react';
 import { createCommand } from 'commander';
 import { render } from 'ink';
 import { cosmiconfig } from 'cosmiconfig';
