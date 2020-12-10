@@ -1,3 +1,10 @@
+## [2.2.8](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.7...v2.2.8) (2020-12-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency got to v11.8.1 ([a893be7](https://github.com/screendriver/gitlab-pipeline-deleter/commit/a893be71f3ba8ea3e7c355050d3776012b1afefb))
+
 ## [2.2.7](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.6...v2.2.7) (2020-11-29)
 
 
