@@ -38,7 +38,7 @@
     "test:unit:mutation": "stryker run"
   },
   "dependencies": {
-    "commander": "6.2.0",
+    "commander": "6.2.1",
     "cosmiconfig": "7.0.0",
     "date-fns": "2.16.1",
     "got": "11.8.1",
