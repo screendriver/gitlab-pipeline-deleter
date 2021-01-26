@@ -18,7 +18,6 @@ const program = createCommand('gitlab-pipeline-deleter');
 
 program
   .storeOptionsAsProperties(false)
-  .passCommandToAction(false)
   .description('Deletes old GitLab pipelines')
   .arguments('[gitlab-url]')
   .arguments('[project-id]')
