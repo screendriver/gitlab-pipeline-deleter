@@ -1,3 +1,10 @@
+## [2.2.14](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.13...v2.2.14) (2021-02-24)
+
+
+### Bug Fixes
+
+* remove not needed import of React ([f7b7be9](https://github.com/screendriver/gitlab-pipeline-deleter/commit/f7b7be985e4a639977059cc369680396403d6340))
+
 ## [2.2.13](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.12...v2.2.13) (2021-02-15)
 
 
