@@ -1,4 +1,3 @@
-import React from 'react';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import { render } from 'ink-testing-library';
