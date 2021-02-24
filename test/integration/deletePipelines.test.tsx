@@ -1,4 +1,3 @@
-import React from 'react';
 import { assert } from 'chai';
 import { render } from 'ink-testing-library';
 import { parseISO } from 'date-fns';
