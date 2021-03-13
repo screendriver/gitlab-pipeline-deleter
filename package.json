@@ -72,7 +72,7 @@
     "chai": "4.3.4",
     "cooky-cutter": "1.5.4",
     "delay": "5.0.0",
-    "eslint": "7.21.0",
+    "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-mocha": "8.1.0",
     "eslint-plugin-prettier": "3.3.1",
