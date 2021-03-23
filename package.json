@@ -48,7 +48,7 @@
     "react": "17.0.1",
     "tslib": "2.1.0",
     "urlcat": "2.0.4",
-    "zod": "1.11.12"
+    "zod": "1.11.13"
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
