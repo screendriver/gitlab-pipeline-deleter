@@ -40,7 +40,7 @@
   "dependencies": {
     "commander": "7.2.0",
     "cosmiconfig": "7.0.0",
-    "date-fns": "2.20.2",
+    "date-fns": "2.20.3",
     "got": "11.8.2",
     "ink": "3.0.8",
     "ink-spinner": "4.0.1",
