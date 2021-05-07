@@ -1,3 +1,10 @@
+## [2.2.32](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.31...v2.2.32) (2021-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ink-spinner to v4.0.2 ([5642b26](https://github.com/screendriver/gitlab-pipeline-deleter/commit/5642b2669330dc4a8162f7d15cf3d2b0d1264e8a))
+
 ## [2.2.31](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.30...v2.2.31) (2021-05-07)
 
 
