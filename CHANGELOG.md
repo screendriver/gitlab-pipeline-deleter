@@ -1,3 +1,10 @@
+## [2.2.31](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.30...v2.2.31) (2021-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tslib to v2.2.0 ([f2bc8e6](https://github.com/screendriver/gitlab-pipeline-deleter/commit/f2bc8e6b9d63928b3c1fd8394caa9098c27472d8))
+
 ## [2.2.30](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.29...v2.2.30) (2021-05-05)
 
 
