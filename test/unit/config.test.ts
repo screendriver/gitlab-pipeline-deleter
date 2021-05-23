@@ -38,7 +38,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./not-found.js', explorer);
     const expected = undefined;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('loadConfig() returns undefined when config is empty', async function () {
@@ -49,7 +49,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./empty-glpdrc.js', explorer);
     const expected = undefined;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('loadConfig() returns undefined when loaded config is null', async function () {
@@ -58,7 +58,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./empty-glpdrc.js', explorer);
     const expected = undefined;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('loadConfig() returns an empty object when config is an empty object', async function () {
@@ -71,7 +71,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./empty-glpdrc.js', explorer);
     const expected = config;
-    assert.equal(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('loadConfig() returns undefined when config has unknown keys', async function () {
@@ -85,7 +85,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./invalid-glpdrc.js', explorer);
     const expected = undefined;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('loadConfig() returns undefined when gitlabUrl is not an URL', async function () {
@@ -100,7 +100,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./invalid-url-glpdrc.js', explorer);
     const expected = undefined;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('loadConfig() returns a partial config when not all keys are set', async function () {
@@ -118,7 +118,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./partial-glpdrc.js', explorer);
     const expected = config;
-    assert.deepEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('loadConfig() returns a full config when all keys are set', async function () {
@@ -131,7 +131,7 @@ suite('config', function () {
     });
     const actual = await loadConfig('./glpdrc.js', explorer);
     const expected = config;
-    assert.deepEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when gitlabUrl was not set', function () {
@@ -139,7 +139,7 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ gitlabUrl: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when projectId was not set', function () {
@@ -147,7 +147,7 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when projectId is an empty string', function () {
@@ -155,7 +155,7 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when projectId is a negative number', function () {
@@ -163,7 +163,7 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when projectId is a non-numeric value', function () {
@@ -171,7 +171,7 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when accessToken was not set', function () {
@@ -179,13 +179,13 @@ suite('config', function () {
     const cliArguments = partialConfigInputFactory({ accessToken: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('mergeCliArgumentsWithConfig() returns no success when no config file and no CLI arguments are present', function () {
     const actual = mergeCliArgumentsWithConfig().success;
     const expected = false;
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   [
@@ -246,7 +246,7 @@ suite('config', function () {
 
       if (mergedConfig.success) {
         const actual = mergedConfig.data;
-        assert.deepEqual(actual, testCase.expectedConfig);
+        assert.deepStrictEqual(actual, testCase.expectedConfig);
       } else {
         assert.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
       }

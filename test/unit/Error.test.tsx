@@ -16,7 +16,7 @@ suite('<Error />', function () {
     const { lastFrame } = renderError('Test error');
     const actual = lastFrame();
     const expected = '\u001b[31mTest error\u001b[39m';
-    assert.equal(actual, expected);
+    assert.strictEqual(actual, expected);
   });
 
   test('calls given exit() callback after it was rendered', function () {

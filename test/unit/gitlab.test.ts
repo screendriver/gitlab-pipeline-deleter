@@ -61,7 +61,7 @@ suite('gitlab', function () {
     const olderThanDays = 30;
     const actual = filterPipelinesByDate({ pipelines: [], startDate, olderThanDays });
     const expected: Pipeline[] = [];
-    assert.deepEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('filterPipelinesByDate() returns only pipelines that are older than 30 days', function () {
@@ -82,7 +82,7 @@ suite('gitlab', function () {
       '2020-08-28T17:12:52+02:00',
       '2020-08-27T17:12:52+02:00',
     ];
-    assert.deepEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('filterPipelinesByDate() returns an empty Array when all pipelines are younger than 30 days', function () {
@@ -95,7 +95,7 @@ suite('gitlab', function () {
     });
     const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays });
     const expected: Pipeline[] = [];
-    assert.deepEqual(actual, expected);
+    assert.deepStrictEqual(actual, expected);
   });
 
   test('deletePipeline() creates the correct API URL', async function () {
