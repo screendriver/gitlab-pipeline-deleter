@@ -1,5 +1,5 @@
 import type { cosmiconfig } from 'cosmiconfig';
-import * as z from 'zod';
+import { z } from 'zod';
 
 const baseConfigSchema = z.object({
   gitlabUrl: z.string().url(),
