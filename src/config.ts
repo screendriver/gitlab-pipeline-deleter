@@ -14,7 +14,7 @@ const configSchema = baseConfigSchema.extend({
 
 const configInputSchema = baseConfigSchema.extend({ projectId: z.string() });
 
-const partialConfigInputSchema = configInputSchema.partial();
+const partialConfigInputSchema = configInputSchema.strict().partial();
 
 export type Config = z.infer<typeof configSchema>;
 export type PartialConfigInput = z.infer<typeof partialConfigInputSchema>;
