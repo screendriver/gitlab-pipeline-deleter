@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js v14
+      - name: Use Node.js v16
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
       - run: npm ci
       - name: Setup timezone
         uses: zcong1993/setup-timezone@master
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12, 14]
+        node-version: [12, 14, 16]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js v${{ matrix.node-version }}
@@ -71,16 +71,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Install dependencies
         run: npm ci
       - name: Download compiled source code artifact
         uses: actions/download-artifact@v2
         with:
-          name: compiled-source-node-14
+          name: compiled-source-node-16
           path: target/src/
       - name: Semantic release
         run: npx semantic-release
