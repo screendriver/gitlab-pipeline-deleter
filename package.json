@@ -60,7 +60,7 @@
     "@stryker-mutator/core": "5.2.1",
     "@stryker-mutator/typescript-checker": "5.2.1",
     "@types/chai": "4.2.21",
-    "@types/micro": "7.3.5",
+    "@types/micro": "7.3.6",
     "@types/microrouter": "3.1.1",
     "@types/mocha": "8.2.3",
     "@types/react": "17.0.14",
