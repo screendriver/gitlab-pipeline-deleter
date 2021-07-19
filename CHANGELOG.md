@@ -1,3 +1,10 @@
+## [2.2.45](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.44...v2.2.45) (2021-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ink to v3.0.9 ([39fd17a](https://github.com/screendriver/gitlab-pipeline-deleter/commit/39fd17a242189f4a7b6dbbbdc91c939bdab9901a))
+
 ## [2.2.44](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.43...v2.2.44) (2021-07-07)
 
 
