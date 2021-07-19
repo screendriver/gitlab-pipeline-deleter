@@ -42,7 +42,7 @@
     "cosmiconfig": "7.0.0",
     "date-fns": "2.22.1",
     "got": "11.8.2",
-    "ink": "3.0.8",
+    "ink": "3.0.9",
     "ink-spinner": "4.0.2",
     "p-queue": "6.6.2",
     "react": "17.0.2",
