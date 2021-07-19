@@ -28,7 +28,7 @@ jobs:
         env:
           FORCE_COLOR: 1
       - name: Upload code coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
         with:
           file: target/coverage/coverage-final.json
   build:
