@@ -78,7 +78,7 @@
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-plugin-testing-library": "4.9.1",
+    "eslint-plugin-testing-library": "4.10.0",
     "ink-testing-library": "2.1.0",
     "jscpd": "3.3.26",
     "micro": "9.3.4",
