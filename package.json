@@ -62,7 +62,7 @@
     "@types/chai": "4.2.21",
     "@types/micro": "7.3.6",
     "@types/microrouter": "3.1.1",
-    "@types/mocha": "8.2.3",
+    "@types/mocha": "9.0.0",
     "@types/react": "17.0.14",
     "@types/sinon": "10.0.2",
     "@types/test-listen": "1.1.0",
