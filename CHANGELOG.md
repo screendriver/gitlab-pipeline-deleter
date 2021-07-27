@@ -1,3 +1,10 @@
+## [2.2.47](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.46...v2.2.47) (2021-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency commander to v8.1.0 ([8fcadf7](https://github.com/screendriver/gitlab-pipeline-deleter/commit/8fcadf7649472c3eee8393f015a7485036a8e074))
+
 ## [2.2.46](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.45...v2.2.46) (2021-07-23)
 
 
