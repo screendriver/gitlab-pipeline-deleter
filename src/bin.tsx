@@ -40,13 +40,15 @@ program
       };
       const configPath = path.resolve(process.cwd(), 'glpd.config.js');
       const explorer = cosmiconfig('gitlab-pipeline-deleter');
-      const config = await loadConfig(configPath, explorer);
-      const glpdArguments = mergeCliArgumentsWithConfig(cliArguments, config);
-      if (!glpdArguments.success) {
+      const loadedConfig = await loadConfig(configPath, explorer);
+      const glpdArguments = loadedConfig.map((config) => {
+        return mergeCliArgumentsWithConfig(cliArguments, config);
+      });
+      if (glpdArguments.isErr() || !glpdArguments.value.success) {
         render(<Error exit={exit}>Missing or invalid arguments</Error>);
         return;
       }
-      const { gitlabUrl, projectIds, accessToken, days, trace } = glpdArguments.data;
+      const { gitlabUrl, projectIds, accessToken, days, trace } = glpdArguments.value.data;
       const startDate = new Date();
       const listPipelinesFunction = listPipelines({
         getRequest,
