@@ -46,6 +46,7 @@
     "ink-spinner": "4.0.2",
     "p-queue": "6.6.2",
     "react": "17.0.2",
+    "true-myth": "4.1.1",
     "tslib": "2.3.0",
     "urlcat": "2.0.4",
     "zod": "3.6.1"
