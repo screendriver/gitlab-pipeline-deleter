@@ -46,7 +46,7 @@ suite('loadConfig()', function () {
     assert.strictEqual(actual, expected);
   });
 
-  test('returns an Result Err when loading does not return an error object', async function () {
+  test('returns a Result Err when loading does not return an error object', async function () {
     const explorer = createExplorer({
       load: sinon.fake(() => {
         throw 42;
@@ -61,7 +61,7 @@ suite('loadConfig()', function () {
     assert.strictEqual(actual, expected);
   });
 
-  test('returns an Result Err when config is empty', async function () {
+  test('returns a Result Err when config is empty', async function () {
     const explorer = createExplorer({
       load: sinon.fake.resolves({
         isEmpty: true,
@@ -76,7 +76,7 @@ suite('loadConfig()', function () {
     assert.strictEqual(actual, expected);
   });
 
-  test('returns an Result Err when loaded config is null', async function () {
+  test('returns a Result Err when loaded config is null', async function () {
     const explorer = createExplorer({
       load: sinon.fake.resolves(null),
     });
@@ -99,7 +99,7 @@ suite('loadConfig()', function () {
     assert.strictEqual(actual, expected);
   });
 
-  test('returns an empty object when config is an empty object', async function () {
+  test('returns a empty object when config is an empty object', async function () {
     const config = {};
     const explorer = createExplorer({
       load: sinon.fake.resolves({
@@ -116,7 +116,7 @@ suite('loadConfig()', function () {
     assert.deepStrictEqual(actual, expected);
   });
 
-  test('returns en Result Err when config has unknown keys', async function () {
+  test('returns a Result Err when config has unknown keys', async function () {
     const explorer = createExplorer({
       load: sinon.fake.resolves({
         isEmpty: false,
@@ -145,7 +145,7 @@ suite('loadConfig()', function () {
     assert.strictEqual(actual, expected);
   });
 
-  test('returns an Result Err when gitlabUrl is not an URL', async function () {
+  test('returns a Result Err when gitlabUrl is not an URL', async function () {
     const config = partialConfigInputFactory({
       gitlabUrl: 'not-an-url',
     });
