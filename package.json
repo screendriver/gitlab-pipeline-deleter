@@ -65,7 +65,7 @@
     "@types/micro": "7.3.6",
     "@types/microrouter": "3.1.1",
     "@types/mocha": "9.0.0",
-    "@types/react": "17.0.19",
+    "@types/react": "17.0.20",
     "@types/sinon": "10.0.2",
     "@types/test-listen": "1.1.0",
     "@typescript-eslint/eslint-plugin": "4.30.0",
