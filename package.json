@@ -1,6 +1,6 @@
 {
   "name": "gitlab-pipeline-deleter",
-  "version": "2.2.63",
+  "version": "2.2.64",
   "description": "A CLI tool that deletes old GitLab pipelines",
   "main": "target/src/index.js",
   "bin": {
