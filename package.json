@@ -43,7 +43,7 @@
     "date-fns": "2.25.0",
     "got": "11.8.2",
     "ink": "3.0.9",
-    "ink-spinner": "4.0.2",
+    "ink-spinner": "4.0.3",
     "p-queue": "6.6.2",
     "react": "17.0.2",
     "true-myth": "4.1.1",
