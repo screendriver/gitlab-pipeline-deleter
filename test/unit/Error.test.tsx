@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { assert } from 'chai';
+import assert from 'assert';
 import { render } from 'ink-testing-library';
 import { Error, ErrorProps } from '../../src/Error';
 

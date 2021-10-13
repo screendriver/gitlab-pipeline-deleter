@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import assert from 'assert';
 import { render } from 'ink-testing-library';
 import { parseISO } from 'date-fns';
 import delay from 'delay';

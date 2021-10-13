@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import assert from 'assert';
 import sinon from 'sinon';
 import { define, random, array } from 'cooky-cutter';
 import { parseISO, subDays, formatISO } from 'date-fns';

@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import assert from 'assert';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
 import { stripIndent } from 'common-tags';
