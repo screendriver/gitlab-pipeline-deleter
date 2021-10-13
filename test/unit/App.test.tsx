@@ -1,6 +1,6 @@
 import { render } from 'ink-testing-library';
 import sinon from 'sinon';
-import { assert } from 'chai';
+import assert from 'assert';
 import delay from 'delay';
 import { define, sequence, array } from 'cooky-cutter';
 import { App, AppProps } from '../../src/App';
