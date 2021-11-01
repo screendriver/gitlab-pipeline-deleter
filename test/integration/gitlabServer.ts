@@ -2,14 +2,24 @@ import micro, { RequestHandler, send } from 'micro';
 import { router, get, del } from 'microrouter';
 import listen from 'test-listen';
 import Mocha from 'mocha';
-import { define, sequence, array } from 'cooky-cutter';
+import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
 import { Pipeline } from '../../src/network';
 
-const pipeline = define<Pipeline>({
-  id: sequence,
-  updated_at: '2020-10-05T20:27:16.768Z',
+interface PipelineTransientParams {
+  readonly startDate: Date;
+}
+
+const pipelineFactory = Factory.define<Pipeline, PipelineTransientParams>(({ sequence, transientParams }) => {
+  let updated_at = '2020-10-05T20:27:16.768Z';
+  if (transientParams.startDate !== undefined) {
+    updated_at = formatISO(subDays(transientParams.startDate, sequence));
+  }
+  return {
+    id: sequence,
+    updated_at,
+  };
 });
 
 function isHeaderValid(headers: IncomingHttpHeaders) {
@@ -30,14 +40,8 @@ function createRoutes(config: Config): RequestHandler[] {
         return;
       }
       const startDate = parseISO('2020-10-01T15:12:52.710Z');
-      const pipelinesFactory = array(pipeline, 35);
-      await send(
-        response,
-        200,
-        pipelinesFactory({
-          updated_at: (index: number) => formatISO(subDays(startDate, index)),
-        }),
-      );
+      const pipelines = pipelineFactory.buildList(35, {}, { transient: { startDate } });
+      await send(response, 200, pipelines);
     }),
     del('/api/v4/projects/:id/pipelines/:pipeline_id', async (request, response) => {
       if (!isHeaderValid(request.headers)) {
