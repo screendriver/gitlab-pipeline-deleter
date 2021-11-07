@@ -2,23 +2,27 @@ import assert from 'assert';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
 import { stripIndent } from 'common-tags';
-import { define } from 'cooky-cutter';
+import { Factory } from 'fishery';
 import { PartialConfigInput, Config, loadConfig, mergeCliArgumentsWithConfig } from '../../src/config';
 
-const partialConfigInputFactory = define<PartialConfigInput>({
-  gitlabUrl: 'https://example.com',
-  projectId: '42',
-  accessToken: 'yBo4v',
-  days: 30,
-  trace: false,
+const partialConfigInputFactory = Factory.define<PartialConfigInput>(() => {
+  return {
+    gitlabUrl: 'https://example.com',
+    projectId: '42',
+    accessToken: 'yBo4v',
+    days: 30,
+    trace: false,
+  };
 });
 
-const configFactory = define<Config>({
-  gitlabUrl: 'https://example.com',
-  projectIds: () => [21],
-  accessToken: 'yBo4v',
-  days: 30,
-  trace: false,
+const configFactory = Factory.define<Config>(() => {
+  return {
+    gitlabUrl: 'https://example.com',
+    projectIds: [21],
+    accessToken: 'yBo4v',
+    days: 30,
+    trace: false,
+  };
 });
 
 function createExplorer(overrides: Partial<ReturnType<typeof cosmiconfig>> = {}): ReturnType<typeof cosmiconfig> {
@@ -146,7 +150,7 @@ suite('loadConfig()', function () {
   });
 
   test('returns a Result Err when gitlabUrl is not an URL', async function () {
-    const config = partialConfigInputFactory({
+    const config = partialConfigInputFactory.build({
       gitlabUrl: 'not-an-url',
     });
     const explorer = createExplorer({
@@ -176,7 +180,7 @@ suite('loadConfig()', function () {
   });
 
   test('returns a partial config when not all keys are set', async function () {
-    const config = partialConfigInputFactory({
+    const config = partialConfigInputFactory.build({
       gitlabUrl: 'https://example.com',
       projectId: undefined,
       accessToken: undefined,
@@ -198,7 +202,7 @@ suite('loadConfig()', function () {
   });
 
   test('returns a full config when all keys are set', async function () {
-    const config = partialConfigInputFactory();
+    const config = partialConfigInputFactory.build();
     const explorer = createExplorer({
       load: sinon.fake.resolves({
         isEmpty: false,
@@ -217,48 +221,48 @@ suite('loadConfig()', function () {
 
 suite('mergeCliArgumentsWithConfig()', function () {
   test('returns no success when gitlabUrl was not set', function () {
-    const config = partialConfigInputFactory({ gitlabUrl: undefined });
-    const cliArguments = partialConfigInputFactory({ gitlabUrl: undefined });
+    const config = partialConfigInputFactory.build({ gitlabUrl: undefined });
+    const cliArguments = partialConfigInputFactory.build({ gitlabUrl: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
   });
 
   test('returns no success when projectId was not set', function () {
-    const config = partialConfigInputFactory({ projectId: undefined });
-    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const config = partialConfigInputFactory.build({ projectId: undefined });
+    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
   });
 
   test('returns no success when projectId is an empty string', function () {
-    const config = partialConfigInputFactory({ projectId: '' });
-    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const config = partialConfigInputFactory.build({ projectId: '' });
+    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
   });
 
   test('returns no success when projectId is a negative number', function () {
-    const config = partialConfigInputFactory({ projectId: '-42' });
-    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const config = partialConfigInputFactory.build({ projectId: '-42' });
+    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
   });
 
   test('returns no success when projectId is a non-numeric value', function () {
-    const config = partialConfigInputFactory({ projectId: 'foo,bar' });
-    const cliArguments = partialConfigInputFactory({ projectId: undefined });
+    const config = partialConfigInputFactory.build({ projectId: 'foo,bar' });
+    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
   });
 
   test('returns no success when accessToken was not set', function () {
-    const config = partialConfigInputFactory({ accessToken: undefined });
-    const cliArguments = partialConfigInputFactory({ accessToken: undefined });
+    const config = partialConfigInputFactory.build({ accessToken: undefined });
+    const cliArguments = partialConfigInputFactory.build({ accessToken: undefined });
     const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
     const expected = false;
     assert.strictEqual(actual, expected);
@@ -273,41 +277,41 @@ suite('mergeCliArgumentsWithConfig()', function () {
   [
     {
       title: 'returns CLI arguments when no config file is present',
-      cliArguments: partialConfigInputFactory({ projectId: '1' }),
-      expectedConfig: configFactory({
+      cliArguments: partialConfigInputFactory.build({ projectId: '1' }),
+      expectedConfig: configFactory.build({
         projectIds: [1],
       }),
     },
     {
       title: 'recognizes multiple project ids when a comma separated string is given',
-      cliArguments: partialConfigInputFactory({ projectId: '1,2,3' }),
-      expectedConfig: configFactory({
+      cliArguments: partialConfigInputFactory.build({ projectId: '1,2,3' }),
+      expectedConfig: configFactory.build({
         projectIds: [1, 2, 3],
       }),
     },
     {
       title: 'recognizes multiple project ids when a comma separated string is given with whitespace between',
-      cliArguments: partialConfigInputFactory({ projectId: '1, 2 ,\t3\n' }),
-      expectedConfig: configFactory({
+      cliArguments: partialConfigInputFactory.build({ projectId: '1, 2 ,\t3\n' }),
+      expectedConfig: configFactory.build({
         projectIds: [1, 2, 3],
       }),
     },
     {
       title: 'returns config file values when no CLI arguments are present',
-      config: partialConfigInputFactory({ projectId: '1' }),
-      expectedConfig: configFactory({
+      config: partialConfigInputFactory.build({ projectId: '1' }),
+      expectedConfig: configFactory.build({
         projectIds: [1],
       }),
     },
     {
       title: 'prefers CLI aguments over configuration values',
-      cliArguments: partialConfigInputFactory({
+      cliArguments: partialConfigInputFactory.build({
         gitlabUrl: 'https://example.com',
         projectId: '1',
         accessToken: '0',
         trace: true,
       }),
-      config: partialConfigInputFactory({
+      config: partialConfigInputFactory.build({
         gitlabUrl: 'https://gitlab.com',
         projectId: '42',
         accessToken: 'yBo4v',

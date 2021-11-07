@@ -1,13 +1,23 @@
 import assert from 'assert';
 import sinon from 'sinon';
-import { define, random, array } from 'cooky-cutter';
+import { Factory } from 'fishery';
 import { parseISO, subDays, formatISO } from 'date-fns';
 import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab';
 import { DeleteRequest, GetRequest, Pipeline } from '../../src/network';
 
-const pipeline = define<Pipeline>({
-  id: random,
-  updated_at: '2020-10-01T15:12:52.710Z',
+interface PipelineTransientParams {
+  readonly startDate: Date;
+}
+
+const pipelineFactory = Factory.define<Pipeline, PipelineTransientParams>(({ sequence, transientParams }) => {
+  let updated_at = '2020-10-01T15:12:52.710Z';
+  if (transientParams.startDate !== undefined) {
+    updated_at = formatISO(subDays(transientParams.startDate, sequence));
+  }
+  return {
+    id: sequence,
+    updated_at,
+  };
 });
 
 function callListPipelines(getRequest: GetRequest, gitlabUrl = 'https://gitlab.my-domain.io') {
@@ -67,11 +77,8 @@ suite('gitlab', function () {
   test('filterPipelinesByDate() returns only pipelines that are older than 30 days', function () {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
-    pipeline.resetSequence();
-    const pipelinesFactory = array(pipeline, 35);
-    const pipelines = pipelinesFactory({
-      updated_at: (index: number) => formatISO(subDays(startDate, index)),
-    });
+    pipelineFactory.rewindSequence();
+    const pipelines = pipelineFactory.buildList(35, {}, { transient: { startDate } });
     const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays }).map(
       (pipeline) => pipeline.updated_at,
     );
@@ -88,11 +95,8 @@ suite('gitlab', function () {
   test('filterPipelinesByDate() returns an empty Array when all pipelines are younger than 30 days', function () {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
-    pipeline.resetSequence();
-    const pipelinesFactory = array(pipeline, 15);
-    const pipelines = pipelinesFactory({
-      updated_at: (index: number) => formatISO(subDays(startDate, index)),
-    });
+    pipelineFactory.rewindSequence();
+    const pipelines = pipelineFactory.buildList(15, {}, { transient: { startDate } });
     const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays });
     const expected: Pipeline[] = [];
     assert.deepStrictEqual(actual, expected);

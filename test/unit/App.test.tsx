@@ -2,14 +2,16 @@ import { render } from 'ink-testing-library';
 import sinon from 'sinon';
 import assert from 'assert';
 import delay from 'delay';
-import { define, sequence, array } from 'cooky-cutter';
+import { Factory } from 'fishery';
 import { App, AppProps } from '../../src/App';
 import { Pipeline } from '../../src/network';
 import { createAppProps } from './factory';
 
-const pipeline = define<Pipeline>({
-  id: sequence,
-  updated_at: '',
+const pipelineFactory = Factory.define<Pipeline>(({ sequence }) => {
+  return {
+    id: sequence,
+    updated_at: '',
+  };
 });
 
 function renderApp(overrides: Partial<AppProps> = {}) {
@@ -56,8 +58,7 @@ suite('<App />', function () {
   });
 
   test('shows the delete progress while it deletes the pipelines', async function () {
-    const pipelinesFactory = array(pipeline, 5);
-    const pipelines = pipelinesFactory();
+    const pipelines = pipelineFactory.buildList(5);
     const { lastFrame } = renderApp({
       filterPipelinesByDate: sinon.fake.returns(pipelines),
     });
@@ -73,11 +74,11 @@ suite('<App />', function () {
       filterPipelinesByDate: sinon
         .stub()
         .onFirstCall()
-        .returns([pipeline()])
+        .returns(pipelineFactory.buildList(1))
         .onSecondCall()
         .returns([])
         .onThirdCall()
-        .returns([pipeline(), pipeline()]),
+        .returns(pipelineFactory.buildList(2)),
       projectIds: [1, 2, 3],
     });
     await delay(1000);
@@ -98,8 +99,7 @@ suite('<App />', function () {
   });
 
   test('renders an error message when a delete request fails', async function () {
-    const pipelinesFactory = array(pipeline, 1);
-    const pipelines = pipelinesFactory();
+    const pipelines = pipelineFactory.buildList(1);
     const { lastFrame } = renderApp({
       filterPipelinesByDate: sinon.fake.returns(pipelines),
       deletePipeline: sinon.fake.rejects(new Error('Failed to delete')),
