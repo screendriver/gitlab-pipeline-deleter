@@ -1,7 +1,9 @@
+import test from 'ava';
 import sinon from 'sinon';
-import assert from 'assert';
-import { render } from 'ink-testing-library';
+import { render, cleanup } from 'ink-testing-library';
 import { Error, ErrorProps } from '../../src/Error';
+
+test.afterEach(cleanup);
 
 function renderError(text: string, overrides: Partial<ErrorProps> = {}) {
   const props: ErrorProps = {
@@ -11,18 +13,17 @@ function renderError(text: string, overrides: Partial<ErrorProps> = {}) {
   return render(<Error exit={props.exit}>{text}</Error>);
 }
 
-suite('<Error />', function () {
-  test('renders a red error message', function () {
-    const { lastFrame } = renderError('Test error');
-    const actual = lastFrame();
-    const expected = '\u001b[31mTest error\u001b[39m';
-    assert.strictEqual(actual, expected);
-  });
+test.serial('renders a red error message', (t) => {
+  const { lastFrame } = renderError('Test error');
+  const actual = lastFrame();
+  const expected = '\u001b[31mTest error\u001b[39m';
+  t.is(actual, expected);
+});
 
-  test('calls given exit() callback after it was rendered', function () {
-    const exit = sinon.fake();
-    const { unmount } = renderError('Test error', { exit });
-    unmount();
-    sinon.assert.calledOnce(exit);
-  });
+test.serial('calls given exit() callback after it was rendered', (t) => {
+  const exit = sinon.fake();
+  const { unmount } = renderError('Test error', { exit });
+  unmount();
+  sinon.assert.calledOnce(exit);
+  t.pass();
 });

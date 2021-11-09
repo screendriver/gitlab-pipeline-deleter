@@ -32,9 +32,9 @@
     "compile": "tsc --build",
     "lint": "eslint src test --ext '.ts,.tsx'",
     "copy:paste:detection": "jscpd src test",
-    "test:unit": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json ava 'test/unit/**/*.test.*'",
+    "test:unit": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json ava",
     "test:unit:coverage": "c8 npm run test:unit",
-    "test:integration": "TS_NODE_PROJECT=tsconfig.base.json mocha --timeout 30000 'test/integration/**/*.test.*'",
+    "test:integration": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.js",
     "test:unit:mutation": "stryker run"
   },
   "dependencies": {
@@ -74,7 +74,7 @@
     "delay": "5.0.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-mocha": "9.0.0",
+    "eslint-plugin-ava": "13.1.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.26.1",
     "eslint-plugin-react-hooks": "4.2.0",

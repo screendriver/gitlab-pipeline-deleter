@@ -1,11 +1,11 @@
 import micro, { RequestHandler, send } from 'micro';
 import { router, get, del } from 'microrouter';
 import listen from 'test-listen';
-import Mocha from 'mocha';
 import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
 import { Pipeline } from '../../src/network';
+import { ExecutionContext, Implementation } from 'ava';
 
 interface PipelineTransientParams {
   readonly startDate: Date;
@@ -59,13 +59,16 @@ function createRoutes(config: Config): RequestHandler[] {
   ];
 }
 
-export function withGitLabServer(config: Config, test: (url: string) => void | Promise<void>): Mocha.Func {
-  return async () => {
+export function withGitLabServer(
+  config: Config,
+  test: (t: ExecutionContext, url: string) => void | Promise<void>,
+): Implementation {
+  return async (t) => {
     const routes = createRoutes(config);
     const server = micro(router(...routes));
     try {
       const url = await listen(server);
-      await test(url);
+      await test(t, url);
     } finally {
       server.close();
     }
