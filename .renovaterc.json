@@ -1,26 +1,26 @@
 {
-  "extends": ["config:base", "group:monorepos"],
-  "labels": ["renovate"],
-  "rebaseStalePrs": false,
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true
-  },
-  "nvm": {
-    "enabled": false
-  },
-  "packageRules": [
-    {
-      "depTypeList": ["dependencies", "devDependencies"],
-      "updateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch"
+    "extends": ["config:base", "group:monorepos"],
+    "labels": ["renovate"],
+    "rebaseStalePrs": false,
+    "lockFileMaintenance": {
+        "enabled": true,
+        "automerge": true
     },
-    {
-      "packagePatterns": ["eslint"],
-      "groupName": "eslint packages",
-      "automerge": true,
-      "automergeType": "branch"
-    }
-  ]
+    "nvm": {
+        "enabled": false
+    },
+    "packageRules": [
+        {
+            "depTypeList": ["dependencies", "devDependencies"],
+            "updateTypes": ["minor", "patch"],
+            "automerge": true,
+            "automergeType": "branch"
+        },
+        {
+            "packagePatterns": ["eslint"],
+            "groupName": "eslint packages",
+            "automerge": true,
+            "automergeType": "branch"
+        }
+    ]
 }

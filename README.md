@@ -29,11 +29,11 @@ You can use either the command line arguments `gitlab-url`, `project-id` and `ac
 
 ```js
 module.exports = {
-  gitlabUrl: 'https://example.com',
-  projectId: '42',
-  accessToken: '<my-token>',
-  days: 30,
-  trace: false,
+    gitlabUrl: 'https://example.com',
+    projectId: '42',
+    accessToken: '<my-token>',
+    days: 30,
+    trace: false,
 };
 ```
 

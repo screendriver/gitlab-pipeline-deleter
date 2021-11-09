@@ -1,46 +1,46 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2019,
-    "project": "./tsconfig.eslint.json"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "extends": [
-    "eslint:recommended",
-    "prettier",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "plugin:testing-library/react",
-    "plugin:react-hooks/recommended"
-  ],
-  "plugins": ["@typescript-eslint", "ava", "react", "testing-library"],
-  "env": {
-    "node": true
-  },
-  "rules": {
-    "require-atomic-updates": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-implicit-any-catch": "error",
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off"
-  },
-  "overrides": [
-    {
-      "files": ["test/**/*.test.ts", "test/**/*.test.tsx"],
-      "extends": ["plugin:ava/recommended"],
-      "rules": {
-        "ava/no-ignored-test-files": ["error", { "files": ["test/**/*.test.ts", "test/**/*.test.tsx"] }]
-      }
-    }
-  ]
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2019,
+        "project": "./tsconfig.eslint.json"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "extends": [
+        "eslint:recommended",
+        "prettier",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended",
+        "plugin:react/recommended",
+        "plugin:testing-library/react",
+        "plugin:react-hooks/recommended"
+    ],
+    "plugins": ["@typescript-eslint", "ava", "react", "testing-library"],
+    "env": {
+        "node": true
+    },
+    "rules": {
+        "require-atomic-updates": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/no-implicit-any-catch": "error",
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/prop-types": "off"
+    },
+    "overrides": [
+        {
+            "files": ["test/**/*.test.ts", "test/**/*.test.tsx"],
+            "extends": ["plugin:ava/recommended"],
+            "rules": {
+                "ava/no-ignored-test-files": ["error", { "files": ["test/**/*.test.ts", "test/**/*.test.tsx"] }]
+            }
+        }
+    ]
 }
