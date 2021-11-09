@@ -21,7 +21,7 @@
     "plugin:testing-library/react",
     "plugin:react-hooks/recommended"
   ],
-  "plugins": ["@typescript-eslint", "mocha", "react", "testing-library"],
+  "plugins": ["@typescript-eslint", "ava", "react", "testing-library"],
   "env": {
     "node": true
   },
@@ -37,14 +37,9 @@
   "overrides": [
     {
       "files": ["test/**/*.test.ts", "test/**/*.test.tsx"],
-      "extends": ["plugin:mocha/recommended"],
-      "env": {
-        "mocha": true
-      },
+      "extends": ["plugin:ava/recommended"],
       "rules": {
-        "mocha/no-exclusive-tests": "error",
-        "mocha/no-setup-in-describe": "off",
-        "mocha/max-top-level-suites": "off"
+        "ava/no-ignored-test-files": ["error", { "files": ["test/**/*.test.ts", "test/**/*.test.tsx"] }]
       }
     }
   ]
