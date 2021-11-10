@@ -32,9 +32,9 @@
         "compile": "tsc --build",
         "lint": "eslint src test --ext '.ts,.tsx'",
         "copy:paste:detection": "jscpd src test",
-        "test:unit": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json ava",
-        "test:unit:coverage": "c8 npm run test:unit",
-        "test:integration": "FORCE_COLOR=1 TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.js",
+        "test:unit": "ava",
+        "test:unit:coverage": "c8 ava",
+        "test:integration": "ava --config ava.config.integration.cjs",
         "test:unit:mutation": "stryker run"
     },
     "dependencies": {
@@ -68,7 +68,7 @@
         "@types/test-listen": "1.1.0",
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
-        "ava": "3.15.0",
+        "ava": "4.0.0-rc.1",
         "c8": "7.10.0",
         "common-tags": "1.8.0",
         "delay": "5.0.0",
