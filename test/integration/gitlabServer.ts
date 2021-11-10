@@ -62,7 +62,7 @@ function createRoutes(config: Config): RequestHandler[] {
 export function withGitLabServer(
     config: Config,
     test: (t: ExecutionContext, url: string) => void | Promise<void>,
-): Implementation {
+): Implementation<[]> {
     return async (t) => {
         const routes = createRoutes(config);
         const server = micro(router(...routes));

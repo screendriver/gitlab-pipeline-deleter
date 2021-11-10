@@ -1,4 +1,4 @@
-import test, { Macro } from 'ava';
+import test from 'ava';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
 import { stripIndent } from 'common-tags';
@@ -295,11 +295,9 @@ test('mergeCliArgumentsWithConfig() returns no success when no config file and n
     t.is(actual, expected);
 });
 
-const mergeCliArgumentsMacro: Macro<[{ cliArguments?: PartialConfigInput; config?: PartialConfigInput }, Config]> = (
-    t,
-    input,
-    expected,
-) => {
+const mergeCliArgumentsMacro = test.macro<
+    [input: { cliArguments?: PartialConfigInput; config?: PartialConfigInput }, expected: Config]
+>((t, input, expected) => {
     const mergedConfig = mergeCliArgumentsWithConfig(input.cliArguments, input.config);
 
     if (mergedConfig.success) {
@@ -308,7 +306,7 @@ const mergeCliArgumentsMacro: Macro<[{ cliArguments?: PartialConfigInput; config
     } else {
         t.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
     }
-};
+});
 
 test(
     'returns CLI arguments when no config file is present',
