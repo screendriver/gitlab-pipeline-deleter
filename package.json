@@ -70,7 +70,7 @@
         "@typescript-eslint/parser": "4.33.0",
         "ava": "4.0.0-rc.1",
         "c8": "7.10.0",
-        "common-tags": "1.8.0",
+        "common-tags": "1.8.2",
         "delay": "5.0.0",
         "eslint": "7.32.0",
         "eslint-config-prettier": "8.3.0",
