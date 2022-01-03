@@ -68,7 +68,7 @@
         "@types/test-listen": "1.1.0",
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
-        "ava": "4.0.0-rc.1",
+        "ava": "4.0.0",
         "c8": "7.11.0",
         "common-tags": "1.8.2",
         "delay": "5.0.0",
