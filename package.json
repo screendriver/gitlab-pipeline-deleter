@@ -73,7 +73,7 @@
         "common-tags": "1.8.2",
         "delay": "5.0.0",
         "eslint": "7.32.0",
-        "eslint-config-prettier": "8.3.0",
+        "eslint-config-prettier": "8.4.0",
         "eslint-plugin-ava": "13.2.0",
         "eslint-plugin-prettier": "4.0.0",
         "eslint-plugin-react": "7.28.0",
