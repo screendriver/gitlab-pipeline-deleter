@@ -1,3 +1,10 @@
+## [2.2.76](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.75...v2.2.76) (2022-02-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency zod to v3.12.0 ([75a36ee](https://github.com/screendriver/gitlab-pipeline-deleter/commit/75a36ee3fe0810c1e9b696a4da598aab7c359ad8))
+
 ## [2.2.75](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.74...v2.2.75) (2022-01-30)
 
 
