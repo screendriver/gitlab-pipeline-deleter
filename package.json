@@ -76,7 +76,7 @@
         "eslint-config-prettier": "8.4.0",
         "eslint-plugin-ava": "13.2.0",
         "eslint-plugin-prettier": "4.0.0",
-        "eslint-plugin-react": "7.28.0",
+        "eslint-plugin-react": "7.29.0",
         "eslint-plugin-react-hooks": "4.3.0",
         "eslint-plugin-testing-library": "4.12.4",
         "fishery": "2.1.0",
