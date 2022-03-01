@@ -49,7 +49,7 @@
         "true-myth": "4.1.1",
         "tslib": "2.3.1",
         "urlcat": "2.0.4",
-        "zod": "3.12.0"
+        "zod": "3.12.1"
     },
     "devDependencies": {
         "@semantic-release/changelog": "6.0.1",
