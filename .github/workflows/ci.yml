@@ -78,7 +78,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Download compiled source code artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: compiled-source-node-16
           path: target/src/
