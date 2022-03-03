@@ -51,7 +51,7 @@ jobs:
       - name: Compile source code
         run: npm run compile
       - name: Upload compiled source code as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: compiled-source-node-${{ matrix.node-version }}
           path: target/src/
