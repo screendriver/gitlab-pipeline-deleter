@@ -79,7 +79,7 @@
         "eslint-plugin-react": "7.29.3",
         "eslint-plugin-react-hooks": "4.3.0",
         "eslint-plugin-testing-library": "4.12.4",
-        "fishery": "2.2.1",
+        "fishery": "2.2.2",
         "ink-testing-library": "2.1.0",
         "jscpd": "3.4.5",
         "micro": "9.3.4",
