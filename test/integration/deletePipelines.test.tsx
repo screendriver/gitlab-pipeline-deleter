@@ -1,3 +1,4 @@
+import React from 'react';
 import test from 'ava';
 import { render, cleanup } from 'ink-testing-library';
 import { parseISO } from 'date-fns';
