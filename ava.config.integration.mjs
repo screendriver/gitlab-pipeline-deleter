@@ -1,6 +1,6 @@
-const baseConfig = require('./ava.config.cjs');
+import baseConfig from './ava.config.mjs';
 
-module.exports = {
+export default {
     ...baseConfig,
     files: ['test/integration/**/*.test.*'],
 };

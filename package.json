@@ -34,7 +34,7 @@
         "copy:paste:detection": "jscpd src test",
         "test:unit": "ava",
         "test:unit:coverage": "c8 ava",
-        "test:integration": "ava --config ava.config.integration.cjs",
+        "test:integration": "ava --config ava.config.integration.mjs",
         "test:unit:mutation": "stryker run"
     },
     "dependencies": {
