@@ -3,7 +3,7 @@
         "target": "ES2018",
         "module": "CommonJS",
         "moduleResolution": "node",
-        "jsx": "react-jsx",
+        "jsx": "react",
         "importHelpers": true,
         "sourceMap": true,
         "declaration": true,
@@ -16,5 +16,8 @@
         "noUncheckedIndexedAccess": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true
+    },
+    "ts-node": {
+        "swc": true
     }
 }

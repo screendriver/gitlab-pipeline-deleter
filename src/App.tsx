@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Text, Static } from 'ink';
 import Spinner from 'ink-spinner';
 import PQueue from 'p-queue';
