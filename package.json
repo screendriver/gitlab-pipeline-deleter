@@ -91,6 +91,6 @@
         "sinon": "14.0.0",
         "test-listen": "1.1.0",
         "ts-node": "10.8.1",
-        "typescript": "4.7.2"
+        "typescript": "4.7.3"
     }
 }
