@@ -62,7 +62,7 @@
         "@stryker-mutator/core": "6.0.2",
         "@stryker-mutator/typescript-checker": "6.0.2",
         "@swc/core": "1.2.198",
-        "@swc/helpers": "0.3.17",
+        "@swc/helpers": "0.4.0",
         "@types/common-tags": "1.8.1",
         "@types/micro": "7.3.7",
         "@types/microrouter": "3.1.1",
