@@ -1,3 +1,10 @@
+## [2.2.94](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.93...v2.2.94) (2022-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react to v18 ([d5b3d45](https://github.com/screendriver/gitlab-pipeline-deleter/commit/d5b3d454b9e3f1a0d0fcdb4b8ca136dfceceb391))
+
 ## [2.2.93](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.2.92...v2.2.93) (2022-05-28)
 
 
