@@ -45,10 +45,12 @@ program
             const glpdArguments = loadedConfig.map((config) => {
                 return mergeCliArgumentsWithConfig(cliArguments, config);
             });
+
             if (glpdArguments.isErr() || !glpdArguments.value.success) {
                 render(<Error exit={exit}>Missing or invalid arguments</Error>);
                 return;
             }
+
             const { gitlabUrl, projectIds, accessToken, days, trace } = glpdArguments.value.data;
             const startDate = new Date();
             const listPipelinesFunction = listPipelines({
@@ -62,6 +64,7 @@ program
                 accessToken: accessToken,
             });
             const deleteQueue = new PQueue({ autoStart: false, interval: 1000, intervalCap: 10 });
+
             render(
                 <App
                     gitlabUrl={gitlabUrl}

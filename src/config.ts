@@ -1,5 +1,6 @@
 import type { cosmiconfig } from 'cosmiconfig';
 import { Result } from 'true-myth';
+import is from '@sindresorhus/is';
 import { z } from 'zod';
 
 const baseConfigSchema = z.object({
@@ -20,24 +21,23 @@ const partialConfigInputSchema = configInputSchema.strict().partial();
 export type Config = z.infer<typeof configSchema>;
 export type PartialConfigInput = z.infer<typeof partialConfigInputSchema>;
 
-function hasMessageProperty(error: unknown): error is { message: string } {
-    return typeof (error as Error).message !== 'undefined';
-}
-
 export async function loadConfig(
     filePath: string,
     explorer: ReturnType<typeof cosmiconfig>,
 ): Promise<Result<PartialConfigInput, string>> {
     try {
         const loaded = await explorer.load(filePath);
+
         if (loaded?.isEmpty) {
             return Result.err('Config is empty');
         }
+
         return Result.of(partialConfigInputSchema.parse(loaded?.config));
     } catch (error: unknown) {
-        if (hasMessageProperty(error)) {
+        if (is.error(error)) {
             return Result.err(error.message);
         }
+
         return Result.err('Unknown error');
     }
 }

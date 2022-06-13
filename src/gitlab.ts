@@ -3,9 +3,9 @@ import { parseISO, differenceInDays } from 'date-fns';
 import { GetRequest, DeleteRequest, Pipeline } from './network';
 
 interface ListPipelinesArguments {
-    getRequest: GetRequest;
-    gitlabUrl: string;
-    accessToken: string;
+    readonly getRequest: GetRequest;
+    readonly gitlabUrl: string;
+    readonly accessToken: string;
 }
 
 export type ListPipelinesFunction = (projectId: number) => Promise<readonly Pipeline[]>;
@@ -13,14 +13,15 @@ export type ListPipelinesFunction = (projectId: number) => Promise<readonly Pipe
 export function listPipelines({ getRequest, gitlabUrl, accessToken }: ListPipelinesArguments): ListPipelinesFunction {
     return (projectId) => {
         const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
+
         return getRequest(url, accessToken);
     };
 }
 
 interface DeletePipelineArguments {
-    deleteRequest: DeleteRequest;
-    gitlabUrl: string;
-    accessToken: string;
+    readonly deleteRequest: DeleteRequest;
+    readonly gitlabUrl: string;
+    readonly accessToken: string;
 }
 
 export type DeletePipelineFunction = (projectId: number, pipeline: Pipeline) => Promise<void>;
@@ -35,6 +36,7 @@ export function deletePipeline({
             id: projectId,
             pipeline_id: pipeline.id,
         });
+
         await deleteRequest(url, accessToken);
     };
 }
@@ -44,9 +46,9 @@ function isOlderThanDays(startDate: Date, pipelineDate: Date, days: number) {
 }
 
 interface FilterPipelinesByDateArguments {
-    pipelines: readonly Pipeline[];
-    startDate: Date;
-    olderThanDays: number;
+    readonly pipelines: readonly Pipeline[];
+    readonly startDate: Date;
+    readonly olderThanDays: number;
 }
 
 export type FilterPipelinesByDateFunction = ({
@@ -58,6 +60,7 @@ export type FilterPipelinesByDateFunction = ({
 export const filterPipelinesByDate: FilterPipelinesByDateFunction = ({ pipelines, startDate, olderThanDays }) => {
     return pipelines.filter((pipeline) => {
         const pipelineDate = parseISO(pipeline.updated_at);
+
         return isOlderThanDays(startDate, pipelineDate, olderThanDays);
     });
 };
