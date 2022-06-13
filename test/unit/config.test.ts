@@ -30,7 +30,10 @@ function createExplorer(overrides: Partial<ReturnType<typeof cosmiconfig>> = {})
         clearCaches: sinon.fake(),
         clearLoadCache: sinon.fake(),
         clearSearchCache: sinon.fake(),
-        load: sinon.fake.resolves({}),
+        load: sinon.fake.resolves({
+            config: undefined,
+            filepath: '',
+        }),
         search: sinon.fake(),
         ...overrides,
     };
@@ -72,6 +75,8 @@ test('loadConfig() returns a Result Err when config is empty', async (t) => {
     const explorer = createExplorer({
         load: sinon.fake.resolves({
             isEmpty: true,
+            config: undefined,
+            filepath: '',
         }),
     });
     const config = await loadConfig('./empty-glpdrc.js', explorer);
@@ -116,6 +121,7 @@ test('loadConfig() returns a empty object when config is an empty object', async
         load: sinon.fake.resolves({
             isEmpty: false,
             config,
+            filepath: '',
         }),
     });
     const loadedConfig = await loadConfig('./empty-glpdrc.js', explorer);
@@ -136,6 +142,7 @@ test('loadConfig() returns a Result Err when config has unknown keys', async (t)
             config: {
                 foo: 'bar',
             },
+            filepath: '',
         }),
     });
     const loadedConfig = await loadConfig('./invalid-glpdrc.js', explorer);
@@ -168,6 +175,7 @@ test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async (t)
         load: sinon.fake.resolves({
             isEmpty: false,
             config,
+            filepath: '',
         }),
     });
     const loadedConfig = await loadConfig('./invalid-url-glpdrc.js', explorer);
@@ -203,6 +211,7 @@ test('loadConfig() returns a partial config when not all keys are set', async (t
         load: sinon.fake.resolves({
             isEmpty: false,
             config,
+            filepath: '',
         }),
     });
     const loadedConfig = await loadConfig('./partial-glpdrc.js', explorer);
@@ -222,6 +231,7 @@ test('loadConfig() returns a full config when all keys are set', async (t) => {
         load: sinon.fake.resolves({
             isEmpty: false,
             config,
+            filepath: '',
         }),
     });
     const loadedConfig = await loadConfig('./glpdrc.js', explorer);
