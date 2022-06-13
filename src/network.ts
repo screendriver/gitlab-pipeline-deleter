@@ -1,8 +1,8 @@
 import got, { Headers } from 'got';
 
 export interface Pipeline {
-    id: number | string;
-    updated_at: string;
+    readonly id: number | string;
+    readonly updated_at: string;
 }
 
 export type GetRequest = (url: string, accessToken: string) => Promise<Pipeline[]>;

@@ -7,17 +7,17 @@ import { Error, ErrorProps } from './Error';
 import { Pipeline } from './network';
 
 export interface AppProps {
-    gitlabUrl: string;
-    projectIds: readonly number[];
-    accessToken: string;
-    days: number;
-    startDate: Date;
-    exit: ErrorProps['exit'];
-    listPipelines: ListPipelinesFunction;
-    filterPipelinesByDate: FilterPipelinesByDateFunction;
-    deletePipeline: DeletePipelineFunction;
-    deleteQueue: PQueue;
-    showStackTraces: boolean;
+    readonly gitlabUrl: string;
+    readonly projectIds: readonly number[];
+    readonly accessToken: string;
+    readonly days: number;
+    readonly startDate: Date;
+    readonly exit: ErrorProps['exit'];
+    readonly listPipelines: ListPipelinesFunction;
+    readonly filterPipelinesByDate: FilterPipelinesByDateFunction;
+    readonly deletePipeline: DeletePipelineFunction;
+    readonly deleteQueue: PQueue;
+    readonly showStackTraces: boolean;
 }
 
 async function deletePipelinesForProject(projectId: number, props: AppProps, reportProgress: (text: string) => void) {
