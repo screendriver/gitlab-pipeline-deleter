@@ -11,7 +11,16 @@ function renderError(text: string, overrides: Partial<ErrorProps> = {}) {
         exit: sinon.fake(),
         ...overrides,
     };
-    return render(<Error exit={props.exit}>{text}</Error>);
+
+    return render(
+        <Error
+            exit={() => {
+                props.exit();
+            }}
+        >
+            {text}
+        </Error>,
+    );
 }
 
 test.serial('renders a red error message', (t) => {
