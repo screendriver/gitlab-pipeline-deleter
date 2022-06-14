@@ -80,7 +80,7 @@
         "eslint-plugin-ava": "13.2.0",
         "eslint-plugin-prettier": "4.0.0",
         "eslint-plugin-react": "7.30.0",
-        "eslint-plugin-react-hooks": "4.5.0",
+        "eslint-plugin-react-hooks": "4.6.0",
         "eslint-plugin-testing-library": "5.5.1",
         "fishery": "2.2.2",
         "ink-testing-library": "2.1.0",
