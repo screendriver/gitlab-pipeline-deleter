@@ -61,7 +61,7 @@
         "@semantic-release/release-notes-generator": "10.0.3",
         "@stryker-mutator/core": "6.1.2",
         "@stryker-mutator/typescript-checker": "6.1.2",
-        "@swc/core": "1.2.213",
+        "@swc/core": "1.2.215",
         "@swc/helpers": "0.4.3",
         "@types/common-tags": "1.8.1",
         "@types/micro": "7.3.7",
