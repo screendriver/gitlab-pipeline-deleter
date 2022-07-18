@@ -1,7 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
-import { stripIndent } from 'common-tags';
 import { Factory } from 'fishery';
 import { PartialConfigInput, Config, loadConfig, mergeCliArgumentsWithConfig } from '../../src/config';
 
@@ -39,19 +38,20 @@ function createExplorer(overrides: Partial<ReturnType<typeof cosmiconfig>> = {})
     };
 }
 
-test('loadConfig() returns an Result Err when no config exists', async (t) => {
+test('loadConfig() returns a Result Ok with an empty object when no config exists', async (t) => {
     const explorer = createExplorer({
         load: sinon.fake.rejects(new Error('Not found')),
     });
     const config = await loadConfig('./not-found.js', explorer);
-    if (config.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = config.error;
-    const expected = 'Not found';
-    t.is(actual, expected);
+    config.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, {});
+        },
+        Err() {
+            t.fail('loadConfig() did not returned an expected Ok');
+        },
+    });
 });
 
 test('loadConfig() returns a Result Err when loading does not return an error object', async (t) => {
@@ -61,17 +61,18 @@ test('loadConfig() returns a Result Err when loading does not return an error ob
         }),
     });
     const config = await loadConfig('./not-found.js', explorer);
-    if (config.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = config.error;
-    const expected = 'Unknown error';
-    t.is(actual, expected);
+    config.match({
+        Ok() {
+            t.fail('loadConfig() did not returned an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'unknown');
+        },
+    });
 });
 
-test('loadConfig() returns a Result Err when config is empty', async (t) => {
+test('loadConfig() returns a Result Ok when config is empty', async (t) => {
     const explorer = createExplorer({
         load: sinon.fake.resolves({
             isEmpty: true,
@@ -80,14 +81,15 @@ test('loadConfig() returns a Result Err when config is empty', async (t) => {
         }),
     });
     const config = await loadConfig('./empty-glpdrc.js', explorer);
-    if (config.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = config.error;
-    const expected = 'Config is empty';
-    t.is(actual, expected);
+    config.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, {});
+        },
+        Err() {
+            t.fail('loadConfig() did not returned an expected Ok');
+        },
+    });
 });
 
 test('loadConfig() returns a Result Err when loaded config is null', async (t) => {
@@ -95,27 +97,18 @@ test('loadConfig() returns a Result Err when loaded config is null', async (t) =
         load: sinon.fake.resolves(null),
     });
     const config = await loadConfig('./empty-glpdrc.js', explorer);
-    if (config.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = config.error;
-    const expected = stripIndent`
-        [
-          {
-            "code": "invalid_type",
-            "expected": "object",
-            "received": "undefined",
-            "path": [],
-            "message": "Required"
-          }
-        ]
-      `;
-    t.is(actual, expected);
+    config.match({
+        Ok() {
+            t.fail('loadConfig() did not returned an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'config-invalid');
+        },
+    });
 });
 
-test('loadConfig() returns a empty object when config is an empty object', async (t) => {
+test('loadConfig() returns an Result Ok when config is an empty object', async (t) => {
     const config = {};
     const explorer = createExplorer({
         load: sinon.fake.resolves({
@@ -125,14 +118,15 @@ test('loadConfig() returns a empty object when config is an empty object', async
         }),
     });
     const loadedConfig = await loadConfig('./empty-glpdrc.js', explorer);
-    if (loadedConfig.isErr()) {
-        t.fail('loadConfig() returned an unexpected error');
-        return;
-    }
 
-    const actual = loadedConfig.value;
-    const expected = config;
-    t.deepEqual(actual, expected);
+    loadedConfig.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, {});
+        },
+        Err() {
+            t.fail('loadConfig() returned an unexpected Err');
+        },
+    });
 });
 
 test('loadConfig() returns a Result Err when config has unknown keys', async (t) => {
@@ -146,25 +140,15 @@ test('loadConfig() returns a Result Err when config has unknown keys', async (t)
         }),
     });
     const loadedConfig = await loadConfig('./invalid-glpdrc.js', explorer);
-    if (loadedConfig.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = loadedConfig.error;
-    const expected = stripIndent`
-        [
-          {
-            "code": "unrecognized_keys",
-            "keys": [
-              "foo"
-            ],
-            "path": [],
-            "message": "Unrecognized key(s) in object: \'foo\'"
-          }
-        ]
-      `;
-    t.is(actual, expected);
+    loadedConfig.match({
+        Ok() {
+            t.fail('loadConfig() did not returned an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'config-invalid');
+        },
+    });
 });
 
 test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async (t) => {
@@ -179,25 +163,15 @@ test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async (t)
         }),
     });
     const loadedConfig = await loadConfig('./invalid-url-glpdrc.js', explorer);
-    if (loadedConfig.isOk()) {
-        t.fail('loadConfig() did not returned an expected error');
-        return;
-    }
 
-    const actual = loadedConfig.error;
-    const expected = stripIndent`
-        [
-          {
-            "validation": "url",
-            "code": "invalid_string",
-            "message": "Invalid url",
-            "path": [
-              "gitlabUrl"
-            ]
-          }
-        ]
-      `;
-    t.is(actual, expected);
+    loadedConfig.match({
+        Ok() {
+            t.fail('loadConfig() did not returned an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'config-invalid');
+        },
+    });
 });
 
 test('loadConfig() returns a partial config when not all keys are set', async (t) => {
@@ -215,14 +189,15 @@ test('loadConfig() returns a partial config when not all keys are set', async (t
         }),
     });
     const loadedConfig = await loadConfig('./partial-glpdrc.js', explorer);
-    if (loadedConfig.isErr()) {
-        t.fail('loadConfig() returned an unexpected error');
-        return;
-    }
 
-    const actual = loadedConfig.value;
-    const expected = config;
-    t.deepEqual(actual, expected);
+    loadedConfig.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, config);
+        },
+        Err() {
+            t.fail('loadConfig() returned an unexpected Err');
+        },
+    });
 });
 
 test('loadConfig() returns a full config when all keys are set', async (t) => {
@@ -235,74 +210,97 @@ test('loadConfig() returns a full config when all keys are set', async (t) => {
         }),
     });
     const loadedConfig = await loadConfig('./glpdrc.js', explorer);
-    if (loadedConfig.isErr()) {
-        t.fail('loadConfig() returned an unexpected error');
-        return;
-    }
 
-    const actual = loadedConfig.value;
-    const expected = config;
-    t.deepEqual(actual, expected);
+    loadedConfig.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, config);
+        },
+        Err() {
+            t.fail('loadConfig() returned an unexpected Err');
+        },
+    });
 });
 
-test('mergeCliArgumentsWithConfig() returns no success when gitlabUrl was not set', (t) => {
-    const config = partialConfigInputFactory.build({ gitlabUrl: undefined });
-    const cliArguments = partialConfigInputFactory.build({ gitlabUrl: undefined });
+const mergeCliArgumentsConfigInvalidMacro = test.macro<
+    [input: { cliArguments?: PartialConfigInput; config?: PartialConfigInput }]
+>((t, input) => {
+    const mergedConfig = mergeCliArgumentsWithConfig(input.cliArguments, input.config);
 
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
+    mergedConfig.match({
+        Ok() {
+            t.fail('mergeCliArgumentsWithConfig() did not return an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'config-invalid');
+        },
+    });
 });
 
-test('mergeCliArgumentsWithConfig() returns no success when projectId was not set', (t) => {
-    const config = partialConfigInputFactory.build({ projectId: undefined });
-    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when gitlabUrl was not set',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ gitlabUrl: undefined }),
+        cliArguments: partialConfigInputFactory.build({ gitlabUrl: undefined }),
+    },
+);
 
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
-});
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when projectId was not set',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ projectId: undefined }),
+        cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
+    },
+);
 
-test('mergeCliArgumentsWithConfig() returns no success when projectId is an empty string', (t) => {
-    const config = partialConfigInputFactory.build({ projectId: '' });
-    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when projectId is an empty string',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ projectId: '' }),
+        cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
+    },
+);
 
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
-});
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when projectId is a negative number',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ projectId: '-42' }),
+        cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
+    },
+);
 
-test('mergeCliArgumentsWithConfig() returns no success when projectId is a negative number', (t) => {
-    const config = partialConfigInputFactory.build({ projectId: '-42' });
-    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when projectId is a non-numeric value',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ projectId: 'foo,bar' }),
+        cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
+    },
+);
 
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
-});
+test(
+    'mergeCliArgumentsWithConfig() returns an Result Err when accessToken was not set',
+    mergeCliArgumentsConfigInvalidMacro,
+    {
+        config: partialConfigInputFactory.build({ accessToken: undefined }),
+        cliArguments: partialConfigInputFactory.build({ accessToken: undefined }),
+    },
+);
 
-test('mergeCliArgumentsWithConfig() returns no success when projectId is a non-numeric value', (t) => {
-    const config = partialConfigInputFactory.build({ projectId: 'foo,bar' });
-    const cliArguments = partialConfigInputFactory.build({ projectId: undefined });
+test('mergeCliArgumentsWithConfig() returns an Result Err when no config file and no CLI arguments are present', (t) => {
+    const mergedConfig = mergeCliArgumentsWithConfig();
 
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
-});
-
-test('mergeCliArgumentsWithConfig() returns no success when accessToken was not set', (t) => {
-    const config = partialConfigInputFactory.build({ accessToken: undefined });
-    const cliArguments = partialConfigInputFactory.build({ accessToken: undefined });
-
-    const actual = mergeCliArgumentsWithConfig(cliArguments, config).success;
-    const expected = false;
-    t.is(actual, expected);
-});
-
-test('mergeCliArgumentsWithConfig() returns no success when no config file and no CLI arguments are present', (t) => {
-    const actual = mergeCliArgumentsWithConfig().success;
-    const expected = false;
-    t.is(actual, expected);
+    mergedConfig.match({
+        Ok() {
+            t.fail('mergeCliArgumentsWithConfig() did not return an expected Err');
+        },
+        Err(error) {
+            t.is(error, 'config-invalid');
+        },
+    });
 });
 
 const mergeCliArgumentsMacro = test.macro<
@@ -310,12 +308,14 @@ const mergeCliArgumentsMacro = test.macro<
 >((t, input, expected) => {
     const mergedConfig = mergeCliArgumentsWithConfig(input.cliArguments, input.config);
 
-    if (mergedConfig.success) {
-        const actual = mergedConfig.data;
-        t.deepEqual(actual, expected);
-    } else {
-        t.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
-    }
+    mergedConfig.match({
+        Ok(configValue) {
+            t.deepEqual(configValue, expected);
+        },
+        Err() {
+            t.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
+        },
+    });
 });
 
 test(

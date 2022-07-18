@@ -21,24 +21,32 @@ const partialConfigInputSchema = configInputSchema.strict().partial();
 export type Config = z.infer<typeof configSchema>;
 export type PartialConfigInput = z.infer<typeof partialConfigInputSchema>;
 
+type ConfigError = 'config-invalid' | 'unknown';
+
 export async function loadConfig(
     filePath: string,
     explorer: ReturnType<typeof cosmiconfig>,
-): Promise<Result<PartialConfigInput, string>> {
+): Promise<Result<PartialConfigInput, ConfigError>> {
     try {
         const loaded = await explorer.load(filePath);
 
         if (loaded?.isEmpty) {
-            return Result.err('Config is empty');
+            return Result.ok({});
         }
 
-        return Result.of(partialConfigInputSchema.parse(loaded?.config));
+        const parsedConfig = partialConfigInputSchema.safeParse(loaded?.config);
+
+        if (parsedConfig.success) {
+            return Result.ok(parsedConfig.data);
+        }
+
+        return Result.err('config-invalid');
     } catch (error: unknown) {
         if (is.error(error)) {
-            return Result.err(error.message);
+            return Result.ok({});
         }
 
-        return Result.err('Unknown error');
+        return Result.err('unknown');
     }
 }
 
@@ -53,7 +61,7 @@ function commaSeparatedStringToNumberArray(commaSeparatedString: string): readon
 export function mergeCliArgumentsWithConfig(
     cliArguments?: PartialConfigInput,
     config?: PartialConfigInput,
-): ReturnType<typeof configSchema.safeParse> {
+): Result<Config, ConfigError> {
     const configInput = configInputSchema.safeParse({
         gitlabUrl: cliArguments?.gitlabUrl ?? config?.gitlabUrl,
         projectId: cliArguments?.projectId ?? config?.projectId,
@@ -63,14 +71,20 @@ export function mergeCliArgumentsWithConfig(
     });
 
     if (!configInput.success) {
-        return configInput;
+        return Result.err('config-invalid');
     }
 
-    return configSchema.safeParse({
+    const parsedConfigSchema = configSchema.safeParse({
         gitlabUrl: configInput.data.gitlabUrl,
         projectIds: commaSeparatedStringToNumberArray(configInput.data.projectId),
         accessToken: configInput.data.accessToken,
         days: configInput.data.days,
         trace: configInput.data.trace,
     });
+
+    if (!parsedConfigSchema.success) {
+        return Result.err('config-invalid');
+    }
+
+    return Result.ok(parsedConfigSchema.data);
 }
