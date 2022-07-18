@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.1...v2.3.2) (2022-07-18)
+
+
+### Bug Fixes
+
+* make configuration file optional instead of required ([66e2290](https://github.com/screendriver/gitlab-pipeline-deleter/commit/66e229089a8780b0deee4707c6d85c783187c18f))
+
 ## [2.3.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.0...v2.3.1) (2022-07-15)
 
 
