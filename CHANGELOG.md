@@ -1,3 +1,10 @@
+## [2.3.5](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.4...v2.3.5) (2022-07-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency date-fns to v2.29.1 ([4eca7d0](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4eca7d075acac36fbf802b406b02cd65219d8051))
+
 ## [2.3.4](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.3...v2.3.4) (2022-07-22)
 
 
