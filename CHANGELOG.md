@@ -1,3 +1,10 @@
+## [2.3.13](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.12...v2.3.13) (2022-11-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency cosmiconfig to v7.1.0 ([a160717](https://github.com/screendriver/gitlab-pipeline-deleter/commit/a1607173e63eef29b5fa369cdf13c0e411059b13))
+
 ## [2.3.12](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.11...v2.3.12) (2022-10-31)
 
 
