@@ -40,7 +40,7 @@
     "dependencies": {
         "@sindresorhus/is": "4.6.0",
         "commander": "9.4.1",
-        "cosmiconfig": "7.0.1",
+        "cosmiconfig": "7.1.0",
         "date-fns": "2.29.3",
         "got": "11.8.5",
         "ink": "3.2.0",
