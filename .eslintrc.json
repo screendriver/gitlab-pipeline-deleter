@@ -21,7 +21,7 @@
         "plugin:testing-library/react",
         "plugin:react-hooks/recommended"
     ],
-    "plugins": ["@typescript-eslint", "ava", "react", "testing-library"],
+    "plugins": ["@typescript-eslint", "react", "testing-library"],
     "env": {
         "node": true
     },
@@ -33,14 +33,5 @@
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off"
-    },
-    "overrides": [
-        {
-            "files": ["test/**/*.test.ts", "test/**/*.test.tsx"],
-            "extends": ["plugin:ava/recommended"],
-            "rules": {
-                "ava/no-ignored-test-files": ["error", { "files": ["test/**/*.test.ts", "test/**/*.test.tsx"] }]
-            }
-        }
-    ]
+    }
 }
