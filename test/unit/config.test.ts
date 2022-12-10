@@ -1,4 +1,5 @@
-import test from 'ava';
+import { Callback, test } from 'uvu';
+import * as assert from 'uvu/assert';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
 import { Factory } from 'fishery';
@@ -38,7 +39,7 @@ function createExplorer(overrides: Partial<ReturnType<typeof cosmiconfig>> = {})
     };
 }
 
-test('loadConfig() returns a Result Ok with an empty object when no config exists', async (t) => {
+test('loadConfig() returns a Result Ok with an empty object when no config exists', async () => {
     const explorer = createExplorer({
         load: sinon.fake.rejects(new Error('Not found')),
     });
@@ -46,15 +47,15 @@ test('loadConfig() returns a Result Ok with an empty object when no config exist
 
     config.match({
         Ok(configValue) {
-            t.deepEqual(configValue, {});
+            assert.equal(configValue, {});
         },
         Err() {
-            t.fail('loadConfig() did not returned an expected Ok');
+            assert.unreachable('loadConfig() did not returned an expected Ok');
         },
     });
 });
 
-test('loadConfig() returns a Result Err when loading does not return an error object', async (t) => {
+test('loadConfig() returns a Result Err when loading does not return an error object', async () => {
     const explorer = createExplorer({
         load: sinon.fake(() => {
             throw 42;
@@ -64,15 +65,15 @@ test('loadConfig() returns a Result Err when loading does not return an error ob
 
     config.match({
         Ok() {
-            t.fail('loadConfig() did not returned an expected Err');
+            assert.unreachable('loadConfig() did not returned an expected Err');
         },
         Err(error) {
-            t.is(error, 'unknown');
+            assert.is(error, 'unknown');
         },
     });
 });
 
-test('loadConfig() returns a Result Ok when config is empty', async (t) => {
+test('loadConfig() returns a Result Ok when config is empty', async () => {
     const explorer = createExplorer({
         load: sinon.fake.resolves({
             isEmpty: true,
@@ -84,15 +85,15 @@ test('loadConfig() returns a Result Ok when config is empty', async (t) => {
 
     config.match({
         Ok(configValue) {
-            t.deepEqual(configValue, {});
+            assert.equal(configValue, {});
         },
         Err() {
-            t.fail('loadConfig() did not returned an expected Ok');
+            assert.unreachable('loadConfig() did not returned an expected Ok');
         },
     });
 });
 
-test('loadConfig() returns a Result Err when loaded config is null', async (t) => {
+test('loadConfig() returns a Result Err when loaded config is null', async () => {
     const explorer = createExplorer({
         load: sinon.fake.resolves(null),
     });
@@ -100,15 +101,15 @@ test('loadConfig() returns a Result Err when loaded config is null', async (t) =
 
     config.match({
         Ok() {
-            t.fail('loadConfig() did not returned an expected Err');
+            assert.unreachable('loadConfig() did not returned an expected Err');
         },
         Err(error) {
-            t.is(error, 'config-invalid');
+            assert.is(error, 'config-invalid');
         },
     });
 });
 
-test('loadConfig() returns an Result Ok when config is an empty object', async (t) => {
+test('loadConfig() returns an Result Ok when config is an empty object', async () => {
     const config = {};
     const explorer = createExplorer({
         load: sinon.fake.resolves({
@@ -121,15 +122,15 @@ test('loadConfig() returns an Result Ok when config is an empty object', async (
 
     loadedConfig.match({
         Ok(configValue) {
-            t.deepEqual(configValue, {});
+            assert.equal(configValue, {});
         },
         Err() {
-            t.fail('loadConfig() returned an unexpected Err');
+            assert.unreachable('loadConfig() returned an unexpected Err');
         },
     });
 });
 
-test('loadConfig() returns a Result Err when config has unknown keys', async (t) => {
+test('loadConfig() returns a Result Err when config has unknown keys', async () => {
     const explorer = createExplorer({
         load: sinon.fake.resolves({
             isEmpty: false,
@@ -143,15 +144,15 @@ test('loadConfig() returns a Result Err when config has unknown keys', async (t)
 
     loadedConfig.match({
         Ok() {
-            t.fail('loadConfig() did not returned an expected Err');
+            assert.unreachable('loadConfig() did not returned an expected Err');
         },
         Err(error) {
-            t.is(error, 'config-invalid');
+            assert.is(error, 'config-invalid');
         },
     });
 });
 
-test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async (t) => {
+test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async () => {
     const config = partialConfigInputFactory.build({
         gitlabUrl: 'not-an-url',
     });
@@ -166,15 +167,15 @@ test('loadConfig() returns a Result Err when gitlabUrl is not an URL', async (t)
 
     loadedConfig.match({
         Ok() {
-            t.fail('loadConfig() did not returned an expected Err');
+            assert.unreachable('loadConfig() did not returned an expected Err');
         },
         Err(error) {
-            t.is(error, 'config-invalid');
+            assert.is(error, 'config-invalid');
         },
     });
 });
 
-test('loadConfig() returns a partial config when not all keys are set', async (t) => {
+test('loadConfig() returns a partial config when not all keys are set', async () => {
     const config = partialConfigInputFactory.build({
         gitlabUrl: 'https://example.com',
         projectId: undefined,
@@ -192,15 +193,15 @@ test('loadConfig() returns a partial config when not all keys are set', async (t
 
     loadedConfig.match({
         Ok(configValue) {
-            t.deepEqual(configValue, config);
+            assert.equal(configValue, config);
         },
         Err() {
-            t.fail('loadConfig() returned an unexpected Err');
+            assert.unreachable('loadConfig() returned an unexpected Err');
         },
     });
 });
 
-test('loadConfig() returns a full config when all keys are set', async (t) => {
+test('loadConfig() returns a full config when all keys are set', async () => {
     const config = partialConfigInputFactory.build();
     const explorer = createExplorer({
         load: sinon.fake.resolves({
@@ -213,163 +214,167 @@ test('loadConfig() returns a full config when all keys are set', async (t) => {
 
     loadedConfig.match({
         Ok(configValue) {
-            t.deepEqual(configValue, config);
+            assert.equal(configValue, config);
         },
         Err() {
-            t.fail('loadConfig() returned an unexpected Err');
+            assert.unreachable('loadConfig() returned an unexpected Err');
         },
     });
 });
 
-const mergeCliArgumentsConfigInvalidMacro = test.macro<
-    [input: { cliArguments?: PartialConfigInput; config?: PartialConfigInput }]
->((t, input) => {
-    const mergedConfig = mergeCliArgumentsWithConfig(input.cliArguments, input.config);
+interface TestMergeCliArgumentsConfigInvalidOptions {
+    readonly cliArguments: PartialConfigInput;
+    readonly config: PartialConfigInput;
+}
 
-    mergedConfig.match({
-        Ok() {
-            t.fail('mergeCliArgumentsWithConfig() did not return an expected Err');
-        },
-        Err(error) {
-            t.is(error, 'config-invalid');
-        },
-    });
-});
+function testMergeCliArgumentsConfigInvalid(options: TestMergeCliArgumentsConfigInvalidOptions): Callback {
+    const { cliArguments, config } = options;
+
+    return () => {
+        const mergedConfig = mergeCliArgumentsWithConfig(cliArguments, config);
+
+        mergedConfig.match({
+            Ok() {
+                assert.unreachable('mergeCliArgumentsWithConfig() did not return an expected Err');
+            },
+            Err(error) {
+                assert.is(error, 'config-invalid');
+            },
+        });
+    };
+}
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when gitlabUrl was not set',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ gitlabUrl: undefined }),
         cliArguments: partialConfigInputFactory.build({ gitlabUrl: undefined }),
-    },
+    }),
 );
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when projectId was not set',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ projectId: undefined }),
         cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
-    },
+    }),
 );
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when projectId is an empty string',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ projectId: '' }),
         cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
-    },
+    }),
 );
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when projectId is a negative number',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ projectId: '-42' }),
         cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
-    },
+    }),
 );
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when projectId is a non-numeric value',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ projectId: 'foo,bar' }),
         cliArguments: partialConfigInputFactory.build({ projectId: undefined }),
-    },
+    }),
 );
 
 test(
     'mergeCliArgumentsWithConfig() returns an Result Err when accessToken was not set',
-    mergeCliArgumentsConfigInvalidMacro,
-    {
+    testMergeCliArgumentsConfigInvalid({
         config: partialConfigInputFactory.build({ accessToken: undefined }),
         cliArguments: partialConfigInputFactory.build({ accessToken: undefined }),
-    },
+    }),
 );
 
-test('mergeCliArgumentsWithConfig() returns an Result Err when no config file and no CLI arguments are present', (t) => {
+test('mergeCliArgumentsWithConfig() returns an Result Err when no config file and no CLI arguments are present', () => {
     const mergedConfig = mergeCliArgumentsWithConfig();
 
     mergedConfig.match({
         Ok() {
-            t.fail('mergeCliArgumentsWithConfig() did not return an expected Err');
+            assert.unreachable('mergeCliArgumentsWithConfig() did not return an expected Err');
         },
         Err(error) {
-            t.is(error, 'config-invalid');
+            assert.is(error, 'config-invalid');
         },
     });
 });
 
-const mergeCliArgumentsMacro = test.macro<
-    [input: { cliArguments?: PartialConfigInput; config?: PartialConfigInput }, expected: Config]
->((t, input, expected) => {
-    const mergedConfig = mergeCliArgumentsWithConfig(input.cliArguments, input.config);
+interface TestMergeCliArgumentsOptions {
+    readonly cliArguments?: PartialConfigInput;
+    readonly config?: PartialConfigInput;
+    readonly expectedConfig: Config;
+}
 
-    mergedConfig.match({
-        Ok(configValue) {
-            t.deepEqual(configValue, expected);
-        },
-        Err() {
-            t.fail('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
-        },
-    });
-});
+function testMergeCliArguments(options: TestMergeCliArgumentsOptions): Callback {
+    const { cliArguments, config, expectedConfig } = options;
+
+    return () => {
+        const mergedConfig = mergeCliArgumentsWithConfig(cliArguments, config);
+
+        mergedConfig.match({
+            Ok(configValue) {
+                assert.equal(configValue, expectedConfig);
+            },
+            Err() {
+                assert.unreachable('expected mergeCliArgumentsWithConfig() to be successful but it wasn’t');
+            },
+        });
+    };
+}
 
 test(
     'returns CLI arguments when no config file is present',
-    mergeCliArgumentsMacro,
-    {
+    testMergeCliArguments({
         cliArguments: partialConfigInputFactory.build({ projectId: '1' }),
         config: undefined,
-    },
-    configFactory.build({
-        projectIds: [1],
+        expectedConfig: configFactory.build({
+            projectIds: [1],
+        }),
     }),
 );
 
 test(
     'recognizes multiple project ids when a comma separated string is given',
-    mergeCliArgumentsMacro,
-    {
+    testMergeCliArguments({
         cliArguments: partialConfigInputFactory.build({ projectId: '1,2,3' }),
         config: undefined,
-    },
-    configFactory.build({
-        projectIds: [1, 2, 3],
+        expectedConfig: configFactory.build({
+            projectIds: [1, 2, 3],
+        }),
     }),
 );
 
 test(
     'recognizes multiple project ids when a comma separated string is given with whitespace between',
-    mergeCliArgumentsMacro,
-    {
+    testMergeCliArguments({
         cliArguments: partialConfigInputFactory.build({ projectId: '1,2,3' }),
         config: undefined,
-    },
-    configFactory.build({
-        projectIds: [1, 2, 3],
+        expectedConfig: configFactory.build({
+            projectIds: [1, 2, 3],
+        }),
     }),
 );
 
 test(
     'returns config file values when no CLI arguments are present',
-    mergeCliArgumentsMacro,
-    {
+    testMergeCliArguments({
         cliArguments: undefined,
         config: partialConfigInputFactory.build({ projectId: '1' }),
-    },
-    configFactory.build({
-        projectIds: [1],
+        expectedConfig: configFactory.build({
+            projectIds: [1],
+        }),
     }),
 );
 
 test(
     'prefers CLI aguments over configuration values',
-    mergeCliArgumentsMacro,
-    {
+    testMergeCliArguments({
         cliArguments: partialConfigInputFactory.build({
             gitlabUrl: 'https://example.com',
             projectId: '1',
@@ -383,12 +388,14 @@ test(
             days: 42,
             trace: false,
         }),
-    },
-    {
-        accessToken: '0',
-        days: 30,
-        gitlabUrl: 'https://example.com',
-        projectIds: [1],
-        trace: true,
-    },
+        expectedConfig: {
+            accessToken: '0',
+            days: 30,
+            gitlabUrl: 'https://example.com',
+            projectIds: [1],
+            trace: true,
+        },
+    }),
 );
+
+test.run();
