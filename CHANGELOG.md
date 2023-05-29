@@ -1,3 +1,11 @@
+## [2.3.15](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.14...v2.3.15) (2023-05-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency commander to v9.5.0 ([e8318b0](https://github.com/screendriver/gitlab-pipeline-deleter/commit/e8318b0ae29422300b5a484908600818c07f1a4d))
+* **deps:** update dependency date-fns to v2.30.0 ([bbd637a](https://github.com/screendriver/gitlab-pipeline-deleter/commit/bbd637a47d8f0207aa4deb832e1682a17a7f8326))
+
 ## [2.3.14](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.13...v2.3.14) (2022-12-11)
 
 
