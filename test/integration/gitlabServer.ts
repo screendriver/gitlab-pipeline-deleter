@@ -5,7 +5,7 @@ import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
 import { Pipeline } from '../../src/network';
-import { Callback } from 'uvu';
+import { ExecutionContext, ImplementationFn } from 'ava';
 
 interface PipelineTransientParams {
     readonly startDate: Date;
@@ -59,13 +59,17 @@ function createRoutes(config: Config): RequestHandler[] {
     ];
 }
 
-export function withGitLabServer(config: Config, test: (url: string) => void | Promise<void>): Callback {
-    return async () => {
+export function withGitLabServer(
+    config: Config,
+    test: (t: ExecutionContext<unknown>, url: string) => void | Promise<void>,
+): ImplementationFn<[]> {
+    return async (t) => {
         const routes = createRoutes(config);
         const server = micro(router(...routes));
         try {
             const url = await listen(server);
-            await test(url);
+
+            await test(t, url);
         } finally {
             server.close();
         }

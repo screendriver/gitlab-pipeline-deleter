@@ -1,5 +1,4 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import test from 'ava';
 import sinon from 'sinon';
 import { Factory } from 'fishery';
 import { parseISO, subDays, formatISO } from 'date-fns';
@@ -39,7 +38,7 @@ function callDeletePipeline(deleteRequest: DeleteRequest, gitlabUrl = 'https://g
     return deletePipelineFunction(projectId, pipeline);
 }
 
-test('listPipelines() creates the correct API URL', async () => {
+test('listPipelines() creates the correct API URL', async (t) => {
     const getRequest = sinon.fake.resolves([]);
     await callListPipelines(getRequest);
 
@@ -48,9 +47,11 @@ test('listPipelines() creates the correct API URL', async () => {
         'https://gitlab.my-domain.io/api/v4/projects/42/pipelines?per_page=100',
         sinon.match.string,
     );
+
+    t.pass();
 });
 
-test('listPipelines() creates the correct API URL even when the given GitLab URL has a trailing slash', async () => {
+test('listPipelines() creates the correct API URL even when the given GitLab URL has a trailing slash', async (t) => {
     const getRequest = sinon.fake.resolves([]);
     const gitlabUrl = 'https://gitlab.my-domain.io/';
     await callListPipelines(getRequest, gitlabUrl);
@@ -60,25 +61,30 @@ test('listPipelines() creates the correct API URL even when the given GitLab URL
         'https://gitlab.my-domain.io/api/v4/projects/42/pipelines?per_page=100',
         sinon.match.string,
     );
+
+    t.pass();
 });
 
-test('listPipelines() passes the given access token to getRequest() function', async () => {
+test('listPipelines() passes the given access token to getRequest() function', async (t) => {
     const getRequest = sinon.fake.resolves([]);
     await callListPipelines(getRequest);
 
     sinon.assert.calledWith(getRequest, sinon.match.string, 'yBv8');
+
+    t.pass();
 });
 
-test('filterPipelinesByDate() returns an empty Array when pipelines are empty', () => {
+test('filterPipelinesByDate() returns an empty Array when pipelines are empty', (t) => {
     const startDate = new Date();
     const olderThanDays = 30;
 
     const actual = filterPipelinesByDate({ pipelines: [], startDate, olderThanDays });
     const expected: Pipeline[] = [];
-    assert.equal(actual, expected);
+
+    t.deepEqual(actual, expected);
 });
 
-test('filterPipelinesByDate() returns only pipelines that are older than 30 days', () => {
+test('filterPipelinesByDate() returns only pipelines that are older than 30 days', (t) => {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
     pipelineFactory.rewindSequence();
@@ -94,10 +100,11 @@ test('filterPipelinesByDate() returns only pipelines that are older than 30 days
         '2020-08-28T17:12:52+02:00',
         '2020-08-27T17:12:52+02:00',
     ];
-    assert.equal(actual, expected);
+
+    t.deepEqual(actual, expected);
 });
 
-test('filterPipelinesByDate() returns an empty Array when all pipelines are younger than 30 days', () => {
+test('filterPipelinesByDate() returns an empty Array when all pipelines are younger than 30 days', (t) => {
     const startDate = parseISO('2020-10-01T15:12:52.710Z');
     const olderThanDays = 30;
     pipelineFactory.rewindSequence();
@@ -105,10 +112,11 @@ test('filterPipelinesByDate() returns an empty Array when all pipelines are youn
 
     const actual = filterPipelinesByDate({ pipelines, startDate, olderThanDays });
     const expected: Pipeline[] = [];
-    assert.equal(actual, expected);
+
+    t.deepEqual(actual, expected);
 });
 
-test('deletePipeline() creates the correct API URL', async () => {
+test('deletePipeline() creates the correct API URL', async (t) => {
     const deleteRequest = sinon.fake.resolves('');
     await callDeletePipeline(deleteRequest);
 
@@ -117,9 +125,11 @@ test('deletePipeline() creates the correct API URL', async () => {
         'https://gitlab.my-domain.io/api/v4/projects/42/pipelines/24',
         sinon.match.string,
     );
+
+    t.pass();
 });
 
-test('deletePipeline() creates the correct API URL even when the given GitLab URL has a trailing slash', async () => {
+test('deletePipeline() creates the correct API URL even when the given GitLab URL has a trailing slash', async (t) => {
     const deleteRequest = sinon.fake.resolves('');
     const gitlabUrl = 'https://gitlab.my-domain.io/';
     await callDeletePipeline(deleteRequest, gitlabUrl);
@@ -129,12 +139,15 @@ test('deletePipeline() creates the correct API URL even when the given GitLab UR
         'https://gitlab.my-domain.io/api/v4/projects/42/pipelines/24',
         sinon.match.string,
     );
+
+    t.pass();
 });
 
-test('deletePipeline() passes the given access token to deleteRequest() function', async () => {
+test('deletePipeline() passes the given access token to deleteRequest() function', async (t) => {
     const deleteRequest = sinon.fake.resolves('');
     await callDeletePipeline(deleteRequest);
-    sinon.assert.calledWith(deleteRequest, sinon.match.string, 'yBv8');
-});
 
-test.run();
+    sinon.assert.calledWith(deleteRequest, sinon.match.string, 'yBv8');
+
+    t.pass();
+});
