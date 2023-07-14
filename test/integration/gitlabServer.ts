@@ -5,7 +5,7 @@ import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
 import { Pipeline } from '../../src/network';
-import { ExecutionContext, ImplementationFn } from 'ava';
+import type { ExecutionContext, ImplementationFn } from 'ava';
 
 interface PipelineTransientParams {
     readonly startDate: Date;
