@@ -34,7 +34,8 @@
         "copy:paste:detection": "jscpd src test",
         "test:unit": "TS_NODE_PROJECT=tsconfig.base.json ava",
         "test:unit:coverage": "c8 npm run test:unit",
-        "test:integration": "TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.mjs"
+        "test:integration": "TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.mjs",
+        "release": "release-it"
     },
     "dependencies": {
         "@sindresorhus/is": "4.6.0",
