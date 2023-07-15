@@ -3,13 +3,6 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-    commitlint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: wagoid/commitlint-github-action@v5
     code-coverage:
         runs-on: ubuntu-latest
         steps:
