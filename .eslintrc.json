@@ -19,9 +19,10 @@
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:testing-library/react",
-        "plugin:react-hooks/recommended"
+        "plugin:react-hooks/recommended",
+        "plugin:ava/recommended"
     ],
-    "plugins": ["@typescript-eslint", "react", "testing-library"],
+    "plugins": ["@typescript-eslint", "react", "testing-library", "ava"],
     "env": {
         "node": true
     },
@@ -32,6 +33,7 @@
         "@typescript-eslint/no-implicit-any-catch": "error",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "ava/no-ignored-test-files": "off"
     }
 }
