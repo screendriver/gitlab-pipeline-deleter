@@ -3,13 +3,6 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-    commitlint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: wagoid/commitlint-github-action@v5
     code-coverage:
         runs-on: ubuntu-latest
         steps:
@@ -63,25 +56,3 @@ jobs:
               run: npm run test:integration
               env:
                   FORCE_COLOR: 1
-    release:
-        if: github.ref == 'refs/heads/main'
-        needs: [commitlint, code-coverage, build]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18.x
-            - name: Install dependencies
-              run: npm ci
-            - name: Download compiled source code artifact
-              uses: actions/download-artifact@v3
-              with:
-                  name: compiled-source-node-18
-                  path: target/src/
-            - name: Semantic release
-              run: npx semantic-release
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
