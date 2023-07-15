@@ -48,7 +48,7 @@
         "commander": "9.5.0",
         "cosmiconfig": "7.1.0",
         "date-fns": "2.30.0",
-        "got": "11.8.6",
+        "got": "13.0.0",
         "ink": "3.2.0",
         "ink-spinner": "4.0.3",
         "p-queue": "6.6.2",
