@@ -56,7 +56,7 @@
         "ink-spinner": "4.0.3",
         "p-queue": "7.3.4",
         "react": "17.0.2",
-        "true-myth": "4.1.1",
+        "true-myth": "7.0.0",
         "tslib": "2.6.0",
         "zod": "3.21.4"
     },

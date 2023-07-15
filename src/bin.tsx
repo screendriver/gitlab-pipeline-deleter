@@ -46,7 +46,7 @@ program
                 return mergeCliArgumentsWithConfig(cliArguments, config);
             });
 
-            if (glpdArguments.isErr()) {
+            if (glpdArguments.isErr) {
                 render(<Error exit={exit}>Missing or invalid arguments</Error>);
                 return;
             }
