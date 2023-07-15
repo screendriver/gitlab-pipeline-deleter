@@ -24,7 +24,9 @@ export const deleteRequest: DeleteRequest = (url, accessToken) => {
         .delete(url, {
             headers: createHeaders(accessToken),
             throwHttpErrors: true,
-            retry: 0,
+            retry: {
+                limit: 0,
+            },
         })
         .text();
 };
