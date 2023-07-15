@@ -52,10 +52,10 @@
         "cosmiconfig": "7.1.0",
         "date-fns": "2.30.0",
         "got": "13.0.0",
-        "ink": "3.2.0",
-        "ink-spinner": "4.0.3",
+        "ink": "4.2.0",
+        "ink-spinner": "5.0.0",
         "p-queue": "7.3.4",
-        "react": "17.0.2",
+        "react": "18.2.0",
         "true-myth": "7.0.0",
         "tslib": "2.6.0",
         "zod": "3.21.4"
@@ -63,7 +63,7 @@
     "devDependencies": {
         "@ava/typescript": "4.1.0",
         "@types/common-tags": "1.8.1",
-        "@types/react": "17.0.62",
+        "@types/react": "18.2.15",
         "@types/sinon": "10.0.15",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
