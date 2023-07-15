@@ -1,0 +1,20 @@
+{
+    "git": {
+        "requireBranch": "main",
+        "commitMessage": "Release v${version}",
+        "tagName": "v${version}"
+    },
+    "github": {
+        "release": true,
+        "releaseName": "v${version}"
+    },
+    "hooks": {
+        "before:init": [
+            "npm run compile",
+            "npm run lint",
+            "npm run copy:paste:detection",
+            "npm run test:unit:coverage",
+            "npm run test:integration"
+        ]
+    }
+}
