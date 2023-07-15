@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 import { parseISO, differenceInDays } from 'date-fns';
-import { GetRequest, DeleteRequest, Pipeline } from './network';
+import { GetRequest, DeleteRequest, Pipeline } from './network.js';
 
 interface ListPipelinesArguments {
     readonly getRequest: GetRequest;

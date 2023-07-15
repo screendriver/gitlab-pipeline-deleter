@@ -4,9 +4,9 @@ import { render, cleanup } from 'ink-testing-library';
 import sinon from 'sinon';
 import delay from 'delay';
 import { Factory } from 'fishery';
-import { App, AppProps } from '../../src/App';
-import { Pipeline } from '../../src/network';
-import { createAppProps } from './factory';
+import { App, AppProps } from '../../src/App.js';
+import { Pipeline } from '../../src/network.js';
+import { createAppProps } from './factory.js';
 
 test.afterEach(cleanup);
 

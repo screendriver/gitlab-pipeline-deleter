@@ -2,7 +2,7 @@ import React from 'react';
 import test from 'ava';
 import sinon from 'sinon';
 import { render, cleanup } from 'ink-testing-library';
-import { Error, ErrorProps } from '../../src/Error';
+import { Error, ErrorProps } from '../../src/Error.js';
 
 test.afterEach(cleanup);
 

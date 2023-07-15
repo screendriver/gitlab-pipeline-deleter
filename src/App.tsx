@@ -2,9 +2,9 @@ import React, { Fragment, FunctionComponent, useEffect, useState } from 'react';
 import { Text, Static } from 'ink';
 import Spinner from 'ink-spinner';
 import PQueue from 'p-queue';
-import type { ListPipelinesFunction, DeletePipelineFunction, FilterPipelinesByDateFunction } from './gitlab';
-import { Error, ErrorProps } from './Error';
-import { Pipeline } from './network';
+import type { ListPipelinesFunction, DeletePipelineFunction, FilterPipelinesByDateFunction } from './gitlab.js';
+import { Error, ErrorProps } from './Error.js';
+import { Pipeline } from './network.js';
 
 export interface AppProps {
     readonly gitlabUrl: string;
