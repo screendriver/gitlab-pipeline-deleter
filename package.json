@@ -35,6 +35,7 @@
         "test:unit": "TS_NODE_PROJECT=tsconfig.base.json ava",
         "test:unit:coverage": "c8 npm run test:unit",
         "test:integration": "TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.mjs",
+        "release:dry": "release-it --dry-run --no-npm",
         "release": "release-it"
     },
     "dependencies": {
