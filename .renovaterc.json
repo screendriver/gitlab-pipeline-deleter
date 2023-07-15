@@ -1,7 +1,7 @@
 {
     "extends": ["config:base", "group:monorepos"],
     "labels": ["renovate"],
-    "rebaseStalePrs": false,
+    "semanticCommits": "disabled",
     "lockFileMaintenance": {
         "enabled": true,
         "automerge": true
