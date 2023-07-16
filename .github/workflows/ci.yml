@@ -3,28 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-    code-coverage:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js v18
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-            - run: npm ci
-            - name: Setup timezone
-              uses: zcong1993/setup-timezone@master
-              with:
-                  timezone: Europe/Berlin
-            - name: Run unit tests
-              run: npm run test:unit:coverage
-              env:
-                  FORCE_COLOR: 1
-            - name: Upload code coverage to Codecov
-              uses: codecov/codecov-action@v3
-              with:
-                  file: target/coverage/coverage-final.json
-    build:
+    test:
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -37,17 +16,20 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - name: Install dependencies
               run: npm ci
-            - name: Check source code
-              run: |
-                  npm run lint
-                  npm run copy:paste:detection
             - name: Compile source code
               run: npm run compile
-            - name: Upload compiled source code as artifact
-              uses: actions/upload-artifact@v3
+            - name: Lint source code
+              run: npm run lint
+            - name: Run unit tests
+              run: npm run test:unit:coverage
+              env:
+                  FORCE_COLOR: 1
+            - name: Upload code coverage to Codecov
+              uses: codecov/codecov-action@v3
               with:
-                  name: compiled-source-node-${{ matrix.node-version }}
-                  path: target/src/
+                  file: target/coverage/coverage-final.json
+            - name: Check for copy and paste
+              run: npm run copy:paste:detection
             - name: Setup timezone
               uses: zcong1993/setup-timezone@master
               with:
