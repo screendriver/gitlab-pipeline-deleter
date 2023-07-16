@@ -76,7 +76,7 @@
         "fastify": "4.19.2",
         "fishery": "2.2.2",
         "get-port": "7.0.0",
-        "ink-testing-library": "2.1.0",
+        "ink-testing-library": "3.0.0",
         "jscpd": "3.5.9",
         "prettier": "2.8.8",
         "release-it": "16.1.2",
