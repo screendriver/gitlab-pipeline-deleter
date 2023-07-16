@@ -32,6 +32,7 @@
         "target/src/**/*.js.map"
     ],
     "scripts": {
+        "clean": "rm -rf target",
         "compile": "tsc --build",
         "lint": "eslint src test --ext '.ts,.tsx'",
         "copy:paste:detection": "jscpd src test",

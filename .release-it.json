@@ -14,6 +14,7 @@
     },
     "hooks": {
         "before:init": [
+            "npm run clean",
             "npm run compile",
             "npm run lint",
             "npm run copy:paste:detection",
