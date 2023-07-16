@@ -2,8 +2,7 @@
     "git": {
         "requireBranch": "main",
         "commitMessage": "Release v${version}",
-        "tagName": "v${version}",
-        "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+        "tagName": "v${version}"
     },
     "github": {
         "release": true,
