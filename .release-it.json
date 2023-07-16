@@ -20,6 +20,6 @@
             "npm run test:unit:coverage",
             "npm run test:integration"
         ],
-        "after:bump": "npx auto-changelog -p"
+        "after:bump": "npx auto-changelog --hide-credit --package"
     }
 }
