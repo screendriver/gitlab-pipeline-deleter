@@ -1,6 +1,5 @@
-import micro, { RequestHandler, send } from 'micro';
-import { router, get, del } from 'microrouter';
-import listen from 'test-listen';
+import createFastify from 'fastify';
+import type { RouteOptions } from 'fastify';
 import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
@@ -30,32 +29,38 @@ interface Config {
     failOnDelete?: boolean;
 }
 
-function createRoutes(config: Config): RequestHandler[] {
+function createRoutes(config: Config): RouteOptions[] {
     const { failOnDelete = false } = config;
 
     return [
-        get('/api/v4/projects/:id/pipelines', async (request, response) => {
-            if (!isHeaderValid(request.headers)) {
-                await send(response, 404, { message: '404 Project Not Found' });
-                return;
-            }
-            const startDate = parseISO('2020-10-01T15:12:52.710Z');
-            const pipelines = pipelineFactory.buildList(35, {}, { transient: { startDate } });
-            await send(response, 200, pipelines);
-        }),
-        del('/api/v4/projects/:id/pipelines/:pipeline_id', async (request, response) => {
-            if (!isHeaderValid(request.headers)) {
-                await send(response, 404, { message: '404 Project Not Found' });
-                return;
-            }
+        {
+            async handler(request, reply) {
+                if (!isHeaderValid(request.headers)) {
+                    return reply.status(404).send('404 Project Not Found');
+                }
+                const startDate = parseISO('2020-10-01T15:12:52.710Z');
+                const pipelines = pipelineFactory.buildList(35, {}, { transient: { startDate } });
 
-            if (failOnDelete) {
-                await send(response, 418, { message: 'I’m a teapot' });
-                return;
-            }
+                return reply.status(200).send(pipelines);
+            },
+            method: 'GET',
+            url: '/api/v4/projects/:id/pipelines',
+        },
+        {
+            async handler(request, reply) {
+                if (!isHeaderValid(request.headers)) {
+                    return reply.status(404).send('404 Project Not Found');
+                }
 
-            await send(response, 200, '');
-        }),
+                if (failOnDelete) {
+                    return reply.status(418).send('I’m a teapot');
+                }
+
+                return reply.status(200).send('');
+            },
+            method: 'DELETE',
+            url: '/api/v4/projects/:id/pipelines/:pipeline_id',
+        },
     ];
 }
 
@@ -64,14 +69,19 @@ export function withGitLabServer(
     test: (t: ExecutionContext<unknown>, url: string) => void | Promise<void>,
 ): ImplementationFn<[]> {
     return async (t) => {
-        const routes = createRoutes(config);
-        const server = micro(router(...routes));
-        try {
-            const url = await listen(server);
+        const server = createFastify({ logger: false });
 
-            await test(t, url);
+        try {
+            const routes = createRoutes(config);
+            routes.forEach((routeOptions) => {
+                server.route(routeOptions);
+            });
+
+            const listeningAddress = await server.listen({ port: 3000 });
+
+            await test(t, listeningAddress);
         } finally {
-            server.close();
+            await server.close();
         }
     };
 }
