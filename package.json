@@ -48,7 +48,7 @@
     },
     "dependencies": {
         "@sindresorhus/is": "5.5.1",
-        "commander": "9.5.0",
+        "commander": "11.0.0",
         "cosmiconfig": "8.2.0",
         "date-fns": "2.30.0",
         "got": "13.0.0",
