@@ -3,13 +3,13 @@ import React from 'react';
 import { createCommand } from 'commander';
 import { render } from 'ink';
 import { cosmiconfig } from 'cosmiconfig';
-import path from 'path';
+import path from 'node:path';
 import PQueue from 'p-queue';
-import { App } from './App';
-import { Error } from './Error';
-import { getRequest, deleteRequest } from './network';
-import { listPipelines, filterPipelinesByDate, deletePipeline } from './gitlab';
-import { PartialConfigInput, loadConfig, mergeCliArgumentsWithConfig } from './config';
+import { App } from './App.js';
+import { Error } from './Error.js';
+import { getRequest, deleteRequest } from './network.js';
+import { listPipelines, filterPipelinesByDate, deletePipeline } from './gitlab.js';
+import { PartialConfigInput, loadConfig, mergeCliArgumentsWithConfig } from './config.js';
 
 function exit() {
     process.exitCode = 1;
@@ -46,7 +46,7 @@ program
                 return mergeCliArgumentsWithConfig(cliArguments, config);
             });
 
-            if (glpdArguments.isErr()) {
+            if (glpdArguments.isErr) {
                 render(<Error exit={exit}>Missing or invalid arguments</Error>);
                 return;
             }

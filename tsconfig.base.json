@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "ES2018",
-        "module": "CommonJS",
-        "moduleResolution": "node",
+        "target": "ES2021",
+        "module": "Node16",
+        "moduleResolution": "Node16",
         "jsx": "react",
         "importHelpers": true,
         "sourceMap": true,

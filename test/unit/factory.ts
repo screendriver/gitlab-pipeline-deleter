@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import PQueue from 'p-queue';
-import { AppProps } from '../../src/App';
+import { AppProps } from '../../src/App.js';
 
 export function createAppProps(overrides: Partial<AppProps> = {}): AppProps {
     const deleteQueue = new PQueue({ autoStart: false });

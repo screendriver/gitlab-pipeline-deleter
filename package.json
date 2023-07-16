@@ -1,8 +1,12 @@
 {
     "name": "gitlab-pipeline-deleter",
+    "type": "module",
     "version": "2.3.18",
     "description": "A CLI tool that deletes old GitLab pipelines",
-    "main": "target/src/index.js",
+    "exports": {
+        "types": "./target/src/index.d.ts",
+        "default": "./target/src/index.js"
+    },
     "engines": {
         "node": ">=16"
     },
@@ -36,31 +40,31 @@
         "compile": "tsc --build",
         "lint": "eslint src test --ext '.ts,.tsx'",
         "copy:paste:detection": "jscpd src test",
-        "test:unit": "TS_NODE_PROJECT=tsconfig.base.json ava",
+        "test:unit": "ava",
         "test:unit:coverage": "c8 npm run test:unit",
-        "test:integration": "TS_NODE_PROJECT=tsconfig.base.json ava --config ava.config.integration.mjs",
+        "test:integration": "ava --config ava.config.integration.js",
         "release:dry": "release-it --dry-run --no-npm",
         "release": "release-it"
     },
     "dependencies": {
-        "@sindresorhus/is": "4.6.0",
+        "@sindresorhus/is": "5.5.0",
         "commander": "9.5.0",
         "cosmiconfig": "7.1.0",
         "date-fns": "2.30.0",
-        "got": "11.8.6",
-        "ink": "3.2.0",
-        "ink-spinner": "4.0.3",
-        "p-queue": "6.6.2",
-        "react": "17.0.2",
-        "true-myth": "4.1.1",
+        "got": "13.0.0",
+        "ink": "4.2.0",
+        "ink-spinner": "5.0.0",
+        "p-queue": "7.3.4",
+        "react": "18.2.0",
+        "true-myth": "7.0.0",
         "tslib": "2.6.0",
-        "urlcat": "2.0.4",
         "zod": "3.21.4"
     },
     "devDependencies": {
         "@ava/typescript": "4.1.0",
         "@types/common-tags": "1.8.1",
-        "@types/react": "17.0.62",
+        "@types/node": "20.4.2",
+        "@types/react": "18.2.15",
         "@types/sinon": "10.0.15",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
@@ -77,12 +81,11 @@
         "eslint-plugin-testing-library": "5.11.0",
         "fastify": "4.19.2",
         "fishery": "2.2.2",
-        "get-port": "7.0.0",
-        "ink-testing-library": "2.1.0",
+        "ink-testing-library": "3.0.0",
         "jscpd": "3.5.9",
         "prettier": "2.8.8",
         "release-it": "16.1.2",
         "sinon": "14.0.2",
-        "typescript": "4.9.5"
+        "typescript": "5.1.6"
     }
 }

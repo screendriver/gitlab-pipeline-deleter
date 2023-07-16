@@ -1,6 +1,6 @@
-import urlcat from 'urlcat';
+import { URL } from 'node:url';
 import { parseISO, differenceInDays } from 'date-fns';
-import { GetRequest, DeleteRequest, Pipeline } from './network';
+import { GetRequest, DeleteRequest, Pipeline } from './network.js';
 
 interface ListPipelinesArguments {
     readonly getRequest: GetRequest;
@@ -12,9 +12,12 @@ export type ListPipelinesFunction = (projectId: number) => Promise<readonly Pipe
 
 export function listPipelines({ getRequest, gitlabUrl, accessToken }: ListPipelinesArguments): ListPipelinesFunction {
     return (projectId) => {
-        const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines', { id: projectId, per_page: 100 });
+        const escapedProjectId = encodeURIComponent(projectId);
+        const url = new URL(`/api/v4/projects/${escapedProjectId}/pipelines`, gitlabUrl);
 
-        return getRequest(url, accessToken);
+        url.searchParams.set('per_page', '100');
+
+        return getRequest(url.toString(), accessToken);
     };
 }
 
@@ -32,12 +35,11 @@ export function deletePipeline({
     accessToken,
 }: DeletePipelineArguments): DeletePipelineFunction {
     return async (projectId, pipeline) => {
-        const url = urlcat(gitlabUrl, '/api/v4/projects/:id/pipelines/:pipeline_id', {
-            id: projectId,
-            pipeline_id: pipeline.id,
-        });
+        const escapedProjectId = encodeURIComponent(projectId);
+        const escapedPipelineId = encodeURIComponent(pipeline.id);
+        const url = new URL(`/api/v4/projects/${escapedProjectId}/pipelines/${escapedPipelineId}`, gitlabUrl);
 
-        await deleteRequest(url, accessToken);
+        await deleteRequest(url.toString(), accessToken);
     };
 }
 
