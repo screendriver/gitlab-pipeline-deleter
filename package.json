@@ -61,7 +61,6 @@
         "@types/common-tags": "1.8.1",
         "@types/react": "17.0.62",
         "@types/sinon": "10.0.15",
-        "@types/test-listen": "1.1.0",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
         "ava": "5.3.1",
@@ -81,7 +80,6 @@
         "prettier": "2.8.8",
         "release-it": "16.1.2",
         "sinon": "14.0.2",
-        "test-listen": "1.1.0",
         "typescript": "4.9.5"
     }
 }
