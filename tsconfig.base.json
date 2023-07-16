@@ -16,8 +16,5 @@
         "noUncheckedIndexedAccess": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true
-    },
-    "ts-node": {
-        "swc": true
     }
 }
