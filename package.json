@@ -50,7 +50,7 @@
         "ink": "3.2.0",
         "ink-spinner": "4.0.3",
         "p-queue": "6.6.2",
-        "react": "17.0.2",
+        "react": "18.2.0",
         "true-myth": "4.1.1",
         "tslib": "2.6.0",
         "urlcat": "2.0.4",
@@ -59,7 +59,7 @@
     "devDependencies": {
         "@ava/typescript": "4.1.0",
         "@types/common-tags": "1.8.1",
-        "@types/react": "17.0.62",
+        "@types/react": "18.2.15",
         "@types/sinon": "10.0.15",
         "@typescript-eslint/eslint-plugin": "5.62.0",
         "@typescript-eslint/parser": "5.62.0",
