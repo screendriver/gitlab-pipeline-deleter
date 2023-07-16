@@ -9,6 +9,10 @@ jobs:
             matrix:
                 node-version: [16, 18, 20]
         steps:
+            - name: Setup timezone
+              uses: zcong1993/setup-timezone@master
+              with:
+                  timezone: Europe/Berlin
             - uses: actions/checkout@v3
             - name: Use Node.js v${{ matrix.node-version }}
               uses: actions/setup-node@v3
@@ -30,10 +34,6 @@ jobs:
                   file: target/coverage/coverage-final.json
             - name: Check for copy and paste
               run: npm run copy:paste:detection
-            - name: Setup timezone
-              uses: zcong1993/setup-timezone@master
-              with:
-                  timezone: Europe/Berlin
             - name: Run integration tests
               run: npm run test:integration
               env:
