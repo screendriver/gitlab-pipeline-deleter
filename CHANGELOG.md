@@ -2,12 +2,20 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v3.0.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.18...v3.0.0)
+#### [v3.1.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v3.0.0...v3.1.0)
+
+- Lock file maintenance [`3f056e6`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/3f056e66ec9e43c42e38055b9c3253afca34de8b)
+- Merge pull request #242 from screendriver/renovate/commander-11.x [`4734de8`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4734de88face9bca04cac123b386333b68cf8f71)
+- Update dependency commander to v11 [`f9d1785`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/f9d1785cfb66bf0aaa3fdb6c6ef1afdbc7f0b6ae)
+
+### [v3.0.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.18...v3.0.0)
+
+> 16 July 2023
 
 - Set package type to ECMAScript module [`#244`](https://github.com/screendriver/gitlab-pipeline-deleter/pull/244)
-- Remove trailing comma Prettier configuration [`858dab7`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/858dab7829576d899d826cf4c14a9a06c9374c33)
-- Force basic color support when running tests [`9e3a5a8`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/9e3a5a8b28f8182a5fb94c99cbcf2ede3a93e1a9)
-- Merge pull request #245 from screendriver/renovate/prettier-3.x [`cf96d7c`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/cf96d7c93094fcb842ec4d9b457ccf2b9ead710f)
+- Update React to v18 and therefore all ink dependencies [`4f8a1e4`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4f8a1e4ef74446b2dec09642d9ebf0c4171f21be)
+- Release v3.0.0 [`a1ae737`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/a1ae737662a6078f81b6ca0d0a384a4604effc02)
+- Update dependency typescript-eslint to v6.0.0 [`5136348`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/5136348b0a666855bc613209c66bada84644bcee)
 
 #### [v2.3.18](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.17...v2.3.18)
 
