@@ -4,5 +4,5 @@
         "outDir": "../../target/test/integration",
         "rootDir": "."
     },
-    "references": [{ "path": "../../src" }]
+    "references": [{ "path": "../../source" }]
 }

@@ -2,8 +2,8 @@ import test from 'ava';
 import sinon from 'sinon';
 import { Factory } from 'fishery';
 import { parseISO, subDays, formatISO } from 'date-fns';
-import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab.js';
-import { DeleteRequest, GetRequest, Pipeline } from '../../src/network.js';
+import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../source/gitlab.js';
+import { DeleteRequest, GetRequest, Pipeline } from '../../source/network.js';
 
 interface PipelineTransientParams {
     readonly startDate: Date;

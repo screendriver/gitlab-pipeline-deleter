@@ -2,7 +2,7 @@ import test from 'ava';
 import sinon from 'sinon';
 import { cosmiconfig } from 'cosmiconfig';
 import { Factory } from 'fishery';
-import { PartialConfigInput, Config, loadConfig, mergeCliArgumentsWithConfig } from '../../src/config.js';
+import { PartialConfigInput, Config, loadConfig, mergeCliArgumentsWithConfig } from '../../source/config.js';
 
 const partialConfigInputFactory = Factory.define<PartialConfigInput>(() => {
     return {
