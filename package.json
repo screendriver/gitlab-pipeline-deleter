@@ -3,10 +3,6 @@
     "type": "module",
     "version": "3.1.0",
     "description": "A CLI tool that deletes old GitLab pipelines",
-    "exports": {
-        "types": "./target/source/index.d.ts",
-        "default": "./target/source/index.js"
-    },
     "engines": {
         "node": ">=16"
     },
