@@ -24,7 +24,7 @@ Options:
   -h, --help        display help for command
 ```
 
-You can use either the command line arguments `gitlab-url`, `project-id` and `access-token` or you can create a `glpd.config.js` configuration file that exports an object. Both CommonJS (`.cjs`) and ECMAScript Modules (`.mjs`) are supported. All of the command line arguments are supported but needs to be written in `camelCase`:
+You can use either the command line arguments `gitlab-url`, `project-id` and `access-token` (the `access-token` needs to be owner of the project. See https://docs.gitlab.com/ee/api/pipelines.html#delete-a-pipeline for more information) or you can create a `glpd.config.js` configuration file that exports an object. Both CommonJS (`.cjs`) and ECMAScript Modules (`.mjs`) are supported. All of the command line arguments are supported but needs to be written in `camelCase`:
 
 ```js
 export default {
