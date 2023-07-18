@@ -6,7 +6,7 @@ export default {
     typescript: {
         extensions: ['ts', 'tsx'],
         rewritePaths: {
-            'src/': 'target/src/',
+            'source/': 'target/source/',
             'test/': 'target/test/',
         },
         compile: false,

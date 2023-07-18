@@ -3,7 +3,7 @@ import type { RouteOptions } from 'fastify';
 import { Factory } from 'fishery';
 import { subDays, formatISO, parseISO } from 'date-fns';
 import { IncomingHttpHeaders } from 'http';
-import { Pipeline } from '../../src/network.js';
+import { Pipeline } from '../../source/network.js';
 import type { ExecutionContext, ImplementationFn } from 'ava';
 
 interface PipelineTransientParams {

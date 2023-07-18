@@ -6,9 +6,9 @@ import delay from 'delay';
 import PQueue from 'p-queue';
 import sinon from 'sinon';
 import { withGitLabServer } from './gitlabServer.js';
-import { App } from '../../src/App.js';
-import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../src/gitlab.js';
-import { getRequest, deleteRequest } from '../../src/network.js';
+import { App } from '../../source/App.js';
+import { deletePipeline, filterPipelinesByDate, listPipelines } from '../../source/gitlab.js';
+import { getRequest, deleteRequest } from '../../source/network.js';
 
 test.afterEach(cleanup);
 

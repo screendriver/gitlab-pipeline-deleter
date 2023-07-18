@@ -4,14 +4,14 @@
     "version": "3.1.0",
     "description": "A CLI tool that deletes old GitLab pipelines",
     "exports": {
-        "types": "./target/src/index.d.ts",
-        "default": "./target/src/index.js"
+        "types": "./target/source/index.d.ts",
+        "default": "./target/source/index.js"
     },
     "engines": {
         "node": ">=16"
     },
     "bin": {
-        "glpd": "target/src/bin.js"
+        "glpd": "target/source/bin.js"
     },
     "author": "Christian Rackerseder <git@echooff.de>",
     "license": "MIT",
@@ -32,14 +32,14 @@
         "remove"
     ],
     "files": [
-        "target/src/**/*.js",
-        "target/src/**/*.js.map"
+        "target/source/**/*.js",
+        "target/source/**/*.js.map"
     ],
     "scripts": {
         "clean": "rm -rf target",
         "compile": "tsc --build",
-        "lint": "eslint src test --ext '.ts,.tsx'",
-        "copy:paste:detection": "jscpd src test",
+        "lint": "eslint source test --ext '.ts,.tsx'",
+        "copy:paste:detection": "jscpd source test",
         "test:unit": "ava",
         "test:unit:coverage": "c8 npm run test:unit",
         "test:integration": "ava --config ava.config.integration.js",
