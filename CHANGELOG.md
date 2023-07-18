@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.1.1](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v3.1.0...v3.1.1)
+
+- Update eslint packages to v6.1.0 [`8b887ed`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/8b887eda2b72dd40471a8202b6897ed37722d25a)
+- Rename directory src/ to source/ [`2b86543`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/2b86543e2ef1fd5a6d1b468bba8a3248b2b096f3)
+- Update dependency ink to v4.3.0 [`0c2807d`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/0c2807d79b5ede80bb19529c1140d4b923a93fae)
+
 #### [v3.1.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v3.0.0...v3.1.0)
 
+> 17 July 2023
+
 - Lock file maintenance [`3f056e6`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/3f056e66ec9e43c42e38055b9c3253afca34de8b)
+- Release v3.1.0 [`3294ef8`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/3294ef861feb3ff0da091af06ce765a89ebe9a5e)
 - Merge pull request #242 from screendriver/renovate/commander-11.x [`4734de8`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/4734de88face9bca04cac123b386333b68cf8f71)
-- Update dependency commander to v11 [`f9d1785`](https://github.com/screendriver/gitlab-pipeline-deleter/commit/f9d1785cfb66bf0aaa3fdb6c6ef1afdbc7f0b6ae)
 
 ### [v3.0.0](https://github.com/screendriver/gitlab-pipeline-deleter/compare/v2.3.18...v3.0.0)
 
