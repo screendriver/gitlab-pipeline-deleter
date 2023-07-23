@@ -43,7 +43,7 @@
         "release": "release-it"
     },
     "dependencies": {
-        "@sindresorhus/is": "5.5.2",
+        "@sindresorhus/is": "5.6.0",
         "commander": "11.0.0",
         "cosmiconfig": "8.2.0",
         "date-fns": "2.30.0",
