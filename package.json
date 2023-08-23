@@ -61,7 +61,7 @@
     "devDependencies": {
         "@ava/typescript": "4.1.0",
         "@types/common-tags": "1.8.1",
-        "@types/node": "20.5.3",
+        "@types/node": "20.5.4",
         "@types/react": "18.2.21",
         "@types/sinon": "10.0.16",
         "@typescript-eslint/eslint-plugin": "6.4.1",
