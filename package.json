@@ -81,7 +81,7 @@
         "fishery": "2.2.2",
         "ink-testing-library": "3.0.0",
         "jscpd": "3.5.9",
-        "prettier": "3.0.2",
+        "prettier": "3.0.3",
         "release-it": "16.1.5",
         "sinon": "15.2.0",
         "typescript": "5.2.2"
