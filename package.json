@@ -50,7 +50,7 @@
         "cosmiconfig": "8.2.0",
         "date-fns": "2.30.0",
         "got": "13.0.0",
-        "ink": "4.3.1",
+        "ink": "4.4.0",
         "ink-spinner": "5.0.0",
         "p-queue": "7.3.4",
         "react": "18.2.0",
