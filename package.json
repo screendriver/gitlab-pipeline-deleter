@@ -82,7 +82,7 @@
         "ink-testing-library": "3.0.0",
         "jscpd": "3.5.10",
         "prettier": "3.0.3",
-        "release-it": "16.1.5",
+        "release-it": "16.2.0",
         "sinon": "16.0.0",
         "typescript": "5.2.2"
     }
