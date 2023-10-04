@@ -62,7 +62,7 @@
         "@ava/typescript": "4.1.0",
         "@types/common-tags": "1.8.2",
         "@types/node": "20.8.2",
-        "@types/react": "18.2.24",
+        "@types/react": "18.2.25",
         "@types/sinon": "10.0.18",
         "@typescript-eslint/eslint-plugin": "6.7.4",
         "@typescript-eslint/parser": "6.7.4",
