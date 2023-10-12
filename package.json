@@ -76,7 +76,7 @@
         "eslint-plugin-prettier": "5.0.1",
         "eslint-plugin-react": "7.33.2",
         "eslint-plugin-react-hooks": "4.6.0",
-        "eslint-plugin-testing-library": "6.0.2",
+        "eslint-plugin-testing-library": "6.1.0",
         "fastify": "4.24.0",
         "fishery": "2.2.2",
         "ink-testing-library": "3.0.0",
