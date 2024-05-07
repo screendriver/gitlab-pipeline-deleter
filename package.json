@@ -83,7 +83,7 @@
         "jscpd": "3.5.10",
         "prettier": "3.2.5",
         "release-it": "17.2.1",
-        "sinon": "17.0.1",
+        "sinon": "17.0.2",
         "typescript": "5.4.5"
     }
 }
