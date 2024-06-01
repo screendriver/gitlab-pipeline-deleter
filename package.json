@@ -79,7 +79,7 @@
         "eslint-plugin-testing-library": "6.2.2",
         "fastify": "4.27.0",
         "fishery": "2.2.2",
-        "ink-testing-library": "3.0.0",
+        "ink-testing-library": "4.0.0",
         "jscpd": "3.5.10",
         "prettier": "3.3.0",
         "release-it": "17.3.0",
