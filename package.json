@@ -60,6 +60,8 @@
     },
     "devDependencies": {
         "@ava/typescript": "5.0.0",
+        "@jscpd/finder": "4.0.1",
+        "@jscpd/html-reporter": "4.0.1",
         "@types/common-tags": "1.8.4",
         "@types/node": "20.14.2",
         "@types/react": "18.3.3",
@@ -80,7 +82,7 @@
         "fastify": "4.28.0",
         "fishery": "2.2.2",
         "ink-testing-library": "4.0.0",
-        "jscpd": "3.5.10",
+        "jscpd": "4.0.4",
         "prettier": "3.3.2",
         "release-it": "17.3.0",
         "sinon": "18.0.0",
