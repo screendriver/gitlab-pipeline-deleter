@@ -48,7 +48,7 @@
         "@sindresorhus/is": "6.3.1",
         "commander": "11.1.0",
         "cosmiconfig": "9.0.0",
-        "date-fns": "2.30.0",
+        "date-fns": "3.6.0",
         "got": "14.4.1",
         "ink": "5.0.1",
         "ink-spinner": "5.0.0",
