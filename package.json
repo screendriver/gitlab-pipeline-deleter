@@ -4,7 +4,7 @@
     "version": "3.1.1",
     "description": "A CLI tool that deletes old GitLab pipelines",
     "engines": {
-        "node": ">=16"
+        "node": ">=18"
     },
     "bin": {
         "glpd": "target/source/bin.js"
