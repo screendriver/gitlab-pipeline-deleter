@@ -82,7 +82,7 @@
         "fastify": "4.28.1",
         "fishery": "2.2.2",
         "ink-testing-library": "4.0.0",
-        "jscpd": "4.0.4",
+        "jscpd": "4.0.5",
         "prettier": "3.3.2",
         "release-it": "17.4.1",
         "sinon": "18.0.0",
