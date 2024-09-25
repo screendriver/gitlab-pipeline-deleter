@@ -3,17 +3,22 @@
     "type": "module",
     "version": "3.1.3",
     "description": "A CLI tool that deletes old GitLab pipelines",
-    "engines": {
-        "node": ">=18"
-    },
-    "bin": {
-        "glpd": "target/source/bin.js"
-    },
-    "author": "Christian Rackerseder <git@echooff.de>",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com/screendriver/gitlab-pipeline-deleter.git"
+        "url": "git+https://git@github.com/screendriver/gitlab-pipeline-deleter.git"
+    },
+    "author": {
+        "name": "Christian Rackerseder",
+        "email": "github@echooff.de",
+        "url": "https://www.echooff.dev"
+    },
+    "type": "module",
+    "engines": {
+        "node": ">=20"
+    },
+    "bin": {
+        "glpd": "target/source/bin.js"
     },
     "bugs": {
         "url": "https://github.com/screendriver/gitlab-pipeline-deleter/issues"
