@@ -365,11 +365,12 @@ test('returns config file values when no CLI arguments are present', testMergeCl
     }),
 });
 
-test('prefers CLI aguments over configuration values', testMergeCliArgumentsMacro, {
+test('prefers CLI arguments over configuration values', testMergeCliArgumentsMacro, {
     cliArguments: partialConfigInputFactory.build({
         gitlabUrl: 'https://example.com',
         projectId: '1',
         accessToken: '0',
+        days: 31,
         trace: true,
     }),
     config: partialConfigInputFactory.build({
@@ -381,9 +382,49 @@ test('prefers CLI aguments over configuration values', testMergeCliArgumentsMacr
     }),
     expectedConfig: {
         accessToken: '0',
-        days: 30,
+        days: 31,
         gitlabUrl: 'https://example.com',
         projectIds: [1],
         trace: true,
     },
 });
+
+test('recognizes configuration values if CLI arguments are undefined', testMergeCliArgumentsMacro, {
+    cliArguments: {},
+    config: partialConfigInputFactory.build({
+        gitlabUrl: 'https://example.com',
+        projectId: '1',
+        accessToken: '0',
+        days: 42,
+        trace: true,
+    }),
+    expectedConfig: {
+        gitlabUrl: 'https://example.com',
+        projectIds: [1],
+        accessToken: '0',
+        days: 42,
+        trace: true,
+    },
+});
+
+test(
+    'recognizes default values if optional configuration values and CLI arguments are both undefined',
+    testMergeCliArgumentsMacro,
+    {
+        cliArguments: {},
+        config: partialConfigInputFactory.build({
+            gitlabUrl: 'https://example.com',
+            projectId: '1',
+            accessToken: '0',
+            days: undefined,
+            trace: undefined,
+        }),
+        expectedConfig: {
+            gitlabUrl: 'https://example.com',
+            projectIds: [1],
+            accessToken: '0',
+            days: 30,
+            trace: false,
+        },
+    },
+);
