@@ -365,7 +365,7 @@ test('returns config file values when no CLI arguments are present', testMergeCl
     }),
 });
 
-test('prefers CLI aguments over configuration values', testMergeCliArgumentsMacro, {
+test('prefers CLI arguments over configuration values', testMergeCliArgumentsMacro, {
     cliArguments: partialConfigInputFactory.build({
         gitlabUrl: 'https://example.com',
         projectId: '1',
