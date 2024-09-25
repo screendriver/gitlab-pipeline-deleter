@@ -3,11 +3,11 @@ import { Result } from 'true-myth';
 import is from '@sindresorhus/is';
 import { z } from 'zod';
 
-const baseConfigSchema = z.object({
+export const baseConfigSchema = z.object({
     gitlabUrl: z.string().url(),
     accessToken: z.string(),
-    days: z.number(),
-    trace: z.boolean(),
+    days: z.number().default(30),
+    trace: z.boolean().default(false),
 });
 
 const configSchema = baseConfigSchema.extend({

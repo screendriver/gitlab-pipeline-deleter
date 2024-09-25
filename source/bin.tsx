@@ -7,9 +7,10 @@ import path from 'node:path';
 import PQueue from 'p-queue';
 import { App } from './App.js';
 import { Error } from './Error.js';
-import { getRequest, deleteRequest } from './network.js';
-import { listPipelines, filterPipelinesByDate, deletePipeline } from './gitlab.js';
-import { PartialConfigInput, loadConfig, mergeCliArgumentsWithConfig } from './config.js';
+import { deleteRequest, getRequest } from './network.js';
+import { deletePipeline, filterPipelinesByDate, listPipelines } from './gitlab.js';
+import { baseConfigSchema, loadConfig, mergeCliArgumentsWithConfig, PartialConfigInput } from './config.js';
+import is from '@sindresorhus/is';
 
 function exit() {
     process.exitCode = 1;
@@ -23,8 +24,11 @@ program
     .arguments('[gitlab-url]')
     .arguments('[project-id]')
     .arguments('[access-token]')
-    .option('-d --days <days>', 'older than days', '30')
-    .option('--trace', 'show stack traces for errors when possible', false)
+    .option('-d --days <days>', `older than days  (default: "${baseConfigSchema.shape.days._def.defaultValue()}")`)
+    .option(
+        '--trace',
+        `show stack traces for errors when possible (default: ${baseConfigSchema.shape.trace._def.defaultValue()})`,
+    )
     .action(
         async (
             gitlabUrlArgument: string | undefined,
@@ -36,8 +40,8 @@ program
                 gitlabUrl: gitlabUrlArgument,
                 projectId: projectIdArgument,
                 accessToken: accessTokenArgument,
-                days: typeof options.days === 'string' ? parseInt(options.days, 10) : 30,
-                trace: options.trace === true,
+                days: is.string(options.days) ? parseInt(options.days, 10) : undefined,
+                trace: is.boolean(options.trace) ? options.trace : undefined,
             };
             const configPath = path.resolve(process.cwd(), 'glpd.config.js');
             const explorer = cosmiconfig('gitlab-pipeline-deleter');
