@@ -381,7 +381,7 @@ test('prefers CLI arguments over configuration values', testMergeCliArgumentsMac
     }),
     expectedConfig: {
         accessToken: '0',
-        days: 30,
+        days: 42,
         gitlabUrl: 'https://example.com',
         projectIds: [1],
         trace: true,
