@@ -55,7 +55,7 @@
         "commander": "12.1.0",
         "cosmiconfig": "9.0.0",
         "date-fns": "4.1.0",
-        "got": "14.4.4",
+        "got": "14.4.5",
         "ink": "5.0.1",
         "ink-spinner": "5.0.0",
         "p-queue": "8.0.1",
