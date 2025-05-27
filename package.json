@@ -70,7 +70,7 @@
         "@jscpd/html-reporter": "4.0.1",
         "@types/common-tags": "1.8.4",
         "@types/node": "22.15.21",
-        "@types/react": "18.3.22",
+        "@types/react": "18.3.23",
         "@types/sinon": "17.0.4",
         "@typescript-eslint/eslint-plugin": "7.18.0",
         "@typescript-eslint/parser": "7.18.0",
